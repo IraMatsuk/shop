@@ -85,9 +85,14 @@ public final class Parameter {
      */
     public static final String INVALID_PRODUCT_NAME = "invalid_product_name";
     /**
-     * The constant INVALID_PRODUCT_WEIGHT.
+     * The constant INVALID_PRODUCT_AUTHOR.
      */
-    public static final String INVALID_PRODUCT_AUTHOR = "invalid_product_weight";
+    public static final String INVALID_PRODUCT_AUTHOR = "invalid_product_author";
+    /**
+     * The constant INVALID_PRODUCT_DESCRIPTION.
+     */
+    public static final String INVALID_PRODUCT_DESCRIPTION = "invalid_product_description";
+
     /**
      * The constant INVALID_PRODUCT_CALORIES.
      */
@@ -204,6 +209,10 @@ public final class Parameter {
      * The constant PRODUCT_NUMBER.
      */
     public static final String PRODUCT_NUMBER = "product_number";
+    /**
+     * The constant PRODUCT_DESCRIPTION.
+     */
+    public static final String PRODUCT_DESCRIPTION = "product_description";
     /**
      * The constant PRODUCT_COMPOSITION.
      */

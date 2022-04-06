@@ -67,6 +67,14 @@ public final class PropertiesKey {
      */
     public static final String INVALID_PRODUCT_NAME_MESSAGE = "menu.invalid_product_name";
     /**
+     * The constant INVALID_PRODUCT_AUTHOR_MESSAGE.
+     */
+    public static final String INVALID_PRODUCT_AUTHOR_MESSAGE = "menu.invalid_product_author";
+    /**
+     * The constant INVALID_PRODUCT_DESCRIPTION_MESSAGE.
+     */
+    public static final String INVALID_PRODUCT_DESCRIPTION_MESSAGE = "menu.invalid_product_description";
+    /**
      * The constant INVALID_PRODUCT_WEIGHT_MESSAGE.
      */
     public static final String INVALID_PRODUCT_WEIGHT_MESSAGE = "menu.invalid_product_weight";
