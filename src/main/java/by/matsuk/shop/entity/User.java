@@ -1,26 +1,164 @@
 package by.matsuk.shop.entity;
 
-import java.sql.Timestamp;
-import java.util.StringJoiner;
+import java.time.LocalDate;
 
 /**
+ * @project Postcard shop "Card4You"
+ * @author Ira
  * The type User.
  */
-public class User extends AbstractEntity implements Cloneable {
+public class User extends AbstractEntity {
+    /**
+     * The enum User role.
+     */
+    public enum UserRole {
+        /**
+         * Client user role.
+         */
+        CLIENT(1),
+        /**
+         * Admin user role.
+         */
+        ADMIN(2),
+        /**
+         * Guest user role.
+         */
+        GUEST(3);
+        private long roleId;
+
+        UserRole(long id){
+            roleId = id;
+        }
+
+        /**
+         * Get role id long.
+         *
+         * @return the long
+         */
+        public long getRoleId(){
+            return roleId;
+        }
+    }
+
+    /**
+     * The enum User state.
+     */
+    public enum UserState {
+        /**
+         * New user state.
+         */
+        NEW(1),
+        /**
+         * Active user state.
+         */
+        ACTIVE(2),
+        /**
+         * Blocked user state.
+         */
+        BLOCKED(3),
+        /**
+         * Unblocked user state.
+         */
+        UNBLOCKED(4);
+
+        private long stateId;
+
+        UserState (long id){
+            stateId = id;
+        }
+
+        /**
+         * Get state id long.
+         * @return the long
+         */
+        public long getStateId(){
+            return stateId;
+        }
+    }
+    private long userId;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
     private String email;
-    private String phone;
-    private Timestamp registrationDate;
-    private UserRole userRole;
-    private UserStatus userStatus;
+    private int phoneNumber;
+    private long discountId;
+    private UserRole role;
+    private UserState state;
 
     /**
      * Instantiates a new User.
      */
-    public User() {
+    public User(){}
+
+    /**
+     * Instantiates a new User.
+     *
+     * @param userId      the user id
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param login       the login
+     * @param password    the password
+     * @param email       the email
+     * @param phoneNumber the phone number
+     * @param discountId  the discount id
+     * @param role        the role
+     * @param state       the state
+     */
+    public User(long userId, String firstName, String lastName, String login, String password, String email, int phoneNumber, long discountId, UserRole role, UserState state) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.discountId = discountId;
+        this.role = role;
+        this.state = state;
+    }
+
+    /**
+     * Instantiates a new User.
+     *
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param login       the login
+     * @param password    the password
+     * @param email       the email
+     * @param phoneNumber the phone number
+     * @param discountId  the discount id
+     * @param role        the role
+     * @param state       the state
+     */
+    public User(String firstName, String lastName, String login, String password, String email, int phoneNumber, long discountId, UserRole role, UserState state) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.discountId = discountId;
+        this.role = role;
+        this.state = state;
+    }
+
+    /**
+     * Gets user id.
+     *
+     * @return the user id
+     */
+    public long getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets user id.
+     *
+     * @param userId the user id
+     */
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     /**
@@ -114,293 +252,125 @@ public class User extends AbstractEntity implements Cloneable {
     }
 
     /**
-     * Gets phone.
+     * Gets phone number.
      *
-     * @return the phone
+     * @return the phone number
      */
-    public String getPhone() {
-        return phone;
+    public int getPhoneNumber() {
+        return phoneNumber;
     }
 
     /**
-     * Sets phone.
+     * Sets phone number.
      *
-     * @param phone the phone
+     * @param phoneNumber the phone number
      */
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     /**
-     * Gets registration date.
+     * Gets discount id.
      *
-     * @return the registration date
+     * @return the discount id
      */
-    public Timestamp getRegistrationDate() {
-        return registrationDate;
+    public long getDiscountId() {
+        return discountId;
     }
 
     /**
-     * Sets registration date.
+     * Sets discount id.
      *
-     * @param registrationDate the registration date
+     * @param discountId the discount id
      */
-    public void setRegistrationDate(Timestamp registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setDiscountId(long discountId) {
+        this.discountId = discountId;
     }
 
     /**
-     * Gets user role.
+     * Gets role.
      *
-     * @return the user role
+     * @return the role
      */
-    public UserRole getUserRole() {
-        return userRole;
+    public UserRole getRole() {
+        return role;
     }
 
     /**
-     * Sets user role.
+     * Sets role.
      *
-     * @param userRole the user role
+     * @param role the role
      */
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     /**
-     * Gets user status.
+     * Gets state.
      *
-     * @return the user status
+     * @return the state
      */
-    public UserStatus getUserStatus() {
-        return userStatus;
+    public UserState getState() {
+        return state;
     }
 
     /**
-     * Sets user status.
+     * Sets state.
      *
-     * @param userStatus the user status
+     * @param state the state
      */
-    public void setUserStatus(UserStatus userStatus) {
-        this.userStatus = userStatus;
+    public void setState(UserState state) {
+        this.state = state;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || o.getClass() != getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) {
-            return  false;
-        }
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) {
-            return  false;
-        }
-        if (login != null ? !login.equals(user.login) : user.login != null) {
-            return  false;
-        }
-        if (password != null ? !password.equals(user.password) : user.password != null) {
-            return  false;
-        }
-        if (email != null ? !email.equals(user.email) : user.email != null) {
-            return  false;
-        }
-        if (phone != null ? !phone.equals(user.phone) : user.phone != null) {
-            return  false;
-        }
-//        if (address != null ? !address.equals(user.address) : user.address != null) {
-//            return  false;
-//        }
-        if (registrationDate != null ? !registrationDate.equals(user.registrationDate) : user.registrationDate != null) {
-            return  false;
-        }
-        if (userRole != null ? !userRole.equals(user.userRole) : user.userRole != null) {
-            return  false;
-        }
-        return  userStatus != null ? userStatus.equals(user.userStatus) : user.userStatus == null;
+
+        if (userId != user.userId) return false;
+        if (phoneNumber != user.phoneNumber) return false;
+        if (discountId != user.discountId) return false;
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (role != user.role) return false;
+        return state == user.state;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = result * 31 + (firstName != null ? firstName.hashCode() : 0);
-        result = result * 31 + (lastName != null ? lastName.hashCode() : 0);
-        result = result * 31 + (login != null ? login.hashCode() : 0);
-        result = result * 31 + (password != null ? password.hashCode() : 0);
-        result = result * 31 + (email != null ? email.hashCode() : 0);
-        result = result * 31 + (phone != null ? phone.hashCode() : 0);
-       // result = result * 31 + (address != null ? address.hashCode() : 0);
-        result = result * 31 + (userRole != null ? userRole.hashCode() : 0);
-        result = result * 31 + (userStatus != null ? userStatus.hashCode() : 0);
+        int result = (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + phoneNumber;
+        result = 31 * result + (int) (discountId ^ (discountId >>> 32));
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
-                .add("firstName='" + firstName + "'")
-                .add("lastName='" + lastName + "'")
-                .add("login='" + login + "'")
-                .add("password='" + password + "'")
-                .add("email='" + email + "'")
-                .add("phone='" + phone + "'")
-                //.add("address='" + address + "'")
-                .add("registrationDate='" + registrationDate + "'")
-                .add("userRole=" + userRole)
-                .add("userStatus=" + userStatus)
-                .toString();
-    }
-
-    @Override
-    public User clone() throws CloneNotSupportedException {
-        return (User) super.clone();
-    }
-
-    /**
-     * The type User builder.
-     */
-    public static class UserBuilder {
-        private final User user;
-
-        /**
-         * Instantiates a new User builder.
-         */
-        public UserBuilder() {
-            user = new User();
-        }
-
-        /**
-         * Sets id.
-         *
-         * @param id the id
-         * @return the id
-         */
-        public UserBuilder setId(long id) {
-            user.setId(id);
-            return this;
-        }
-
-        /**
-         * Sets first name.
-         *
-         * @param firstName the first name
-         * @return the first name
-         */
-        public UserBuilder setFirstName(String firstName) {
-            user.firstName = firstName;
-            return this;
-        }
-
-        /**
-         * Sets last name.
-         *
-         * @param lastName the last name
-         * @return the last name
-         */
-        public UserBuilder setLastName(String lastName) {
-            user.lastName = lastName;
-            return this;
-        }
-
-        /**
-         * Sets login.
-         *
-         * @param login the login
-         * @return the login
-         */
-        public UserBuilder setLogin(String login) {
-            user.login = login;
-            return this;
-        }
-
-        /**
-         * Sets password.
-         *
-         * @param password the password
-         * @return the password
-         */
-        public UserBuilder setPassword(String password) {
-            user.password = password;
-            return this;
-        }
-
-        /**
-         * Sets email.
-         *
-         * @param email the email
-         * @return the email
-         */
-        public UserBuilder setEmail(String email) {
-            user.email = email;
-            return this;
-        }
-
-        /**
-         * Sets phone.
-         *
-         * @param phone the phone
-         * @return the phone
-         */
-        public UserBuilder setPhone(String phone) {
-            user.phone = phone;
-            return this;
-        }
-
-//        /**
-//         * Sets address.
-//         *
-//         * @param address the address
-//         * @return the address
-//         */
-//        public UserBuilder setAddress(String address) {
-//            user.address = address;
-//            return this;
-//        }
-
-        /**
-         * Sets registration date.
-         *
-         * @param registrationDate the registration date
-         * @return the registration date
-         */
-        public UserBuilder setRegistrationDate(Timestamp registrationDate) {
-            user.registrationDate = registrationDate;
-            return this;
-        }
-
-        /**
-         * Sets user role.
-         *
-         * @param userRole the user role
-         * @return the user role
-         */
-        public UserBuilder setUserRole(UserRole userRole) {
-            user.userRole = userRole;
-            return this;
-        }
-
-        /**
-         * Sets user status.
-         *
-         * @param userStatus the user status
-         * @return the user status
-         */
-        public UserBuilder setUserStatus(UserStatus userStatus) {
-            user.userStatus = userStatus;
-            return this;
-        }
-
-        /**
-         * Build user.
-         *
-         * @return the user
-         */
-        public User build() {
-            return user;
-        }
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("userId=").append(userId);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", login='").append(login).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", phoneNumber=").append(phoneNumber);
+        sb.append(", discountId=").append(discountId);
+        sb.append(", role=").append(role);
+        sb.append(", state=").append(state);
+        sb.append('}');
+        return sb.toString();
     }
 }

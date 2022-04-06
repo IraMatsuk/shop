@@ -3,6 +3,7 @@ package by.matsuk.shop.model.dao;
 import by.matsuk.shop.entity.AbstractEntity;
 import by.matsuk.shop.exception.DaoException;
 import by.matsuk.shop.model.connection.ConnectionPool;
+import by.matsuk.shop.model.connection.ProxyConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,17 +14,16 @@ import java.util.Optional;
 /**
  * @author Ira
  * @project Postcard shop
- * The type Base dao.
+ * The type AbstractDao.
  *
- * @param <K> the type parameter
  * @param <T> the type parameter
  */
-public abstract class BaseDao<K, T extends AbstractEntity> {
+public abstract class AbstractDao<T extends AbstractEntity> {
     protected static final Logger LOGGER = LogManager.getLogger();
     /**
      * The Connection.
      */
-    protected Connection connection;
+    protected ProxyConnection proxyConnection;
 
     /**
      * Add long.
@@ -32,7 +32,7 @@ public abstract class BaseDao<K, T extends AbstractEntity> {
      * @return the long
      * @throws DaoException the dao exception
      */
-    abstract public long add(T t) throws DaoException;
+    public abstract boolean create(T t) throws DaoException;
 
     /**
      * Update boolean.
@@ -41,16 +41,16 @@ public abstract class BaseDao<K, T extends AbstractEntity> {
      * @return the boolean
      * @throws DaoException the dao exception
      */
-    abstract public boolean update(T t) throws DaoException;
+    public abstract Optional<T> update(T t) throws DaoException;
 
     /**
      * Delete boolean.
      *
-     * @param k the k
+     * @param id the id
      * @return the boolean
      * @throws DaoException the dao exception
      */
-    abstract public boolean delete(K k) throws DaoException;
+    public abstract boolean delete(long id) throws DaoException;
 
     /**
      * Find all list.
@@ -58,16 +58,16 @@ public abstract class BaseDao<K, T extends AbstractEntity> {
      * @return the list
      * @throws DaoException the dao exception
      */
-    abstract public List<T> findAll() throws DaoException;
+    public abstract List<T> findAll() throws DaoException;
 
     /**
      * Find by id optional.
      *
-     * @param k the k
+     * @param id the id
      * @return the optional
      * @throws DaoException the dao exception
      */
-    abstract public Optional<T> findById(K k) throws DaoException;
+    public abstract Optional<T> findById(long id) throws DaoException;
 
     /**
      * Sets connection.
@@ -75,15 +75,15 @@ public abstract class BaseDao<K, T extends AbstractEntity> {
      * @param connection the connection
      */
     public void setConnection(Connection connection) {
-        this.connection = connection;
+        this.proxyConnection = (ProxyConnection) connection;
     }
 
     /**
      * Close connection.
      */
     public void closeConnection() {
-        if (connection != null) {
-            ConnectionPool.getInstance().releaseConnection(connection);
+        if (proxyConnection != null) {
+            ConnectionPool.getInstance().releaseConnection(proxyConnection);
         }
     }
 }

@@ -11,16 +11,35 @@ import java.util.Optional;
  * @project Postcard shop
  * The type User dao.
  */
-public abstract class UserDao extends BaseDao<Long, User> {
+public interface UserDao {
     /**
-     * Update user password boolean.
+     * Find password by login optional.
+     *
+     * @param login the login
+     * @return the optional
+     * @throws DaoException the dao exception
+     */
+    Optional<String> findPasswordByLogin(String login) throws DaoException;
+
+    /**
+     * Update password by login boolean.
      *
      * @param password the password
      * @param login    the login
      * @return the boolean
      * @throws DaoException the dao exception
      */
-    abstract public boolean updateUserPassword(String password, String login) throws DaoException;
+    boolean updatePasswordByLogin(String password, String login) throws DaoException;
+
+    /**
+     * Update user state boolean.
+     *
+     * @param userId  the user id
+     * @param stateId the state id
+     * @return the boolean
+     * @throws DaoException the dao exception
+     */
+    boolean updateUserState(long userId, long stateId) throws DaoException;
 
     /**
      * Find user by login optional.
@@ -29,16 +48,16 @@ public abstract class UserDao extends BaseDao<Long, User> {
      * @return the optional
      * @throws DaoException the dao exception
      */
-    abstract public Optional<User> findUserByLogin(String login) throws DaoException;
+    Optional<User> findUserByLogin(String login) throws DaoException;
 
     /**
-     * Find user by last name optional.
+     * Find user by phone number optional.
      *
-     * @param lastName the last name
+     * @param phone the phone
      * @return the optional
      * @throws DaoException the dao exception
      */
-    abstract public Optional<User> findUserByLastName(String lastName) throws DaoException;
+    Optional<User> findUserByPhoneNumber(int phone) throws DaoException;
 
     /**
      * Find user by email optional.
@@ -47,65 +66,50 @@ public abstract class UserDao extends BaseDao<Long, User> {
      * @return the optional
      * @throws DaoException the dao exception
      */
-    abstract public Optional<User> findUserByEmail(String email) throws DaoException;
+    Optional<User> findUserByEmail(String email) throws DaoException;
 
     /**
-     * Find users by last name list.
+     * Find user by order optional.
      *
-     * @param user               the user
-     * @param startElementNumber the start element number
-     * @return the list
+     * @param orderId the order id
+     * @return the optional
      * @throws DaoException the dao exception
      */
-    abstract public List<User> findUsersByLastName(User user, int startElementNumber) throws DaoException;
+    Optional<User> findUserByOrder(long orderId) throws DaoException;
 
     /**
-     * Find users by status list.
+     * Find user by login and password optional.
      *
-     * @param user               the user
-     * @param startElementNumber the start element number
-     * @return the list
+     * @param login    the login
+     * @param password the password
+     * @return the optional
      * @throws DaoException the dao exception
      */
-    abstract public List<User> findUsersByStatus(User user, int startElementNumber) throws DaoException;
+    Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException;
 
     /**
-     * Find users by role list.
+     * Update user discount id by user id boolean.
      *
-     * @param user               the user
-     * @param startElementNumber the start element number
-     * @return the list
-     * @throws DaoException the dao exception
-     */
-    abstract public List<User> findUsersByRole(User user, int startElementNumber) throws DaoException;
-
-    /**
-     * Update user login boolean.
-     *
-     * @param currentLogin the current login
-     * @param newLogin     the new login
+     * @param id         the id
+     * @param discountId the discount id
      * @return the boolean
      * @throws DaoException the dao exception
      */
-    abstract public boolean updateUserLogin(String currentLogin, String newLogin) throws DaoException;
+    boolean updateUserDiscountIdByUserId(long id, long discountId) throws DaoException;
 
     /**
-     * Update user status boolean.
+     * Find all admins list.
      *
-     * @param login         the login
-     * @param currentStatus the current status
-     * @return the boolean
+     * @return the list
      * @throws DaoException the dao exception
      */
-    abstract public boolean updateUserStatus(String login, String currentStatus) throws DaoException;
+    List<User> findAllAdmins() throws DaoException;
 
     /**
-     * Update user role boolean.
+     * Find all clients list.
      *
-     * @param login       the login
-     * @param currentRole the current role
-     * @return the boolean
+     * @return the list
      * @throws DaoException the dao exception
      */
-    abstract public boolean updateUserRole(String login, String currentRole) throws DaoException;
+    List<User> findAllClients() throws DaoException;
 }

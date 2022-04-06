@@ -1,38 +1,63 @@
 package by.matsuk.shop.controller;
 
 import by.matsuk.shop.controller.command.*;
+import by.matsuk.shop.controller.factory.CommandType;
+import by.matsuk.shop.exception.CommandException;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Optional;
+
+import static by.matsuk.shop.controller.Parameter.COMMAND;
+import static by.matsuk.shop.controller.PathPage.ERROR_500;
 
 /**
  * @project Postcard shop
  * @author Ira
  * The type Controller.
  */
-@WebServlet("/controller")
-@MultipartConfig(maxRequestSize = 1024 * 1024 * 10)
+@WebServlet(urlPatterns = {"/controller"})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 25)
 public class Controller extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-    }
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String commandType = request.getParameter(RequestParameter.COMMAND);
-        Command command = CommandType.defineCommand(commandType);
-        Router router = command.execute(request);
-        switch (router.getRouterType()) {
-            case FORWARD -> request.getRequestDispatcher(router.getPage()).forward(request, response);
-            case REDIRECT -> response.sendRedirect(request.getContextPath() + router.getPage());
-            default -> request.getRequestDispatcher(PagePath.ERROR_404).forward(request, response);
+        String commandName = request.getParameter(COMMAND);
+        LOGGER.debug("The command is " + commandName);
+        Optional<Command> command = CommandType.provideCommand(commandName);
+        try {
+            Router router;
+            if(command.isPresent()){
+                router = command.get().execute(request);
+                String page = router.getCurrentPage();
+                if(router.getCurrentType() == Router.Type.FORWARD){
+                    LOGGER.info("Forward type.");
+                    request.getRequestDispatcher(page).forward(request,response);
+                }else{
+                    LOGGER.info("Redirect type.");
+                    response.sendRedirect(page);
+                }
+            }else {
+                response.sendRedirect(ERROR_500);
+            }
+        } catch (CommandException e) {
+            LOGGER.error(e);
+            response.sendRedirect(ERROR_500);
         }
     }
 }
