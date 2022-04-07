@@ -11,7 +11,7 @@ public class FooterTag extends TagSupport {
     public int doStartTag() throws JspTagException {
         try{
             JspWriter out = pageContext.getOut();
-            String tagText = "<footer><p class=\"footer\">© 2021-2022 Copyright by Anna Merkul</p></footer>";
+            String tagText = "<footer><p class=\"footer\">© 2022 Copyright by Iryna Matsuk</p></footer>";
             out.write(tagText);
         } catch (IOException e) {
             throw new JspTagException(e);

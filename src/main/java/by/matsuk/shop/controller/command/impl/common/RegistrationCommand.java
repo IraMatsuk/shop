@@ -20,6 +20,9 @@ import static by.matsuk.shop.controller.PropertiesKey.*;
 import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
 import static by.matsuk.shop.controller.SessionAttribute.USER;
 
+/**
+ * The type Registration command.
+ */
 public class RegistrationCommand implements Command {
     private final UserService service = UserServiceImpl.getInstance();
 

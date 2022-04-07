@@ -25,22 +25,22 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final int ONE_UPDATE = 1;
     private static final String SQL_SELECT_ALL_CLIENTS = """
             SELECT user_id, first_name, last_name, login, user_password, email, phone,
-            discount_id, state, role_name FROM users
+            discount_id, state_name, role_name FROM users
             JOIN user_state ON user_state.state_id = users.state_id
             JOIN user_role ON user_role.role_id = users.role_id
             WHERE role_name = 'client'""";
     private static final String SQL_SELECT_ALL_ADMINS = """
-            SELECT user_id, first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state, role_name FROM users
+            SELECT user_id, first_name, last_name, login, user_password, email, phone,
+            discount_id, state_name, role_name FROM users
             JOIN user_state ON user_state.state_id = users.state_id
             JOIN user_role ON user_role.role_id = users.role_id
             WHERE role_name = 'admin'""";
     private static final String SQL_INSERT_NEW_USER = """
-            INSERT INTO users(first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state_id, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+            INSERT INTO users(first_name, last_name, login, user_password, email, phone,
+            discount_id, state_id, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
     private static final String SQL_SELECT_USER_BY_ID = """
-            SELECT user_id, first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state, role_name FROM users
+            SELECT user_id, first_name, last_name, login, user_password, email, phone,
+            discount_id, state_name, role_name FROM users
             JOIN user_state ON user_state.state_id = users.state_id
             JOIN user_role ON user_role.role_id = users.role_id
             WHERE user_id = (?)""";
@@ -48,7 +48,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             DELETE FROM users WHERE user_id = (?)""";
     private static final String SQL_UPDATE_USER = """
             UPDATE users SET first_name = (?), last_name = (?), login = (?), user_password = (?), email = (?),
-            phone = (?), birthday = (?), discount_id = (?), state_id = (?), role_id = (?)
+            phone = (?), discount_id = (?), user_state = (?), role_id = (?)
             WHERE user_id = (?)""";
     /**
      * The constant SQL_SELECT_PASSWORD_BY_LOGIN.

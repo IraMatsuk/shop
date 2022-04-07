@@ -89,7 +89,7 @@
         </div>
         </br>
         <div class="form-group" class="mb-3">
-          <label class="form-label"><fmt:message key="menu.product_discount"/></label>
+          <label class="form-label"><fmt:message key="postcard.product_discount"/></label>
           <input type="text" name="product_discount" value="${requestScope.postcard.discount}" class="form-control" required pattern="0(\.\d{1,2})?">
           <div id="discountHelp" class="form-text"><fmt:message key="postcard_discount_pattern"></fmt:message></div>
           <c:if test="${! empty invalid_product_discount}">
@@ -104,7 +104,7 @@
         </br>
         <div class="form-group" class="mb-3">
           <label class="form-label"><fmt:message key="postcard.product_cost"/></label>
-          <input type="text" name="product_price" value="${requestScope.menu.price}" class="form-control" required pattern="\d{1,6}(\.[0-9]{1,2})?">
+          <input type="text" name="product_price" value="${requestScope.postcard.price}" class="form-control" required pattern="\d{1,6}(\.[0-9]{1,2})?">
           <div id="costHelp" class="form-text"><fmt:message key="postcard.cost_pattern"></fmt:message></div>
           <c:if test="${! empty invalid_product_price}">
             <div class="invalid-feedback-backend" style="color: red">
