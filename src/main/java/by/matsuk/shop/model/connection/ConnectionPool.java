@@ -31,7 +31,7 @@ public class ConnectionPool {
     private static BlockingQueue<ProxyConnection> takenConnections;
     private static ConnectionPool instance;
 
-    static { // FIXME wrap into try?
+    static { // FIXME wrap into try, and check on MissingBundleException
         ResourceBundle resourceBundle = ResourceBundle.getBundle(POOL_PROPERTY_FILE);
         String poolSize;
         if (resourceBundle.containsKey(POOL_SIZE_PROPERTY)) {
