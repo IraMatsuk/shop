@@ -41,10 +41,6 @@ public final class Parameter {
      */
     public static final String IMAGE_PATH = "imagePath";
     /**
-     * The constant INVALID_BIRTHDAY.
-     */
-    public static final String INVALID_BIRTHDAY = "invalid_birthday";
-    /**
      * The constant INVALID_EMAIL.
      */
     public static final String INVALID_EMAIL = "invalid_email";
@@ -92,11 +88,6 @@ public final class Parameter {
      * The constant INVALID_PRODUCT_DESCRIPTION.
      */
     public static final String INVALID_PRODUCT_DESCRIPTION = "invalid_product_description";
-
-    /**
-     * The constant INVALID_PRODUCT_CALORIES.
-     */
-    public static final String INVALID_PRODUCT_CALORIES = "invalid_product_calories";
     /**
      * The constant INVALID_PRODUCT_DISCOUNT.
      */
@@ -178,9 +169,9 @@ public final class Parameter {
      */
     public static final String PASSWORD = "password";
     /**
-     * The constant MENU_LIST.
+     * The constant POSTCARD_LIST.
      */
-    public static final String MENU_LIST = "menu_list";
+    public static final String POSTCARD_LIST = "postcard_list";
     /**
      * The constant OLD_PASSWORD.
      */
@@ -214,21 +205,9 @@ public final class Parameter {
      */
     public static final String PRODUCT_DESCRIPTION = "product_description";
     /**
-     * The constant PRODUCT_COMPOSITION.
-     */
-    public static final String PRODUCT_COMPOSITION = "product_composition";
-    /**
-     * The constant PRODUCT_WEIGHT.
+     * The constant PRODUCT_AUTHOR.
      */
     public static final String PRODUCT_AUTHOR = "product_author";
-    /**
-     * The constant PRODUCT_CALORIES.
-     */
-    public static final String PRODUCT_CALORIES = "product_calories";
-    /**
-     * The constant PRODUCT_TIME.
-     */
-    public static final String PRODUCT_TIME = "product_time";
     /**
      * The constant PRODUCT_PRICE.
      */
@@ -253,10 +232,6 @@ public final class Parameter {
      * The constant STATE.
      */
     public static final String STATE = "state";
-    /**
-     * The constant USER_BIRTHDAY.
-     */
-    public static final String USER_BIRTHDAY = "birthday";
     /**
      * The constant USER_FIRST_NAME.
      */

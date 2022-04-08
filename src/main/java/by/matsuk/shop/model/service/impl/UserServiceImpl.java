@@ -24,7 +24,7 @@ import static by.matsuk.shop.controller.Parameter.*;
  */
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
-    private static final String REGISTRATION_SUBJECT = "GoodCafe registration";
+    private static final String REGISTRATION_SUBJECT = "Card4You registration";
     private static final String REGISTRATION_BODY = "Registration was successful";
     private static final UserServiceImpl instance = new UserServiceImpl();
     private final Validator validator = ValidatorImpl.getInstance();

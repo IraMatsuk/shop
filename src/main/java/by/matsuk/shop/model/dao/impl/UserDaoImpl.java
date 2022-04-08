@@ -24,68 +24,55 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final Logger logger = LogManager.getLogger();
     private static final int ONE_UPDATE = 1;
     private static final String SQL_SELECT_ALL_CLIENTS = """
-            SELECT user_id, first_name, last_name, login, user_password, email, phone,
+            SELECT users.user_id, first_name, last_name, login, password, email, phone,
             discount_id, state_name, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id
+            JOIN user_state ON users.state_id = user_state.state_id
+            JOIN user_role ON users.role_id = user_role.role_id
             WHERE role_name = 'client'""";
     private static final String SQL_SELECT_ALL_ADMINS = """
-            SELECT user_id, first_name, last_name, login, user_password, email, phone,
+            SELECT users.user_id, first_name, last_name, login, password, email, phone,
             discount_id, state_name, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id
+            JOIN user_state ON users.state_id = user_state.state_id
+            JOIN user_role ON users.role_id = user_role.role_id
             WHERE role_name = 'admin'""";
     private static final String SQL_INSERT_NEW_USER = """
-            INSERT INTO users(first_name, last_name, login, user_password, email, phone,
+            INSERT INTO users(first_name, last_name, login, password, email, phone,
             discount_id, state_id, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
     private static final String SQL_SELECT_USER_BY_ID = """
-            SELECT user_id, first_name, last_name, login, user_password, email, phone,
-            discount_id, state_name, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id
-            WHERE user_id = (?)""";
+            SELECT user_id, first_name, last_name, login, password, email, phone,
+            discount_id FROM users WHERE user_id = (?)""";
     private static final String SQL_DELETE_USER_BY_ID = """
             DELETE FROM users WHERE user_id = (?)""";
     private static final String SQL_UPDATE_USER = """
-            UPDATE users SET first_name = (?), last_name = (?), login = (?), user_password = (?), email = (?),
+            UPDATE users SET first_name = (?), last_name = (?), login = (?), password = (?), email = (?),
             phone = (?), discount_id = (?), user_state = (?), role_id = (?)
             WHERE user_id = (?)""";
     /**
      * The constant SQL_SELECT_PASSWORD_BY_LOGIN.
      */
     public static final String SQL_SELECT_PASSWORD_BY_LOGIN = """
-            SELECT user_password FROM users WHERE login = (?)""";
+            SELECT password FROM users WHERE login = (?)""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
-            UPDATE users SET user_password = (?) WHERE login = (?)""";
+            UPDATE users SET password = (?) WHERE login = (?)""";
     private static final String SQL_UPDATE_USER_STATE_BY_ID = """
             UPDATE users SET state_id = (?) WHERE user_id = (?)""";
     private static final String SQL_UPDATE_USER_DISCOUNT_ID = """
             UPDATE users SET discount_id = (?) WHERE user_id = (?)""";
     private static final String SQL_SELECT_USER_BY_LOGIN = """
-            SELECT users.user_id, first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id WHERE login = (?)""";
+            SELECT users.user_id, first_name, last_name, login, password, email, phone,
+            discount_id FROM users WHERE login = (?)""";
     private static final String SQL_SELECT_USER_BY_PHONE_NUMBER = """
-            SELECT users.user_id, first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id WHERE phone = (?)""";
+            SELECT users.user_id, first_name, last_name, login, password, email, phone,
+            discount_id FROM users WHERE phone = (?)""";
     private static final String SQL_SELECT_USER_BY_EMAIL = """
-            SELECT users.user_id, first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id WHERE email = (?)""";
+            SELECT users.user_id, first_name, last_name, login, password, email, phone,
+            discount_id FROM users WHERE email = (?)""";
     private static final String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = """
-            SELECT users.user_id, first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id WHERE login = (?) AND user_password = (?)""";
+            SELECT users.user_id, first_name, last_name, login, password, email, phone, discount_id 
+            FROM users WHERE login = (?) AND password = (?)""";
     private static final String SQL_SELECT_USER_BY_ORDER_ID = """
-            SELECT users.user_id, first_name, last_name, login, user_password, email, phone, birthday,
-            discount_id, state, role_name FROM users
-            JOIN user_state ON user_state.state_id = users.state_id
-            JOIN user_role ON user_role.role_id = users.role_id
+            SELECT users.user_id, first_name, last_name, login, password, email, phone,
+            discount_id, state_name, role_name FROM users
             JOIN orders ON users.user_id = orders.user_id
             WHERE order_id = (?)""";
 

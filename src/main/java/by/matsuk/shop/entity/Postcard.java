@@ -263,16 +263,16 @@ public class Postcard extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Postcard menu = (Postcard) o;
+        Postcard postcard = (Postcard) o;
 
-        if (postcardId != menu.postcardId) return false;
-        if (sectionId != menu.sectionId) return false;
-        if (postcardName != null ? !postcardName.equals(menu.postcardName) : menu.postcardName != null) return false;
-        if (postcardAuthor != null ? !postcardAuthor.equals(menu.postcardAuthor) : menu.postcardAuthor != null) return false;
-        if (picturePath != null ? !picturePath.equals(menu.picturePath) : menu.picturePath != null) return false;
-        if (description != null ? !description.equals(menu.description) : menu.description != null) return false;
-        if (discount != null ? !discount.equals(menu.discount) : menu.discount != null) return false;
-        return price != null ? price.equals(menu.price) : menu.price == null;
+        if (postcardId != postcard.postcardId) return false;
+        if (sectionId != postcard.sectionId) return false;
+        if (postcardName != null ? !postcardName.equals(postcard.postcardName) : postcard.postcardName != null) return false;
+        if (postcardAuthor != null ? !postcardAuthor.equals(postcard.postcardAuthor) : postcard.postcardAuthor != null) return false;
+        if (picturePath != null ? !picturePath.equals(postcard.picturePath) : postcard.picturePath != null) return false;
+        if (description != null ? !description.equals(postcard.description) : postcard.description != null) return false;
+        if (discount != null ? !discount.equals(postcard.discount) : postcard.discount != null) return false;
+        return price != null ? price.equals(postcard.price) : postcard.price == null;
     }
 
     @Override

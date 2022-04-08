@@ -108,7 +108,7 @@ public interface Validator {
      * @param composition the composition
      * @return the boolean
      */
-    boolean isCorrectComposition(String composition);
+    boolean isCorrectDescription(String composition);
 
     /**
      * Check address.

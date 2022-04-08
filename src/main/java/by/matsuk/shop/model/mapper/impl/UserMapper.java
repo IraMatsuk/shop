@@ -34,7 +34,7 @@ public class UserMapper implements CustomRowMapper<User> {
     /**
      * The constant PASSWORD.
      */
-    public static final String PASSWORD = "user_password";
+    public static final String PASSWORD = "password";
     /**
      * The constant EMAIL.
      */

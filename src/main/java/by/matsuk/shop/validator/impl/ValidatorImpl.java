@@ -19,7 +19,7 @@ public class ValidatorImpl implements Validator {
     private static final String USER_PHONE_NUMBER_PATTERN = "(29|33|25|44)\\d{7}";
     private static final String DIGIT_PRODUCT_PATTERN = "\\d{1,6}(\\.[0-9]{1,2})?";
     private static final String DISCOUNT_PATTERN = "0(\\.\\d{1,2})?";
-    private static final String COMPOSITION_PATTERN = "^.{0,200}$";
+    private static final String DESCRIPTION_PATTERN = "^.{0,200}$";
     private static final String ADDRESS_PATTERN = "^.{1,100}$";
     private static final String USER_COMMENT_PATTERN = "^.{0,200}$";
     private static final String SECTION_NAME_PATTERN = "^.{1,20}$";
@@ -84,8 +84,8 @@ public class ValidatorImpl implements Validator {
     }
 
     @Override
-    public boolean isCorrectComposition(String composition) {
-        return composition.matches(COMPOSITION_PATTERN);
+    public boolean isCorrectDescription(String description) {
+        return description.matches(DESCRIPTION_PATTERN);
     }
 
     @Override
@@ -176,9 +176,10 @@ public class ValidatorImpl implements Validator {
         boolean result = true;
         String name = map.get(PRODUCT_NAME);
         String author = map.get(PRODUCT_AUTHOR);
+        String description = map.get(PRODUCT_DESCRIPTION);
         String discount = map.get(PRODUCT_DISCOUNT);
         String price = map.get(PRODUCT_PRICE);
-        String composition = map.get(PRODUCT_COMPOSITION);
+        String composition = map.get(PRODUCT_DESCRIPTION);
     //    String time = map.get(PRODUCT_TIME); //TODO
         String section = map.get(PRODUCT_SECTION);
         if(!isCorrectProductName(name)){
@@ -197,8 +198,8 @@ public class ValidatorImpl implements Validator {
             map.put(PRODUCT_DISCOUNT, INVALID_PRODUCT_DISCOUNT);
             result = false;
         }
-        if(!isCorrectComposition(composition)){
-            map.put(PRODUCT_COMPOSITION, INVALID_PRODUCT_COMPOSITION);
+        if(!isCorrectDescription(composition)){
+            map.put(PRODUCT_DESCRIPTION, INVALID_PRODUCT_COMPOSITION);
             result = false;
         }
         //TODO

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -31,15 +32,20 @@ public class ConnectionPool {
     private static BlockingQueue<ProxyConnection> takenConnections;
     private static ConnectionPool instance;
 
-    static { // FIXME wrap into try, and check on MissingBundleException
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(POOL_PROPERTY_FILE);
-        String poolSize;
-        if (resourceBundle.containsKey(POOL_SIZE_PROPERTY)) {
-            poolSize = resourceBundle.getString(POOL_SIZE_PROPERTY);
-            POOL_SIZE = Integer.parseInt(poolSize);
-        } else {
-            LOGGER.warn("Error getting pool size value: pool size will be initialized with default value.");
-            POOL_SIZE = DEFAULT_POOL_SIZE;
+    static {// FIXME wrap into try, and check on MissingBundleException
+        try {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle(POOL_PROPERTY_FILE);
+            String poolSize;
+            if (resourceBundle.containsKey(POOL_SIZE_PROPERTY)) {
+                poolSize = resourceBundle.getString(POOL_SIZE_PROPERTY);
+                POOL_SIZE = Integer.parseInt(poolSize);
+            } else {
+                LOGGER.warn("Error getting pool size value: pool size will be initialized with default value.");
+                POOL_SIZE = DEFAULT_POOL_SIZE;
+            }
+        } catch (MissingResourceException exception) {
+            LOGGER.fatal(exception.getMessage());
+            throw new RuntimeException(exception.getMessage());
         }
     }
 

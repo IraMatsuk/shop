@@ -38,129 +38,129 @@ public enum CommandType {
     /**
      * The Find all users.
      */
-    FIND_ALL_USERS(new FindAllUsersCommand());
-//    /**
-//     * To Delete user.
-//     */
+    FIND_ALL_USERS(new FindAllUsersCommand()),
+    /**
+     * To Delete user.
+     */
 //    DELETE_USER(new DeleteAdminCommand()),
-//    /**
-//     * The Upload product photo.
-//     */
+    /**
+     * The Upload product photo.
+     */
 //    UPLOAD_PRODUCT_PHOTO(new UploadProductPhotoCommand()),
-//    /**
-//     * The Update user profile.
-//     */
-//    UPDATE_USER_PROFILE(new UpdateUserProfileCommand()),
-//    /**
-//     * The Change password.
-//     */
-//    CHANGE_PASSWORD(new ChangePasswordCommand()),
-//    /**
-//     * The Go-to update product page.
-//     */
+    /**
+     * The Update user profile.
+     */
+    UPDATE_USER_PROFILE(new UpdateUserProfileCommand()),
+    /**
+     * The Change password.
+     */
+    CHANGE_PASSWORD(new ChangePasswordCommand()),
+    /**
+     * The Go-to update product page.
+     */
 //    GO_TO_UPDATE_PRODUCT_PAGE(new GoToUpdateProductPageCommand()),
-//    /**
-//     * To Delete product.
-//     */
+    /**
+     * To Delete product.
+     */
 //    DELETE_PRODUCT(new DeleteProductCommand()),
-//    /**
-//     * The Block user.
-//     */
+    /**
+     * The Block user.
+     */
 //    BLOCK_USER(new BlockUserByIdCommand()),
-//    /**
-//     * To Unblock user.
-//     */
+    /**
+     * To Unblock user.
+     */
 //    UNBLOCK_USER(new UnblockUserByIdCommand()),
-//    /**
-//     * The Creation order.
-//     */
+    /**
+     * The Creation order.
+     */
 //    CREATE_ORDER(new CreateOrderCommand()),
-//    /**
-//     * The Add product to cart.
-//     */
+    /**
+     * The Add product to cart.
+     */
 //    ADD_PRODUCT_TO_CART(new AddProductToCartCommand()),
-//    /**
-//     * The Go to basket page.
-//     */
+    /**
+     * The Go to basket page.
+     */
 //    GO_TO_BASKET_PAGE(new GoToBasketPageCommand()),
-//    /**
-//     * The Update product.
-//     */
+    /**
+     * The Update product.
+     */
 //    UPDATE_PRODUCT(new UpdateProductCommand()),
-//    /**
-//     * To Delete product in basket.
-//     */
+    /**
+     * To Delete product in basket.
+     */
 //    DELETE_PRODUCT_IN_BASKET(new DeleteProductInBasketCommand()),
-//    /**
-//     * To Calculate user discount.
-//     */
+    /**
+     * To Calculate user discount.
+     */
 //    CALCULATE_USER_DISCOUNT(new CalculateUserDiscountCommand()),
-//    /**
-//     * The Go-to orders page.
-//     */
+    /**
+     * The Go-to orders page.
+     */
 //    GO_TO_ORDERS_PAGE(new GoToOrdersPageCommand()),
-//    /**
-//     * The Find all orders.
-//     */
+    /**
+     * The Find all orders.
+     */
 //    FIND_ALL_ORDERS(new FindAllOrdersCommand()),
-//    /**
-//     * The Change order state.
-//     */
+    /**
+     * The Change order state.
+     */
 //    CHANGE_ORDER_STATE(new ChangeOrderStateCommand()),
-//    /**
-//     * The Find all menu by section.
-//     */
-//    FIND_ALL_MENU_BY_SECTION(new FindAllMenuBySectionCommand()),
-//    /**
-//     * The Insert new section.
-//     */
+    /**
+     * The Find all menu by section.
+     */
+    FIND_ALL_MENU_BY_SECTION(new FindAllPostcardBySectionCommand()),
+    /**
+     * The Insert new section.
+     */
 //    INSERT_NEW_SECTION(new InsertNewSectionCommand()),
-//    /**
-//     * The Change section name.
-//     */
+    /**
+     * The Change section name.
+     */
 //    CHANGE_SECTION_NAME(new UpdateSectionNameCommand()),
-//    /**
-//     * The Delete section.
-//     */
+    /**
+     * The Delete section.
+     */
 //    DELETE_SECTION(new DeleteSectionCommand()),
-//    /**
-//     * To Delete orders.
-//     */
+    /**
+     * To Delete orders.
+     */
 //    DELETE_ORDERS(new DeleteOrdersCommand()),
-//    /**
-//     * The Find all admins.
-//     */
+    /**
+     * The Find all admins.
+     */
 //    FIND_ALL_ADMINS(new FindAllAdminsCommand()),
-//    /**
-//     * The Sort all menu by price.
-//     */
-//    SORT_ALL_MENU_BY_PRICE(new SortAllMenuByPriceCommand()),
-//    /**
-//     * The Find all removing products.
-//     */
+    /**
+     * The Sort all menu by price.
+     */
+    SORT_ALL_MENU_BY_PRICE(new SortAllPostcardsByPriceCommand()),
+    /**
+     * The Find all removing products.
+     */
 //    FIND_ALL_REMOVING_PRODUCTS(new FindAllRemovingProductsCommand()),
-//    /**
-//     * The Find all removing sections.
-//     */
+    /**
+     * The Find all removing sections.
+     */
 //    FIND_ALL_REMOVING_SECTIONS(new FindAllRemovingSectionsCommand()),
-//    /**
-//     * The Restore menu product.
-//     */
+    /**
+     * The Restore menu product.
+     */
 //    RESTORE_MENU_PRODUCT(new RestoreMenuProductCommand()),
-//    /**
-//     * The Restore section.
-//     */
+    /**
+     * The Restore section.
+     */
 //    RESTORE_SECTION(new RestoreSectionCommand()),
-//
-//    /**
-//     * The Sort all menu by popularity.
-//     */
-//    SORT_ALL_MENU_BY_POPULARITY(new SortAllMenuByPopularityCommand()),
-//
-//    /**
-//     * The settings page.
-//     */
-//    GO_TO_SETTINGS(new GoToSettingsCommand());
+
+    /**
+     * The Sort all menu by popularity.
+     */
+    SORT_ALL_MENU_BY_POPULARITY(new SortAllPostcardsByPriceCommand()),
+
+    /**
+     * The settings page.
+     */
+    GO_TO_SETTINGS(new GoToSettingsCommand());
     private final Command command;
 
     CommandType(Command command) {

@@ -11,10 +11,6 @@ public final class PropertiesKey {
      */
     public static final String ERROR_INCORRECT_LOGIN_OR_PASSWORD_MESSAGE = "error.login_or_password";
     /**
-     * The constant INVALID_BIRTHDAY_MESSAGE.
-     */
-    public static final String INVALID_BIRTHDAY_MESSAGE = "registration.invalid_birthday";
-    /**
      * The constant INVALID_EMAIL_MESSAGE.
      */
     public static final String INVALID_EMAIL_MESSAGE = "registration.invalid_mail";
