@@ -21,91 +21,79 @@ import java.util.Optional;
 public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
     private static final Logger logger = LogManager.getLogger();
     private static final int ONE_UPDATE = 1;
-    private static final String SQL_SELECT_ALL_POSTCARDS = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible FROM postcards
-            WHERE is_accessible = true""";
-    private static final String SQL_SELECT_POSTCARD_BY_ID = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible FROM postcards
-            WHERE food_id = (?)""";
-    private static final String SQL_INSERT_NEW_POSTCARD_ITEM = """
-            INSERT INTO postcards(postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
-    private static final String SQL_DELETE_POSTCARD_ITEM = """
-            UPDATE postcards
-            SET is_accessible = false
-            WHERE postcard_id = (?)""";
-    private static final String SQL_DELETE_POSTCARD_BY_SECTION_ID = """
-            UPDATE postcards
-            SET is_accessible = false
-            WHERE section_id = (?)""";
-    private static final String SQL_UPDATE_POSTCARD = """
-            UPDATE postcards SET postcard_name = (?), postcard_author = (?),
-            description = (?), discount = (?), price = (?), section_id = (?) WHERE postcard_id = (?)""";
-    private static final String SQL_UPDATE_IMAGE_PATH_BY_NAME = """
-            UPDATE postcards SET picture_path = (?) WHERE postcard_name = (?)""";
-    private static final String SQL_SELECT_POSTCARD_BY_NAME = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible FROM postcards
-            WHERE postcard_name = (?)""";
-    private static final String SQL_FIND_POSTCARD_SUBLIST_BY_SECTION_ID = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible FROM postcards
-            WHERE section_id = (?) AND is_accessible = true
-            LIMIT ? OFFSET ?""";
-    private static final String SQL_SELECT_ALL_POSTCARDS_ROW_COUNT = """
-            SELECT COUNT(*) FROM postcards
-            WHERE is_accessible = true""";
-    private static final String SQL_SELECT_POSTCARD_SUBLIST = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible FROM postcards
-            WHERE is_accessible = true
-            LIMIT ? OFFSET ?""";
-    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible FROM postcards
-            WHERE is_accessible = true
-            ORDER BY price - (price * discount)
-            LIMIT ? OFFSET ?""";
-    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS_BY_POPULARITY = """
-            SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path,
-            discount, price, section_id, is_accessible, all_postcards FROM postcards
-            LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcard_catalog
-            GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id
-            WHERE is_accessible = true
-            ORDER BY all_postcards DESC
-            LIMIT ? OFFSET ?"""; //TODO
-    private static final String SQL_SELECT_SORTED_SECTION_POSTCARDS = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible FROM postcards
-            WHERE section_id = ? AND is_accessible = true
-            ORDER BY price - (price * discount)
-            LIMIT ? OFFSET ?""";
-    private static final String SQL_SELECT_ALL_SORTED_SECTION_POSTCARDS_BY_POPULARITY = """
-            SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, section_id, is_accessible, all_postcards FROM postcards
-            LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcard_catalog
-            GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id
-            WHERE is_accessible = true AND section_id = ?
-            ORDER BY all_postcards DESC
-            LIMIT ? OFFSET ?""";
-    private static final String SQL_SELECT_POSTCARDS_ROW_COUNT_BY_SECTION_ID = """
-            SELECT COUNT(*) FROM postcards WHERE section_id = ? AND is_accessible = true""";
-    private static final String SQL_SELECT_ALL_REMOVING_POSTCARD_PRODUCTS = """
-            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
-            discount, price, postcards.section_id, postcards.is_accessible FROM postcards
-            JOIN sections ON sections.section_id = postcards.section_id
-            WHERE postcards.is_accessible = false AND sections.is_accessible = true""";
-    private static final String SQL_RESTORE_POSTCARDS_BY_PRODUCT_ID = """
-            UPDATE postcards
-            SET is_accessible = true
-            WHERE postcard_id = (?)""";
-    private static final String SQL_RESTORE_POSTCARDS_BY_SECTION_ID = """
-            UPDATE postcards
-            SET is_accessible = true
-            WHERE section_id = (?)""";
+    private static final String SQL_SELECT_ALL_POSTCARDS =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
+            "FROM postcards WHERE is_accessible = true";
+    private static final String SQL_SELECT_POSTCARD_BY_ID =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
+            "FROM postcards WHERE postcard_id = (?)";
+    private static final String SQL_INSERT_NEW_POSTCARD_ITEM =
+            "INSERT INTO postcards(postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_POSTCARD_ITEM =
+            "UPDATE postcards SET is_accessible = false " +
+            "WHERE postcard_id = (?)";
+    private static final String SQL_DELETE_POSTCARD_BY_SECTION_ID =
+            "UPDATE postcards SET is_accessible = false " +
+            "WHERE section_id = (?)";
+    private static final String SQL_UPDATE_POSTCARD =
+            "UPDATE postcards " +
+            "SET postcard_name = (?), postcard_author = (?), description = (?), discount = (?), price = (?), section_id = (?) " +
+            "WHERE postcard_id = (?)";
+    private static final String SQL_UPDATE_IMAGE_PATH_BY_NAME =
+            "UPDATE postcards SET picture_path = (?) WHERE postcard_name = (?)";
+    private static final String SQL_SELECT_POSTCARD_BY_NAME =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
+            "FROM postcards WHERE postcard_name = (?)";
+    private static final String SQL_FIND_POSTCARD_SUBLIST_BY_SECTION_ID =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
+            "FROM postcards WHERE section_id = (?) AND is_accessible = true LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_ALL_POSTCARDS_ROW_COUNT =
+            "SELECT COUNT(*) FROM postcards WHERE is_accessible = true";
+    private static final String SQL_SELECT_POSTCARD_SUBLIST =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
+            "FROM postcards WHERE is_accessible = true LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
+            "FROM postcards WHERE is_accessible = true " +
+            "ORDER BY price - (price * discount) LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS_BY_POPULARITY =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, " +
+            "discount, price, section_id, is_accessible, all_postcards FROM postcards " +
+            "LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcards_catalog " +
+            "GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id " +
+            "WHERE is_accessible = true " +
+            "ORDER BY all_postcards DESC " +
+            "LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_SORTED_SECTION_POSTCARDS =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, " +
+            "discount, price, section_id, is_accessible FROM postcards " +
+            "WHERE section_id = ? AND is_accessible = true " +
+            "ORDER BY price - (price * discount) " +
+            "LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_ALL_SORTED_SECTION_POSTCARDS_BY_POPULARITY =
+            "SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path, description, " +
+            "discount, price, section_id, is_accessible, all_postcards FROM postcards " +
+            "LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcards_catalog " +
+            "GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id " +
+            "WHERE is_accessible = true AND section_id = ? " +
+            "ORDER BY all_postcards DESC " +
+            "LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_POSTCARDS_ROW_COUNT_BY_SECTION_ID =
+            "SELECT COUNT(*) FROM postcards WHERE section_id = ? AND is_accessible = true";
+    private static final String SQL_SELECT_ALL_REMOVING_POSTCARD_PRODUCTS =
+            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, " +
+            "discount, price, postcards.section_id, postcards.is_accessible FROM postcards " +
+            "JOIN sections ON sections.section_id = postcards.section_id " +
+            "WHERE postcards.is_accessible = false AND sections.is_accessible = true";
+    private static final String SQL_RESTORE_POSTCARDS_BY_PRODUCT_ID =
+            "UPDATE postcards " +
+            "SET is_accessible = true " +
+            "WHERE postcard_id = (?)";
+    private static final String SQL_RESTORE_POSTCARDS_BY_SECTION_ID =
+            "UPDATE postcards " +
+            "SET is_accessible = true " +
+            "WHERE section_id = (?)";
 
     @Override
     public List<Postcard> findAll() throws DaoException {

@@ -16,9 +16,9 @@ import static by.matsuk.shop.controller.Parameter.COMMAND;
 import static by.matsuk.shop.controller.PathPage.ERROR_500;
 
 /**
- * @project Postcard shop
  * @author Ira
  * The type Controller.
+ * @project shop
  */
 @WebServlet(urlPatterns = {"/controller"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
@@ -31,6 +31,7 @@ public class Controller extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
@@ -42,17 +43,17 @@ public class Controller extends HttpServlet {
         Optional<Command> command = CommandType.provideCommand(commandName);
         try {
             Router router;
-            if(command.isPresent()){
+            if (command.isPresent()) {
                 router = command.get().execute(request);
                 String page = router.getCurrentPage();
-                if(router.getCurrentType() == Router.Type.FORWARD){
+                if (router.getCurrentType() == Router.Type.FORWARD) {
                     LOGGER.info("Forward type.");
-                    request.getRequestDispatcher(page).forward(request,response);
-                }else{
+                    request.getRequestDispatcher(page).forward(request, response);
+                } else {
                     LOGGER.info("Redirect type.");
                     response.sendRedirect(page);
                 }
-            }else {
+            } else {
                 response.sendRedirect(ERROR_500);
             }
         } catch (CommandException e) {

@@ -28,7 +28,7 @@ public class RegistrationCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
-        Map<String,String> mapData = new HashMap<>();
+        Map<String, String> mapData = new HashMap<>();
         mapData.put(USER_FIRST_NAME, request.getParameter(USER_FIRST_NAME));
         mapData.put(USER_LAST_NAME, request.getParameter(USER_LAST_NAME));
         mapData.put(LOGIN, request.getParameter(LOGIN));
@@ -45,10 +45,10 @@ public class RegistrationCommand implements Command {
 
             if (service.userRegistration(mapData, role)) {
                 router.setRedirectType();
-                if(role == User.UserRole.ADMIN){
+                if (role == User.UserRole.ADMIN) {
                     String currentPage = (String) session.getAttribute(CURRENT_PAGE);
                     router.setCurrentPage(currentPage);
-                }else {
+                } else {
                     router.setCurrentPage(SIGN_PAGE);
                 }
             } else {

@@ -39,19 +39,19 @@ public class MailSender {
     /**
      * Send mail method.
      */
-    public void send(){
-        try{
+    public void send() {
+        try {
             initMessage();
             Transport.send(message);
             logger.info("Success");
         } catch (AddressException e) {
             logger.error("Invalid address: " + sendToMail + " " + e);
-        } catch (UtilException | MessagingException e){
+        } catch (UtilException | MessagingException e) {
             logger.error("Error generating or sending message:" + e);
         }
     }
 
-    private void initMessage() throws UtilException{
+    private void initMessage() throws UtilException {
         Session mailSession = SessionFactory.createSession(properties);
         mailSession.setDebug(true);
         message = new MimeMessage(mailSession);

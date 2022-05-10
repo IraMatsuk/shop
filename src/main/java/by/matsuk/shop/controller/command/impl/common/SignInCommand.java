@@ -28,7 +28,6 @@ import static by.matsuk.shop.controller.PropertiesKey.ERROR_INCORRECT_LOGIN_OR_P
 import static by.matsuk.shop.controller.PropertiesKey.USER_BLOCKED_MESSAGE;
 import static by.matsuk.shop.controller.SessionAttribute.*;
 
-
 /**
  * The type Sign in command.
  */
@@ -44,12 +43,12 @@ public class SignInCommand implements Command {
         Router router = new Router();
         String login = request.getParameter(LOGIN);
         String pass = request.getParameter(PASSWORD);
-        logger.info("login and pass" + login + pass);
+        logger.info("login and pass " + login + " " + pass);
         try {
             Optional<User> optionalUser = userService.signIn(login, pass);
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
-                logger.info("Sign in" + user.getRole());
+                logger.info("Sign in " + user.getRole());
                 switch (user.getRole()){
                     case ADMIN -> {
                         session.setAttribute(USER, user);
@@ -77,7 +76,7 @@ public class SignInCommand implements Command {
                 router.setCurrentPage(SIGN_PAGE);
             }
         } catch (ServiceException e) {
-            throw new CommandException("Error during sign in", e);
+            throw new CommandException("Error during sign in ", e);
         }
         logger.info("SignInCommand");
         return router;

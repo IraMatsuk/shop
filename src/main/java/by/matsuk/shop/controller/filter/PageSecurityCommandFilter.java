@@ -18,6 +18,9 @@ import static by.matsuk.shop.controller.Parameter.COMMAND;
 import static by.matsuk.shop.controller.PathPage.ERROR_404;
 import static by.matsuk.shop.controller.SessionAttribute.USER;
 
+/**
+ * The type Page security command filter.
+ */
 public class PageSecurityCommandFilter implements Filter {
     private static final Logger logger = LogManager.getLogger();
 
@@ -28,19 +31,19 @@ public class PageSecurityCommandFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         HttpSession session = httpServletRequest.getSession();
         String command = httpServletRequest.getParameter(COMMAND);
-        if (command == null){
-            request.getRequestDispatcher(ERROR_404).forward(httpServletRequest,httpServletResponse);
+        if (command == null) {
+            request.getRequestDispatcher(ERROR_404).forward(httpServletRequest, httpServletResponse);
             return;
         }
         User.UserRole role = User.UserRole.GUEST;
         Set<String> commands;
 
         User user = (User) session.getAttribute(USER);
-        if(user != null){
+        if (user != null) {
             role = user.getRole();
         }
 
-        switch (role){
+        switch (role) {
             case ADMIN -> commands = UserPermission.ADMIN.getCommands();
             case CLIENT -> commands = UserPermission.CLIENT.getCommands();
             default -> commands = UserPermission.GUEST.getCommands();
@@ -49,15 +52,15 @@ public class PageSecurityCommandFilter implements Filter {
         boolean isCorrect = Arrays.stream(CommandType.values())
                 .anyMatch(commandType -> command.equalsIgnoreCase(commandType.toString()));
 
-        if(isCorrect && !commands.contains(command.toUpperCase())){
+        if (isCorrect && !commands.contains(command.toUpperCase())) {
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
 
-        if (!commands.contains(command.toUpperCase())){
+        if (!commands.contains(command.toUpperCase())) {
             logger.info("command = " + command);
             request.getRequestDispatcher(ERROR_404)
-                    .forward(httpServletRequest,httpServletResponse);
+                    .forward(httpServletRequest, httpServletResponse);
             return;
         }
         logger.info("Chain continue");

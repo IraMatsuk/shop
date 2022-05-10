@@ -23,21 +23,26 @@ import static by.matsuk.shop.controller.Parameter.PASSWORD;
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final Logger logger = LogManager.getLogger();
     private static final int ONE_UPDATE = 1;
+
+    private static final String SQL_INSERT_USER =
+            "INSERT INTO users(first_name, last_name, login, password, email, phone, discount_id, user_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+
     private static final String SQL_SELECT_ALL_CLIENTS = """
             SELECT users.user_id, first_name, last_name, login, password, email, phone,
             discount_id, state_name, role_name FROM users
-            JOIN user_state ON users.state_id = user_state.state_id
-            JOIN user_role ON users.role_id = user_role.role_id
+            JOIN user_state ON users.user_state = user_state.state_id
+            JOIN user_role ON users.user_role = user_role.role_id
             WHERE role_name = 'client'""";
     private static final String SQL_SELECT_ALL_ADMINS = """
             SELECT users.user_id, first_name, last_name, login, password, email, phone,
             discount_id, state_name, role_name FROM users
-            JOIN user_state ON users.state_id = user_state.state_id
-            JOIN user_role ON users.role_id = user_role.role_id
+            JOIN user_state ON users.user_state = user_state.state_id
+            JOIN user_role ON users.user_role = user_role.role_id
             WHERE role_name = 'admin'""";
     private static final String SQL_INSERT_NEW_USER = """
             INSERT INTO users(first_name, last_name, login, password, email, phone,
-            discount_id, state_id, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+            discount_id, user_state, user_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
     private static final String SQL_SELECT_USER_BY_ID = """
             SELECT user_id, first_name, last_name, login, password, email, phone,
             discount_id FROM users WHERE user_id = (?)""";
@@ -45,17 +50,15 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             DELETE FROM users WHERE user_id = (?)""";
     private static final String SQL_UPDATE_USER = """
             UPDATE users SET first_name = (?), last_name = (?), login = (?), password = (?), email = (?),
-            phone = (?), discount_id = (?), user_state = (?), role_id = (?)
+            phone = (?), discount_id = (?), user_state = (?), user_role = (?)
             WHERE user_id = (?)""";
-    /**
-     * The constant SQL_SELECT_PASSWORD_BY_LOGIN.
-     */
+
     public static final String SQL_SELECT_PASSWORD_BY_LOGIN = """
             SELECT password FROM users WHERE login = (?)""";
     private static final String SQL_UPDATE_PASSWORD_BY_LOGIN = """
             UPDATE users SET password = (?) WHERE login = (?)""";
     private static final String SQL_UPDATE_USER_STATE_BY_ID = """
-            UPDATE users SET state_id = (?) WHERE user_id = (?)""";
+            UPDATE users SET user_state = (?) WHERE user_id = (?)""";
     private static final String SQL_UPDATE_USER_DISCOUNT_ID = """
             UPDATE users SET discount_id = (?) WHERE user_id = (?)""";
     private static final String SQL_SELECT_USER_BY_LOGIN = """
@@ -68,13 +71,20 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             SELECT users.user_id, first_name, last_name, login, password, email, phone,
             discount_id FROM users WHERE email = (?)""";
     private static final String SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD = """
-            SELECT users.user_id, first_name, last_name, login, password, email, phone, discount_id 
-            FROM users WHERE login = (?) AND password = (?)""";
+            SELECT users.user_id, first_name, last_name, login, password, email, phone, discount_id, 
+            state_name, role_name 
+            FROM users 
+            JOIN user_state on user_state.state_id = users.user_state
+            JOIN user_role on user_role.role_id = users.user_role
+            WHERE login = (?) AND password = (?)""";
     private static final String SQL_SELECT_USER_BY_ORDER_ID = """
             SELECT users.user_id, first_name, last_name, login, password, email, phone,
-            discount_id, state_name, role_name FROM users
+            discount_id, user_state, user_role FROM users
             JOIN orders ON users.user_id = orders.user_id
             WHERE order_id = (?)""";
+
+    public UserDaoImpl() {
+    }
 
     @Override
     public List<User> findAll() throws DaoException {
@@ -94,7 +104,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             logger.info("List: " + userList);
         } catch (SQLException e) {
             logger.error("Exception while find all clients method ");
-            throw new DaoException("Exception in a findAllAdmins method", e);
+            throw new DaoException("Exception in a findAllAdmins method ", e);
         }
         return userList;
     }
@@ -154,8 +164,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             statement.setString(5, entity.getEmail());
             statement.setInt(6, entity.getPhoneNumber());
             statement.setLong(7, entity.getDiscountId());
-            statement.setLong(8, entity.getState().getStateId());
-            statement.setLong(9, entity.getRole().getRoleId());
+            statement.setLong(8, entity.getRole().getRoleId());
+            statement.setLong(9, entity.getState().getStateId());
             logger.info("The new row: " + entity);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {

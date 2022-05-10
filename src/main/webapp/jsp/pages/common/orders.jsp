@@ -86,9 +86,9 @@
                                         <th scope="col" class="col"><fmt:message key="order.date_state_change"/> </th>
                                         <th scope="col" class="col"><fmt:message key="order.state"/> </th>
                                         <th scope="col" class="col"><fmt:message key="postcard.product_price"/></th>
-                                        <th scope="col" class="col"><fmt:message key="order.payment"/></th>
+<%--                                        <th scope="col" class="col"><fmt:message key="order.payment"/></th>--%>
                                         <th scope="col" class="col"><fmt:message key="order.address"/></th>
-                                        <th scope="col" class="col"><fmt:message key="order.comment"/></th>
+<%--                                        <th scope="col" class="col"><fmt:message key="order.comment"/></th>--%>
                                         <th scope="col" class="col"><fmt:message key="registration.login"/></th>
                                         <th scope="col" class="col"><fmt:message key="registration.phone"/> </th>
                                         <th scope="col" class="col-2"><fmt:message key="menu.products"/> </th
@@ -102,9 +102,9 @@
                                             <td><c:out value="${orderItem.order.orderDate.toLocalDate()} ${orderItem.order.orderDate.toLocalTime()}"/></td>
                                             <td class="col"><c:out value="${orderItem.order.orderState}"/></td>
                                             <td class="col"><c:out value="${orderItem.order.totalCost}"/></td>
-                                            <td class="col"><c:out value="${orderItem.order.typePayment}"/> </td>
+<%--                                            <td class="col"><c:out value="${orderItem.order.typePayment}"/> </td>--%>
                                             <td class="col"><c:out value="${orderItem.order.address}"/></td>
-                                            <td class="col"><c:out value="${orderItem.order.userComment}"/></td>
+<%--                                            <td class="col"><c:out value="${orderItem.order.userComment}"/></td>--%>
                                             <td class="col"><c:out value="${orderItem.user.login}"/> </td>
                                             <td class="col"><c:out value="${orderItem.user.phoneNumber}"/> </td>
                                             <td class="col-2">
@@ -118,10 +118,12 @@
                                                         <fmt:message key="order.change_state"/>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=PROCESSING&id=${orderItem.order.orderId}">processing</a></li>
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=COMPLETED&id=${orderItem.order.orderId}">completed</a></li>
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=RECEIVED&id=${orderItem.order.orderId}">received</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=PROCESSING&id=${orderItem.order.orderId}">created</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=COMPLETED&id=${orderItem.order.orderId}">payed</a></li>
                                                         <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=CANCELLED&id=${orderItem.order.orderId}">cancelled</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=RECEIVED&id=${orderItem.order.orderId}">processing</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=RECEIVED&id=${orderItem.order.orderId}">sent</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=CANCELLED&id=${orderItem.order.orderId}">completed</a></li>
                                                     </ul>
                                                 </div>
                                             </td>

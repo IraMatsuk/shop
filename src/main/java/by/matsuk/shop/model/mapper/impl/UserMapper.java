@@ -44,13 +44,14 @@ public class UserMapper implements CustomRowMapper<User> {
      */
     public static final String PHONE_NUMBER = "phone";
     /**
-     * The constant USER_STATE.
-     */
-    public static final String USER_STATE = "state";
-    /**
      * The constant USER_ROLE.
      */
     public static final String USER_ROLE = "role_name";
+
+    /**
+     * The constant USER_STATE.
+     */
+    public static final String USER_STATE = "state_name";
 
     @Override
     public Optional<User> mapRow(ResultSet resultSet) {
@@ -65,9 +66,9 @@ public class UserMapper implements CustomRowMapper<User> {
             user.setEmail(resultSet.getString(EMAIL));
             user.setPhoneNumber(resultSet.getInt(PHONE_NUMBER));
             user.setDiscountId(resultSet.getLong(DISCOUNT_ID));
-            user.setState(User.UserState.valueOf(resultSet.getString(USER_STATE)
-                    .trim().toUpperCase()));
             user.setRole(User.UserRole.valueOf(resultSet.getString(USER_ROLE)
+                    .trim().toUpperCase()));
+            user.setState(User.UserState.valueOf(resultSet.getString(USER_STATE)
                     .trim().toUpperCase()));
             optionalUser = Optional.of(user);
         } catch (SQLException e) {

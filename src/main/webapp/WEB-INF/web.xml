@@ -29,8 +29,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
-
     <filter>
         <filter-name>CurrentPageFilter</filter-name>
         <filter-class>by.matsuk.shop.controller.filter.CurrentPageFilter</filter-class>

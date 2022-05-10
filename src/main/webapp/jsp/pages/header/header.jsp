@@ -8,7 +8,6 @@
   <c:when test="${empty language}"> <fmt:setLocale value="${language = 'ru_RU'}" scope="session"/></c:when>
 </c:choose>
 <fmt:setBundle basename="context.language"/>
-
 <fmt:message key="header.brand" var="brand"/>
 <fmt:message key="header.about_us" var="about_us"/>
 <fmt:message key="header.contacts" var="contacts"/>
@@ -37,7 +36,10 @@
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 50px">
     <div class="container-fluid" style="height: 100px">
-      <a class="navbar-brand" href="#">${brand}</a>
+
+      <a class="navbar-brand" href="${absolutePath}/jsp/pages/home.jsp">
+        <img src="picture/logo.png" alt="logo" width="75px" height="75px">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -45,7 +47,6 @@
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link active" href="${absolutePath}/jsp/pages/home.jsp">${main}</a></li>
           <li class="nav-item"><a class="nav-link" href="${absolutePath}/jsp/pages/common/contacts.jsp">${contacts}</a></li>
-
           <c:choose>
             <c:when test="${user.role eq 'ADMIN'}"><%@include file="fragment/admin_header.jspf" %></c:when>
             <c:when test="${user.role eq 'CLIENT'}"><%@include file="fragment/client_header.jspf" %></c:when>
@@ -53,7 +54,6 @@
               <li class="nav-item"><a class="nav-link" href="${absolutePath}/controller?command=find_all_menu">${menu}</a></li>
             </c:otherwise>
           </c:choose>
-
         </ul>
       </div>
       <div>

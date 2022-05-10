@@ -21,7 +21,6 @@ public class ValidatorImpl implements Validator {
     private static final String DISCOUNT_PATTERN = "0(\\.\\d{1,2})?";
     private static final String DESCRIPTION_PATTERN = "^.{0,200}$";
     private static final String ADDRESS_PATTERN = "^.{1,100}$";
-    private static final String USER_COMMENT_PATTERN = "^.{0,200}$";
     private static final String SECTION_NAME_PATTERN = "^.{1,20}$";
     private static final String DATE_PATTERN = "\\d{4}-\\d{2}-\\d{2}";
 
@@ -92,11 +91,6 @@ public class ValidatorImpl implements Validator {
     public boolean isCorrectAddress(String address) {
         return isNotNullOrEmpty(address) && address.matches(ADDRESS_PATTERN);
     }
-
-//    @Override //TODO
-//    public boolean isCorrectUserComment(String comment) {
-//        return comment.matches(USER_COMMENT_PATTERN);
-//    }
 
     @Override
     public boolean isCorrectSectionName(String sectionName) {
@@ -179,8 +173,6 @@ public class ValidatorImpl implements Validator {
         String description = map.get(PRODUCT_DESCRIPTION);
         String discount = map.get(PRODUCT_DISCOUNT);
         String price = map.get(PRODUCT_PRICE);
-        String composition = map.get(PRODUCT_DESCRIPTION);
-    //    String time = map.get(PRODUCT_TIME); //TODO
         String section = map.get(PRODUCT_SECTION);
         if(!isCorrectProductName(name)){
             map.put(PRODUCT_NAME, INVALID_PRODUCT_NAME);
@@ -198,15 +190,10 @@ public class ValidatorImpl implements Validator {
             map.put(PRODUCT_DISCOUNT, INVALID_PRODUCT_DISCOUNT);
             result = false;
         }
-        if(!isCorrectDescription(composition)){
+        if(!isCorrectDescription(description)){
             map.put(PRODUCT_DESCRIPTION, INVALID_PRODUCT_COMPOSITION);
             result = false;
         }
-        //TODO
-//        if(!isNotNullOrEmpty(time)){
-//            map.put(PRODUCT_TIME, INVALID_COOKING_TIME);
-//            result = false;
-//        }
 
         if(!isNotNullOrEmpty(section)){
             map.put(PRODUCT_SECTION, INVALID_PRODUCT_SECTION);
@@ -219,20 +206,10 @@ public class ValidatorImpl implements Validator {
     public boolean checkOrderInfo(Map<String, String> orderInfo) {
         boolean result = true;
         String address = orderInfo.get(ADDRESS);
-     //   String payment = orderInfo.get(PRODUCT_PAYMENT); //TODO
-     //   String comment = orderInfo.get(USER_COMMENT);
         if(!isCorrectAddress(address)){
             orderInfo.put(ADDRESS, INVALID_ORDER_ADDRESS);
             result = false;
         }
-//        if(!isNotNullOrEmpty(payment)){ //TODO
-//            orderInfo.put(PRODUCT_PAYMENT, INVALID_ORDER_PAYMENT);
-//            result = false;
-//        }
-//        if(!isCorrectUserComment(comment)){ //TODO
-//            orderInfo.put(USER_COMMENT, INVALID_ORDER_COMMENT);
-//            result = false;
-//        }
         return result;
     }
 

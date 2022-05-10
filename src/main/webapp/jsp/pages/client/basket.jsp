@@ -82,34 +82,34 @@
                 </div>
               </div>
               </br>
-              <div class="form-group" class="mb-3">
-                <select class="form-select" aria-label="Default select example" name="product_payment" required>
-                  <option selected disabled value=""><fmt:message key="order.payment"/></option>
-                  <option value="CARD"><fmt:message key="order.payment_card"/> </option>
-                  <option value="CASH"><fmt:message key="order.payment_cash"/> </option>
-                </select>
-                <c:if test="${! empty invalid_order_payment}">
-                  <div class="invalid-feedback-backend" style="color: red">
-                    <fmt:message key="${invalid_order_payment}"/>
-                  </div>
-                </c:if>
-                <div class="invalid-feedback">
-                  <fmt:message key="order.invalid_payment"/>
-                </div>
-              </div>
-              </br>
-              <div class="form-group" class="mb-3">
-                <label class="form-label"><fmt:message key="order.comment"/></label>
-                <input type="text" name="user_comment" class="form-control form-control-sm" value="${fn:escapeXml(param.user_comment)}" pattern="^.{0,200}$">
-                <c:if test="${! empty invalid_order_comment}">
-                  <div class="invalid-feedback-backend" style="color: red">
-                    <fmt:message key="${invalid_order_comment}"/>
-                  </div>
-                </c:if>
-                <div class="invalid-feedback">
-                  <fmt:message key="order.invalid_comment"/>
-                </div>
-              </div>
+<%--              <div class="form-group" class="mb-3">--%>
+<%--                <select class="form-select" aria-label="Default select example" name="product_payment" required>--%>
+<%--                  <option selected disabled value=""><fmt:message key="order.payment"/></option>--%>
+<%--                  <option value="CARD"><fmt:message key="order.payment_card"/> </option>--%>
+<%--                  <option value="CASH"><fmt:message key="order.payment_cash"/> </option>--%>
+<%--                </select>--%>
+<%--                <c:if test="${! empty invalid_order_payment}">--%>
+<%--                  <div class="invalid-feedback-backend" style="color: red">--%>
+<%--                    <fmt:message key="${invalid_order_payment}"/>--%>
+<%--                  </div>--%>
+<%--                </c:if>--%>
+<%--                <div class="invalid-feedback">--%>
+<%--                  <fmt:message key="order.invalid_payment"/>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--              </br>--%>
+<%--              <div class="form-group" class="mb-3">--%>
+<%--                <label class="form-label"><fmt:message key="order.comment"/></label>--%>
+<%--                <input type="text" name="user_comment" class="form-control form-control-sm" value="${fn:escapeXml(param.user_comment)}" pattern="^.{0,200}$">--%>
+<%--                <c:if test="${! empty invalid_order_comment}">--%>
+<%--                  <div class="invalid-feedback-backend" style="color: red">--%>
+<%--                    <fmt:message key="${invalid_order_comment}"/>--%>
+<%--                  </div>--%>
+<%--                </c:if>--%>
+<%--                <div class="invalid-feedback">--%>
+<%--                  <fmt:message key="order.invalid_comment"/>--%>
+<%--                </div>--%>
+<%--              </div>--%>
               </br>
               <div class="text-center">
                 <button type="submit" class="btn btn-primary"><fmt:message key="order.confirm"/></button>

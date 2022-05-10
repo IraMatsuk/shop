@@ -118,14 +118,6 @@ public interface Validator {
      */
     boolean isCorrectAddress(String address);
 
-//    /**
-//     * Check user comment.
-//     *
-//     * @param comment the comment
-//     * @return the boolean
-//     */
-//    boolean isCorrectUserComment(String comment); //TODO
-
     /**
      * Check order information.
      *

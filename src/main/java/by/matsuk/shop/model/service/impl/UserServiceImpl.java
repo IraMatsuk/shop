@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         try{
             return userDao.findUserByLoginAndPassword(login, encryptPassword);
         } catch (DaoException e) {
-            throw new ServiceException("Exception in a signIn service method " , e);
+            throw new ServiceException("Exception in a signIn service method ", e);
         } finally {
             transaction.end();
         }

@@ -1,8 +1,8 @@
 package by.matsuk.shop.controller.factory;
 
 import by.matsuk.shop.controller.command.Command;
-import by.matsuk.shop.controller.command.impl.admin.FindAllUsersCommand;
-import by.matsuk.shop.controller.command.impl.admin.InsertNewProductCommand;
+import by.matsuk.shop.controller.command.impl.admin.*;
+import by.matsuk.shop.controller.command.impl.client.*;
 import by.matsuk.shop.controller.command.impl.common.*;
 
 import java.util.Optional;
@@ -42,11 +42,11 @@ public enum CommandType {
     /**
      * To Delete user.
      */
-//    DELETE_USER(new DeleteAdminCommand()),
+    DELETE_USER(new DeleteAdminCommand()),
     /**
      * The Upload product photo.
      */
-//    UPLOAD_PRODUCT_PHOTO(new UploadProductPhotoCommand()),
+    UPLOAD_PRODUCT_PHOTO(new UploadProductPhotoCommand()),
     /**
      * The Update user profile.
      */
@@ -58,55 +58,55 @@ public enum CommandType {
     /**
      * The Go-to update product page.
      */
-//    GO_TO_UPDATE_PRODUCT_PAGE(new GoToUpdateProductPageCommand()),
+    GO_TO_UPDATE_PRODUCT_PAGE(new GoToUpdateProductPageCommand()),
     /**
      * To Delete product.
      */
-//    DELETE_PRODUCT(new DeleteProductCommand()),
+    DELETE_PRODUCT(new DeleteProductCommand()),
     /**
      * The Block user.
      */
-//    BLOCK_USER(new BlockUserByIdCommand()),
+    BLOCK_USER(new BlockUserByIdCommand()),
     /**
      * To Unblock user.
      */
-//    UNBLOCK_USER(new UnblockUserByIdCommand()),
+    UNBLOCK_USER(new UnblockUserByIdCommand()),
     /**
      * The Creation order.
      */
-//    CREATE_ORDER(new CreateOrderCommand()),
+    CREATE_ORDER(new CreateOrderCommand()),
     /**
      * The Add product to cart.
      */
-//    ADD_PRODUCT_TO_CART(new AddProductToCartCommand()),
+    ADD_PRODUCT_TO_CART(new AddProductToCartCommand()),
     /**
      * The Go to basket page.
      */
-//    GO_TO_BASKET_PAGE(new GoToBasketPageCommand()),
+    GO_TO_BASKET_PAGE(new GoToBasketPageCommand()),
     /**
      * The Update product.
      */
-//    UPDATE_PRODUCT(new UpdateProductCommand()),
+    UPDATE_PRODUCT(new UpdateProductCommand()),
     /**
      * To Delete product in basket.
      */
-//    DELETE_PRODUCT_IN_BASKET(new DeleteProductInBasketCommand()),
+    DELETE_PRODUCT_IN_BASKET(new DeleteProductInBasketCommand()),
     /**
      * To Calculate user discount.
      */
-//    CALCULATE_USER_DISCOUNT(new CalculateUserDiscountCommand()),
+    CALCULATE_USER_DISCOUNT(new CalculateUserDiscountCommand()),
     /**
      * The Go-to orders page.
      */
-//    GO_TO_ORDERS_PAGE(new GoToOrdersPageCommand()),
+    GO_TO_ORDERS_PAGE(new GoToOrdersPageCommand()),
     /**
      * The Find all orders.
      */
-//    FIND_ALL_ORDERS(new FindAllOrdersCommand()),
+    FIND_ALL_ORDERS(new FindAllOrdersCommand()),
     /**
      * The Change order state.
      */
-//    CHANGE_ORDER_STATE(new ChangeOrderStateCommand()),
+    CHANGE_ORDER_STATE(new ChangeOrderStateCommand()),
     /**
      * The Find all menu by section.
      */
@@ -114,23 +114,23 @@ public enum CommandType {
     /**
      * The Insert new section.
      */
-//    INSERT_NEW_SECTION(new InsertNewSectionCommand()),
+    INSERT_NEW_SECTION(new InsertNewSectionCommand()),
     /**
      * The Change section name.
      */
-//    CHANGE_SECTION_NAME(new UpdateSectionNameCommand()),
+    CHANGE_SECTION_NAME(new UpdateSectionNameCommand()),
     /**
      * The Delete section.
      */
-//    DELETE_SECTION(new DeleteSectionCommand()),
+    DELETE_SECTION(new DeleteSectionCommand()),
     /**
      * To Delete orders.
      */
-//    DELETE_ORDERS(new DeleteOrdersCommand()),
+    DELETE_ORDERS(new DeleteOrdersCommand()),
     /**
      * The Find all admins.
      */
-//    FIND_ALL_ADMINS(new FindAllAdminsCommand()),
+    FIND_ALL_ADMINS(new FindAllAdminsCommand()),
     /**
      * The Sort all menu by price.
      */
@@ -138,19 +138,19 @@ public enum CommandType {
     /**
      * The Find all removing products.
      */
-//    FIND_ALL_REMOVING_PRODUCTS(new FindAllRemovingProductsCommand()),
+    FIND_ALL_REMOVING_PRODUCTS(new FindAllRemovingProductsCommand()),
     /**
      * The Find all removing sections.
      */
-//    FIND_ALL_REMOVING_SECTIONS(new FindAllRemovingSectionsCommand()),
+    FIND_ALL_REMOVING_SECTIONS(new FindAllRemovingSectionsCommand()),
     /**
      * The Restore menu product.
      */
-//    RESTORE_MENU_PRODUCT(new RestoreMenuProductCommand()),
+    RESTORE_MENU_PRODUCT(new RestoreMenuProductCommand()),
     /**
      * The Restore section.
      */
-//    RESTORE_SECTION(new RestoreSectionCommand()),
+    RESTORE_SECTION(new RestoreSectionCommand()),
 
     /**
      * The Sort all menu by popularity.
