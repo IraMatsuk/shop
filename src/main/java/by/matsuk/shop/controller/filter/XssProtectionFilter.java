@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class XssProtectionFilter implements Filter {
     private static final Logger logger = LogManager.getLogger();
     private static final String CONTROLLER_PATTERN = "/controller?";
-    private static final String REGEX_SCRIPT = "%3C|%3E|%27";
+    private static final String REGEX_SCRIPT = "%3C|%3E|%27"; // %3C(<), %3E(>), %27(')
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {

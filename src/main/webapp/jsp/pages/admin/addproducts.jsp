@@ -60,28 +60,28 @@
       </div>
       </br>
       <div class="form-group" class="mb-3">
-        <label class="form-label"><fmt:message key="postcard.postcard_author"/></label>
-        <input type="text" name="postcard_author" value="${fn:escapeXml(param.postcard_author)}" class="form-control" pattern="^[A-Za-zА-Яа-я\s]{3,50}$">
-        <c:if test="${!empty invalid_postcard_author}">
+        <label class="form-label"><fmt:message key="postcard.product_author"/></label>
+        <input type="text" name="product_author" value="${fn:escapeXml(param.product_author)}" class="form-control" required pattern="^[A-Za-zА-Яа-я\s]{1,50}$">
+        <c:if test="${!empty invalid_product_author}">
           <div class="invalid-feedback-backend" style="color: red">
-            <fmt:message key="${invalid_postcard_author}"/>
+            <fmt:message key="${invalid_product_author}"/>
           </div>
         </c:if>
         <div class="invalid-feedback">
-          <fmt:message key="postcard.invalid_postcard_author"/>
+          <fmt:message key="postcard.invalid_product_author"/>
         </div>
       </div>
       </br>
       <div class="form-group" class="mb-3">
-        <label class="form-label"><fmt:message key="postcard.description"/></label>
-        <input type="text" name="description" value="${fn:escapeXml(param.description)}" class="form-control" pattern=" .{0,200}">
-        <c:if test="${!empty invalid_description}">
+        <label class="form-label"><fmt:message key="postcard.product_description"/></label>
+        <input type="text" name="product_description" value="${fn:escapeXml(param.product_description)}" class="form-control" required pattern="^.{0,100}$">
+        <c:if test="${!empty invalid_product_description}">
           <div class="invalid-feedback-backend" style="color: red">
-            <fmt:message key="${invalid_description}"/>
+            <fmt:message key="${invalid_product_description}"/>
           </div>
         </c:if>
         <div class="invalid-feedback">
-          <fmt:message key="postcard.invalid_description"/>
+          <fmt:message key="postcard.invalid_product_description"/>
         </div>
       </div>
       </br>
@@ -89,7 +89,7 @@
 
       <div class="form-group" class="mb-3">
         <label class="form-label"><fmt:message key="postcard.product_discount"/></label>
-        <input type="text" name="product_discount" value="${param.product_discount}" class="form-control" required pattern="0(\.\d{1,2})?">
+        <input type="text" name="product_discount" value="${param.product_discount}" class="form-control" required pattern="\d{1,6}(\.[0-9]{1,2})?">
         <div id="discountHelp" class="form-text"><fmt:message key="postcard_discount_pattern"></fmt:message></div>
         <c:if test="${!empty invalid_product_discount}">
           <div class="invalid-feedback-backend" style="color: red">

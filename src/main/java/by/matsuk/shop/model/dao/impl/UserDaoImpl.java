@@ -24,10 +24,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final Logger logger = LogManager.getLogger();
     private static final int ONE_UPDATE = 1;
 
-    private static final String SQL_INSERT_USER =
-            "INSERT INTO users(first_name, last_name, login, password, email, phone, discount_id, user_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-
     private static final String SQL_SELECT_ALL_CLIENTS = """
             SELECT users.user_id, first_name, last_name, login, password, email, phone,
             discount_id, state_name, role_name FROM users

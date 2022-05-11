@@ -21,7 +21,6 @@ import static by.matsuk.shop.controller.Parameter.*;
 
 public class MenuServiceImpl implements MenuService {
     private static final Logger logger = LogManager.getLogger();
-    private static final String TIME_PATTERN = "HH:mm";
     private static final MenuServiceImpl instance = new MenuServiceImpl();
     private final Validator validator = ValidatorImpl.getInstance();
 

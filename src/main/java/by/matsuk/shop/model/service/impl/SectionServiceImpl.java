@@ -14,13 +14,22 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Section service.
+ */
 public class SectionServiceImpl implements SectionService {
     private static final Logger logger = LogManager.getLogger();
     private static final SectionServiceImpl instance = new SectionServiceImpl();
 
-    private SectionServiceImpl(){}
+    private SectionServiceImpl() {
+    }
 
-    public static SectionServiceImpl getInstance(){
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
+    public static SectionServiceImpl getInstance() {
         return instance;
     }
 

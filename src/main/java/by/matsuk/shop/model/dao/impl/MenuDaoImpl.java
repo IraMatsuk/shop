@@ -28,8 +28,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
             "FROM postcards WHERE postcard_id = (?)";
     private static final String SQL_INSERT_NEW_POSTCARD_ITEM =
-            "INSERT INTO postcards(postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "INSERT INTO postcards(postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_POSTCARD_ITEM =
             "UPDATE postcards SET is_accessible = false " +
             "WHERE postcard_id = (?)";
@@ -146,12 +146,13 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
     public boolean create(Postcard entity) throws DaoException {
         try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_POSTCARD_ITEM)){
             statement.setString(1,entity.getPostcardName());
-            statement.setString(2,entity.getPicturePath());
-            statement.setString(3, entity.getPostcardAuthor());
-            statement.setBigDecimal(4,entity.getDiscount());
-            statement.setBigDecimal(5,entity.getPrice());
-            statement.setLong(6,entity.getSectionId());
-            statement.setBoolean(7, entity.isAccessible());
+            statement.setString(2, entity.getPostcardAuthor());
+            statement.setString(3,entity.getPicturePath());
+            statement.setString(4, entity.getDescription());
+            statement.setBigDecimal(5,entity.getDiscount());
+            statement.setBigDecimal(6,entity.getPrice());
+            statement.setLong(7,entity.getSectionId());
+            statement.setBoolean(8, entity.isAccessible());
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
             logger.error("Exception while create menu method ");
@@ -167,13 +168,15 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             logger.info(entity.getPostcardAuthor());
             statement.setString(2,entity.getPostcardAuthor());
             logger.info(entity.getDiscount());
-            statement.setBigDecimal(3,entity.getDiscount());
+            statement.setString(3, entity.getDescription());
+            logger.info(entity.getDescription());
+            statement.setBigDecimal(4,entity.getDiscount());
             logger.info(entity.getPrice());
-            statement.setBigDecimal(4,entity.getPrice());
+            statement.setBigDecimal(5,entity.getPrice());
             logger.info(entity.getSectionId());
-            statement.setLong(5, entity.getSectionId());
+            statement.setLong(6, entity.getSectionId());
             logger.info(entity.getPostcardId());
-            statement.setLong(6,entity.getPostcardId());
+            statement.setLong(7,entity.getPostcardId());
             return statement.executeUpdate() == ONE_UPDATE ? menu : Optional.empty();
         } catch (SQLException e) {
             logger.error("Exception while update menu method ");
