@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static by.matsuk.shop.controller.Parameter.*;
-import static by.matsuk.shop.controller.PathPage.HOME_PAGE;
 import static by.matsuk.shop.controller.PathPage.PASSWORD_PAGE;
 import static by.matsuk.shop.controller.PropertiesKey.*;
 import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
@@ -39,16 +38,15 @@ public class ChangePasswordCommand implements Command {
         map.put(REPEAT_PASSWORD, request.getParameter(REPEAT_PASSWORD));
         try {
             boolean result = service.changePasswordByOldPassword(map, user);
-            if(result){
-               //router.setCurrentPage(PASSWORD_PAGE);
+            if (result) {
                 router.setCurrentPage(request.getContextPath() + PASSWORD_PAGE);
                 router.setRedirectType();
 
                 session.setAttribute(USER, user);
-            } else{
-                for(String key: map.keySet()){
+            } else {
+                for (String key : map.keySet()) {
                     String value = map.get(key);
-                    switch (value){
+                    switch (value) {
                         case INVALID_NEW_UNIQ_PASSWORD -> request.setAttribute(INVALID_NEW_UNIQ_PASSWORD, NOT_UNIQ_NEW_PASSWORD_MESSAGE);
                         case INVALID_NEW_PASSWORD -> request.setAttribute(INVALID_NEW_PASSWORD, INVALID_PASSWORD_MESSAGE);
                         case INVALID_OLD_PASSWORD -> request.setAttribute(INVALID_OLD_PASSWORD, INVALID_PASSWORD_MESSAGE);
