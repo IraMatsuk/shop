@@ -29,14 +29,15 @@ public class UserServiceImpl implements UserService {
     private static final UserServiceImpl instance = new UserServiceImpl();
     private final Validator validator = ValidatorImpl.getInstance();
 
-    private UserServiceImpl(){}
+    private UserServiceImpl() {
+    }
 
     /**
      * Get instance user service.
      *
      * @return the user service
      */
-    public static UserServiceImpl getInstance(){
+    public static UserServiceImpl getInstance() {
         return instance;
     }
 
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(userDao);
         String encryptPassword = PasswordEncoder.md5Apache(password);
-        try{
+        try {
             return userDao.findUserByLoginAndPassword(login, encryptPassword);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a signIn service method ", e);
@@ -54,14 +55,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public boolean userRegistration(Map<String,String> mapData, User.UserRole role) throws ServiceException{
+    public boolean userRegistration(Map<String, String> mapData, User.UserRole role) throws ServiceException {
         UserDaoImpl userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(userDao);
         try {
             boolean commonResult = validator.checkRegistration(mapData);
             logger.info("Common result " + commonResult);
-            if(!commonResult){
+            if (!commonResult) {
                 return false;
             }
             String firstName = mapData.get(USER_FIRST_NAME);
@@ -74,30 +75,30 @@ public class UserServiceImpl implements UserService {
             int phoneNumber = Integer.parseInt(phone);
             long discountId = 1;
             boolean uniqResult = true;
-            if(userDao.findUserByLogin(login).isPresent()){
-                mapData.put(LOGIN,NOT_UNIQ_LOGIN);
+            if (userDao.findUserByLogin(login).isPresent()) {
+                mapData.put(LOGIN, NOT_UNIQ_LOGIN);
                 uniqResult = false;
             }
-            if(userDao.findUserByEmail(email).isPresent()){
-                mapData.put(USER_EMAIL,NOT_UNIQ_EMAIL);
+            if (userDao.findUserByEmail(email).isPresent()) {
+                mapData.put(USER_EMAIL, NOT_UNIQ_EMAIL);
                 uniqResult = false;
             }
-            if(userDao.findUserByPhoneNumber(phoneNumber).isPresent()){
+            if (userDao.findUserByPhoneNumber(phoneNumber).isPresent()) {
                 mapData.put(USER_PHONE_NUMBER, NOT_UNIQ_PHONE);
                 uniqResult = false;
             }
-            if(!password.equals(repeatPassword)){
+            if (!password.equals(repeatPassword)) {
                 mapData.put(REPEAT_PASSWORD, INVALID_REPEAT_PASSWORD);
                 uniqResult = false;
             }
-            if(!uniqResult){
+            if (!uniqResult) {
                 return false;
             }
             String encryptPassword = PasswordEncoder.md5Apache(password);
             User user = new User(firstName, lastName, login, encryptPassword, email,
                     phoneNumber, discountId, role, User.UserState.NEW);
             boolean isUserCreate = userDao.create(user);
-            if(isUserCreate){
+            if (isUserCreate) {
                 Mail.createMail(email, REGISTRATION_SUBJECT, REGISTRATION_BODY);
             }
             return isUserCreate;
@@ -108,7 +109,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public List<User> findAllClients() throws ServiceException{
+    public List<User> findAllClients() throws ServiceException {
         UserDaoImpl userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(userDao);
@@ -121,7 +122,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public boolean deleteAdmin(long id) throws ServiceException{
+    public boolean deleteAdmin(long id) throws ServiceException {
         UserDaoImpl userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(userDao);
@@ -139,8 +140,8 @@ public class UserServiceImpl implements UserService {
         UserDaoImpl userDao = new UserDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(userDao);
-        try{
-            if(!validator.checkUpdateProfile(updateData)){
+        try {
+            if (!validator.checkUpdateProfile(updateData)) {
                 logger.info("checkUpdateProfile is false");
                 return Optional.empty();
             }
@@ -150,17 +151,17 @@ public class UserServiceImpl implements UserService {
             String phone = updateData.get(USER_PHONE_NUMBER);
             int phoneNumber = Integer.parseInt(phone);
             boolean uniqResult = true;
-            if(userDao.findUserByEmail(email).isPresent() && !email.equals(user.getEmail())){
-                updateData.put(USER_EMAIL,NOT_UNIQ_EMAIL);
+            if (userDao.findUserByEmail(email).isPresent() && !email.equals(user.getEmail())) {
+                updateData.put(USER_EMAIL, NOT_UNIQ_EMAIL);
                 uniqResult = false;
             }
 
-            if(userDao.findUserByPhoneNumber(phoneNumber).isPresent() && phoneNumber != user.getPhoneNumber()){
-                updateData.put(USER_PHONE_NUMBER,NOT_UNIQ_PHONE);
+            if (userDao.findUserByPhoneNumber(phoneNumber).isPresent() && phoneNumber != user.getPhoneNumber()) {
+                updateData.put(USER_PHONE_NUMBER, NOT_UNIQ_PHONE);
                 uniqResult = false;
             }
 
-            if(!uniqResult){
+            if (!uniqResult) {
                 return Optional.empty();
             }
 
@@ -188,21 +189,21 @@ public class UserServiceImpl implements UserService {
         String repeatPassword = map.get(REPEAT_PASSWORD);
         try {
             Optional<String> optionalPassword = userDao.findPasswordByLogin(user.getLogin());
-            if(optionalPassword.isPresent()){
-                if(!optionalPassword.get().equals(PasswordEncoder.md5Apache(oldPassword))){
+            if (optionalPassword.isPresent()) {
+                if (!optionalPassword.get().equals(PasswordEncoder.md5Apache(oldPassword))) {
                     map.put(OLD_PASSWORD, INVALID_OLD_PASSWORD);
                     return false;
                 }
             }
-            if(!validator.isCorrectPassword(newPassword)){
+            if (!validator.isCorrectPassword(newPassword)) {
                 map.put(NEW_PASSWORD, INVALID_NEW_PASSWORD);
                 return false;
             }
-            if(oldPassword.equals(newPassword)){
+            if (oldPassword.equals(newPassword)) {
                 map.put(NEW_PASSWORD, INVALID_NEW_UNIQ_PASSWORD);
                 return false;
             }
-            if(!newPassword.equals(repeatPassword)){
+            if (!newPassword.equals(repeatPassword)) {
                 map.put(REPEAT_PASSWORD, INVALID_REPEAT_PASSWORD);
                 return false;
             }
