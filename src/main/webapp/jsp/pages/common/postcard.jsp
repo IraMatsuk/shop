@@ -76,10 +76,10 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <div class="product_info"><fmt:message key="postcard.postcard_author"/> <c:out value="${postcard.author}"/></div>
+                                <div class="product_info"><fmt:message key="postcard.product_author"/> <c:out value="${postcard.author}"/></div>
                                 <c:choose>
                                     <c:when test="${not empty postcard.description}">
-                                        <div class="product_consist mb-2"><fmt:message key="postcard.description"/> <c:out value="${postcard.description}"/> <br><br><br></div>
+                                        <div class="product_consist mb-2"><fmt:message key="postcard.product_description"/> <c:out value="${postcard.description}"/> <br><br><br></div>
                                     </c:when>
                                     <c:otherwise>
                                         <div class="product_consist mb-2"><br><br><br></div>
