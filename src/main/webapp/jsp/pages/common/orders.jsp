@@ -36,7 +36,7 @@
                     <c:when test="${sessionScope.user.role eq 'CLIENT'}">
                         <c:choose>
                             <c:when test="${order_list.isEmpty()}">
-                                <h3 class="text-center"><fmt:message key="order.empty_confirmed_order"/> </h3>
+                                <h3 class="text-center" style="padding-top: 20px"><fmt:message key="order.empty_confirmed_order"/> </h3>
                             </c:when>
                             <c:otherwise>
                                 <h3 class="text-center"><fmt:message key="order.confirmed"/> </h3>
