@@ -24,7 +24,7 @@ public class SignOutCommand implements Command {
         session = request.getSession(true);
         session.setAttribute(LANGUAGE, language);
         router.setRedirectType();
-        router.setCurrentPage(HOME_PAGE);
+        router.setCurrentPage(request.getContextPath() + HOME_PAGE);
         return router;
     }
 }
