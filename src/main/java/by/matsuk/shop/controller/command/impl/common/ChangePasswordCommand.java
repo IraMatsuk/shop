@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static by.matsuk.shop.controller.Parameter.*;
+import static by.matsuk.shop.controller.PathPage.HOME_PAGE;
 import static by.matsuk.shop.controller.PathPage.PASSWORD_PAGE;
 import static by.matsuk.shop.controller.PropertiesKey.*;
 import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
@@ -39,8 +40,10 @@ public class ChangePasswordCommand implements Command {
         try {
             boolean result = service.changePasswordByOldPassword(map, user);
             if(result){
-                router.setCurrentPage(PASSWORD_PAGE);
+               //router.setCurrentPage(PASSWORD_PAGE);
+                router.setCurrentPage(request.getContextPath() + PASSWORD_PAGE);
                 router.setRedirectType();
+
                 session.setAttribute(USER, user);
             } else{
                 for(String key: map.keySet()){
