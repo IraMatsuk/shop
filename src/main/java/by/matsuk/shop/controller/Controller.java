@@ -50,7 +50,7 @@ public class Controller extends HttpServlet {
                     LOGGER.info("Forward type.");
                     request.getRequestDispatcher(page).forward(request, response);
                 } else {
-                    LOGGER.info("Redirect type.");
+                    LOGGER.info("Redirect type. Page: " + page);
                     response.sendRedirect(page);
                 }
             } else {
