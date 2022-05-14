@@ -41,8 +41,8 @@
                                     <thead>
                                     <tr>
                                         <th><fmt:message key="postcard.product_name"/> </th>
-                                        <th><fmt:message key="postcard.postcard_author"/> </th>
-                                        <th><fmt:message key="postcard.description"/> </th>
+                                        <th><fmt:message key="postcard.product_author"/> </th>
+                                        <th><fmt:message key="postcard.product_description"/> </th>
                                         <th><fmt:message key="admin.users_action"/> </th>
                                     </tr>
                                     </thead>

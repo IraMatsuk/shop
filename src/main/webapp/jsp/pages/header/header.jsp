@@ -15,7 +15,7 @@
 <fmt:message key="header.main" var="main"/>
 <fmt:message key="header.sign_in" var="login"/>
 <fmt:message key="header.basket" var="basket"/>
-<fmt:message key="header.menu" var="menu"/>
+<fmt:message key="header.menu" var="postcard"/>
 <fmt:message key="header.profile" var="profile"/>
 <fmt:message key="header.sign_out" var="logout"/>
 <html>
@@ -34,7 +34,7 @@
     <title><fmt:message key="main.title"/> </title>
   </head>
   <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 50px">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 100px; color: black">
     <div class="container-fluid" style="height: 100px">
 
 <%--      <a class="navbar-brand" href="${absolutePath}/jsp/pages/home.jsp">--%>
@@ -51,7 +51,7 @@
             <c:when test="${user.role eq 'ADMIN'}"><%@include file="fragment/admin_header.jspf" %></c:when>
             <c:when test="${user.role eq 'CLIENT'}"><%@include file="fragment/client_header.jspf" %></c:when>
             <c:otherwise>
-              <li class="nav-item"><a class="nav-link" href="${absolutePath}/controller?command=find_all_menu">${menu}</a></li>
+              <li class="nav-item"><a class="nav-link" href="${absolutePath}/controller?command=find_all_postcard">${postcard}</a></li>
             </c:otherwise>
           </c:choose>
         </ul>

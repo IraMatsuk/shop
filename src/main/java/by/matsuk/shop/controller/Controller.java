@@ -47,7 +47,7 @@ public class Controller extends HttpServlet {
                 router = command.get().execute(request);
                 String page = router.getCurrentPage();
                 if (router.getCurrentType() == Router.Type.FORWARD) {
-                    LOGGER.info("Forward type.");
+                    LOGGER.info("Forward type. Page: " + page);
                     request.getRequestDispatcher(page).forward(request, response);
                 } else {
                     LOGGER.info("Redirect type. Page: " + page);

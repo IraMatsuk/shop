@@ -34,6 +34,7 @@ public class MenuServiceImpl implements MenuService {
     public static MenuServiceImpl getInstance(){
         return instance;
     }
+
     @Override
     public List<Postcard> findPostcardsSublist(int pageSize, int offset) throws ServiceException {
         MenuDaoImpl menuDao = new MenuDaoImpl();

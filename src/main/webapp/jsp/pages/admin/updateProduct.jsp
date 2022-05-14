@@ -39,8 +39,9 @@
         <input type="hidden" name="id" value="${requestScope.postcard.postcardId}">
         </br>
         <div class="form-group" class="mb-3">
-          <label class="form-label"><fmt:message key="postcard.product_name"/> </label>
-
+          <label class="form-label">
+            <fmt:message key="postcard.product_name"/>
+          </label>
           <input type="text" name="product_name" value="${requestScope.postcard.postcardName}" class="form-control" required pattern="^[A-Za-zА-Яа-я\s]{3,50}$">
           <c:choose>
             <c:when test="${!empty invalid_product_name}">
@@ -63,35 +64,41 @@
         </div>
         </br>
         <div class="form-group" class="mb-3">
-          <label class="form-label"><fmt:message key="postcard.postcard_author"/></label>
+          <label class="form-label">
+            <fmt:message key="postcard.product_author"/>
+          </label>
           <input type="text" name="product_composition"  value="${fn:escapeXml(requestScope.postcard.postcard_author)}" class="form-control" pattern="^[A-Za-zА-Яа-я\s]{3,50}$">
           <c:if test="${! empty invalid_postcard_author}">
             <div class="invalid-feedback-backend" style="color: red">
               <fmt:message key="${invalid_postcard_author}"/>
             </div>
             <div class="invalid-feedback">
-              <fmt:message key="postcard.invalid_postcard_author"/>
+              <fmt:message key="postcard.invalid_product_author"/>
             </div>
           </c:if>
         </div>
         </br>
         <div class="form-group" class="mb-3">
-          <label class="form-label"><fmt:message key="postcard.description"/></label>
+          <label class="form-label"><fmt:message key="postcard.product_description"/></label>
           <input type="text" name="product_composition"  value="${fn:escapeXml(requestScope.postcard.description)}" class="form-control" pattern="^.{0,200}$">
           <c:if test="${! empty invalid_description}">
             <div class="invalid-feedback-backend" style="color: red">
               <fmt:message key="${invalid_description}"/>
             </div>
             <div class="invalid-feedback">
-              <fmt:message key="postcard.invalid_description"/>
+              <fmt:message key="postcard.invalid_product_description"/>
             </div>
           </c:if>
         </div>
         </br>
         <div class="form-group" class="mb-3">
-          <label class="form-label"><fmt:message key="postcard.product_discount"/></label>
+          <label class="form-label">
+            <fmt:message key="postcard.product_discount"/>
+          </label>
           <input type="text" name="product_discount" value="${requestScope.postcard.discount}" class="form-control" required pattern="0(\.\d{1,2})?">
-          <div id="discountHelp" class="form-text"><fmt:message key="postcard_discount_pattern"></fmt:message></div>
+          <div id="discountHelp" class="form-text">
+            <fmt:message key="postcard_discount_pattern"/>
+          </div>
           <c:if test="${! empty invalid_product_discount}">
             <div class="invalid-feedback-backend" style="color: red">
               <fmt:message key="${invalid_product_discount}"/>
@@ -103,9 +110,13 @@
         </div>
         </br>
         <div class="form-group" class="mb-3">
-          <label class="form-label"><fmt:message key="postcard.product_cost"/></label>
+          <label class="form-label">
+            <fmt:message key="postcard.product_cost"/>
+          </label>
           <input type="text" name="product_price" value="${requestScope.postcard.price}" class="form-control" required pattern="\d{1,6}(\.[0-9]{1,2})?">
-          <div id="costHelp" class="form-text"><fmt:message key="postcard.cost_pattern"></fmt:message></div>
+          <div id="costHelp" class="form-text">
+            <fmt:message key="postcard.cost_pattern"/>
+          </div>
           <c:if test="${! empty invalid_product_price}">
             <div class="invalid-feedback-backend" style="color: red">
               <fmt:message key="${invalid_product_price}"/>
@@ -117,7 +128,9 @@
         </div>
         </br>
         <select class="form-select" aria-label="Default select example" name="product_section" required>
-          <option selected disabled><fmt:message key="postcard.product_section"/></option>
+          <option selected disabled>
+            <fmt:message key="postcard.product_section"/>
+          </option>
           <c:forEach var="item" items="${applicationScope.section_list}">
             <option value="${item.sectionId}">${item.sectionName}</option>
           </c:forEach>
@@ -132,7 +145,9 @@
         </c:if>
         </br>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary"><fmt:message key="profile.update"/> </button>
+          <button type="submit" class="btn btn-primary">
+            <fmt:message key="profile.update"/>
+          </button>
         </div>
       </form>
     </div>

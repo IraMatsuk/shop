@@ -73,7 +73,9 @@
       </div>
       </br>
       <div class="form-group" class="mb-3">
-        <label class="form-label"><fmt:message key="postcard.product_description"/></label>
+        <label class="form-label">
+          <fmt:message key="postcard.product_description"/>
+        </label>
         <input type="text" name="product_description" value="${fn:escapeXml(param.product_description)}" class="form-control" required pattern="^.{0,100}$">
         <c:if test="${!empty invalid_product_description}">
           <div class="invalid-feedback-backend" style="color: red">
@@ -88,9 +90,13 @@
 
 
       <div class="form-group" class="mb-3">
-        <label class="form-label"><fmt:message key="postcard.product_discount"/></label>
+        <label class="form-label">
+          <fmt:message key="postcard.product_discount"/>
+        </label>
         <input type="text" name="product_discount" value="${param.product_discount}" class="form-control" required pattern="\d{1,6}(\.[0-9]{1,2})?">
-        <div id="discountHelp" class="form-text"><fmt:message key="postcard_discount_pattern"></fmt:message></div>
+        <div id="discountHelp" class="form-text">
+          <fmt:message key="postcard_discount_pattern"/>
+        </div>
         <c:if test="${!empty invalid_product_discount}">
           <div class="invalid-feedback-backend" style="color: red">
             <fmt:message key="${invalid_product_discount}"/>

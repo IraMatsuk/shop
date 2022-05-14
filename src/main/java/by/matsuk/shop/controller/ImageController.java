@@ -12,9 +12,9 @@ import static by.matsuk.shop.controller.Parameter.IMAGE_PATH;
 @WebServlet(urlPatterns = {"/uploadImage"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5,
-        maxRequestSize = 1024 * 1024 * 25)
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class ImageController extends HttpServlet {
-    private static final String CONTENT_TYPE = "image/jpeg";
+    private static final String CONTENT_TYPE = "image/jpeg"; // todo or jpg or png
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {

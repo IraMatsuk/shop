@@ -34,7 +34,7 @@ public enum CommandType {
     /**
      * The Find all menu.
      */
-    FIND_ALL_MENU(new FindAllPostcardCommand()),
+    FIND_ALL_POSTCARD(new FindAllPostcardCommand()),
     /**
      * The Find all users.
      */
@@ -110,7 +110,7 @@ public enum CommandType {
     /**
      * The Find all menu by section.
      */
-    FIND_ALL_MENU_BY_SECTION(new FindAllPostcardBySectionCommand()),
+    FIND_ALL_POSTCARD_BY_SECTION(new FindAllPostcardBySectionCommand()),
     /**
      * The Insert new section.
      */

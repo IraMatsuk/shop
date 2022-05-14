@@ -295,7 +295,7 @@ public class Postcard extends AbstractEntity {
         final StringBuilder sb = new StringBuilder("Postcard{");
         sb.append("postcardId=").append(postcardId);
         sb.append(", postcardName='").append(postcardName).append('\'');
-        sb.append(", postcardNAuthor='").append(postcardAuthor).append('\'');
+        sb.append(", postcardAuthor='").append(postcardAuthor).append('\'');
         sb.append(", picturePath='").append(picturePath).append('\'');
         sb.append(", description=").append(description);
         sb.append(", discount=").append(discount);

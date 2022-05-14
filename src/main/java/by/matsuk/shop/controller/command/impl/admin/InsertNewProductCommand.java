@@ -18,7 +18,7 @@ import static by.matsuk.shop.controller.PropertiesKey.*;
  * The type Insert new product command.
  */
 public class InsertNewProductCommand implements Command {
-    private static final String DEFAULT_IMAGE = "src/main/webapp/picture/default_image.png";
+    private static final String DEFAULT_IMAGE = "picture/default_image.png";
     private final MenuServiceImpl service = MenuServiceImpl.getInstance();
 
     @Override

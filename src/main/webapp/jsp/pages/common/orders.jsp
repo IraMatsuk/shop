@@ -91,7 +91,7 @@
 <%--                                        <th scope="col" class="col"><fmt:message key="order.comment"/></th>--%>
                                         <th scope="col" class="col"><fmt:message key="registration.login"/></th>
                                         <th scope="col" class="col"><fmt:message key="registration.phone"/> </th>
-                                        <th scope="col" class="col-2"><fmt:message key="menu.products"/> </th
+<%--                                        <th scope="col" class="col-2"><fmt:message key="menu.products"/> </th--%>
                                         <th scope="col" class="col"><fmt:message key="admin.users_action"/></th>
                                     </tr>
                                     </thead>
