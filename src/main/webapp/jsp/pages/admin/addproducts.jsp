@@ -137,7 +137,9 @@
       </div>
       </br>
       <div class="text-center mb-3">
-        <button type="submit" class="btn btn-primary"><fmt:message key="postcard.insert_postcard"/> </button>
+        <button type="submit" class="btn btn-primary">
+          <fmt:message key="postcard.insert_postcard"/>
+        </button>
       </div>
     </form>
   </div>

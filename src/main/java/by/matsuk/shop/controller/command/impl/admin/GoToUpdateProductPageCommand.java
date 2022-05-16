@@ -26,14 +26,14 @@ public class GoToUpdateProductPageCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         try {
-            long menuId = Long.parseLong(request.getParameter(PRODUCT_ID));
-            Optional<Postcard> menu = service.findProductById(menuId);
-            if (menu.isEmpty()) {
+            long postcardId = Long.parseLong(request.getParameter(PRODUCT_ID));
+            Optional<Postcard> catalog = service.findProductById(postcardId);
+            if (catalog.isEmpty()) {
                 router.setRedirectType();
                 router.setCurrentPage(ERROR_500);
                 return router;
             }
-            request.setAttribute(PRODUCT_MENU, menu.get());
+            request.setAttribute(PRODUCT_MENU, catalog.get());
             router.setCurrentPage(UPDATE_PRODUCT_PAGE);
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a GoToUpdateProductPageCommand class", e);

@@ -47,16 +47,16 @@
               </tr>
               </thead>
               <tbody>
-              <c:forEach var="product" items="${cart}">
-                <input type="hidden" value="<c:out value="${product.key.foodId}"/>"/>
+              <c:forEach var="postcard" items="${cart}">
+                <input type="hidden" value="<c:out value="${postcard.key.postcardId}"/>"/>
                 <tr>
-                  <td><c:out value="${product.key.nameFood}"/></td>
-                  <td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"  value="${product.key.price - product.key.discount * product.key.price}"/> </td>
-                  <td><c:out value="${product.value}"/> </td>
+                  <td><c:out value="${postcard.key.postcardName}"/></td>
+                  <td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"  value="${postcard.key.price - postcard.key.discount * postcard.key.price}"/> </td>
+                  <td><c:out value="${postcard.value}"/> </td>
                   <td>
                     <form action="${absolutePath}/controller" method="post">
                       <input type="hidden" name="command" value="delete_product_in_basket">
-                      <input type="hidden" name="id" value="${product.key.foodId}">
+                      <input type="hidden" name="id" value="${postcard.key.foodId}">
                       <button type="submit" class="btn-danger"><fmt:message key="action.delete"/></button>
                     </form>
                   </td>

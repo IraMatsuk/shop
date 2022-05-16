@@ -101,10 +101,6 @@ public final class Parameter {
      */
     public static final String INVALID_PRODUCT_COMPOSITION = "invalid_product_composition";
     /**
-     * The constant INVALID_COOKING_TIME.
-     */
-    public static final String INVALID_COOKING_TIME = "invalid_cooking_time";
-    /**
      * The constant INVALID_PRODUCT_SECTION.
      */
     public static final String INVALID_PRODUCT_SECTION = "invalid_product_section";

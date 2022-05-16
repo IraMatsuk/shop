@@ -52,7 +52,9 @@
                         </c:if>
                     </div>
                     <div class="text-center mb-3">
-                        <button type="submit" class="btn btn-primary"><fmt:message key="postcard.insert_postcard"/></button>
+                        <button type="submit" class="btn btn-primary">
+                            <fmt:message key="postcard.insert_postcard"/>
+                        </button>
                     </div>
                 </form>
                 <h3 class="text-center p-3"><fmt:message key="action.change_section_name"/></h3>

@@ -20,10 +20,10 @@ import static by.matsuk.shop.controller.PathPage.ERROR_500;
  * The type Controller.
  * @project shop
  */
-@WebServlet(urlPatterns = {"/controller"})
+@WebServlet(name="controller", urlPatterns = {"/controller"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 5,
-        maxRequestSize = 1024 * 1024 * 25)
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -41,6 +41,7 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter(COMMAND);
         LOGGER.debug("The command is " + commandName);
         Optional<Command> command = CommandType.provideCommand(commandName);
+        LOGGER.debug("The command optional - " + command);
         try {
             Router router;
             if (command.isPresent()) {

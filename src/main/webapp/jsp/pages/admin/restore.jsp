@@ -51,7 +51,7 @@
                                         <input type="hidden" value="<c:out value="${postcard.postcardId}"/>"/>
                                         <tr>
                                             <td><c:out value="${postcard.postcardName}"/></td>
-                                            <td><c:out value="${postcard.postcard_author}"/></td>
+                                            <td><c:out value="${postcard.postcardAuthor}"/></td>
                                             <td><c:out value="${postcard.description}"/></td>
                                             <td>
                                                 <div class="row">

@@ -12,15 +12,9 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
-import static by.matsuk.shop.controller.Parameter.PICTURE_PATH;
-import static by.matsuk.shop.controller.Parameter.PRODUCT_NAME;
+import static by.matsuk.shop.controller.Parameter.*;
 import static by.matsuk.shop.controller.PathPage.ERROR_500;
 import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
 
@@ -29,24 +23,18 @@ import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
  */
 public class UploadProductPhotoCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String ABSOLUTE_PATH = "C:/Users/admin/source/picture/"; //TODO!!!!
+    private static final String RELATIVE_PATH = "picture/";
     private final MenuService service = MenuServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        try (InputStream inputStream = request.getPart(PICTURE_PATH).getInputStream()){
+        try {
             String submittedFileName = request.getPart(PICTURE_PATH).getSubmittedFileName();
-            String path = ABSOLUTE_PATH + submittedFileName;
-            Path imagePath = new File(path).toPath();
-            long bytes = Files.copy(
-                    inputStream,
-                    imagePath,
-                    StandardCopyOption.REPLACE_EXISTING);
-            logger.info("Upload result is successfully " + bytes + " " + path);
+            String path = RELATIVE_PATH + submittedFileName;
             String name = request.getParameter(PRODUCT_NAME);
-
-            if(!service.updateProductPhoto(path, name)){
+            logger.info("Update photo is successful " + path);
+            if (!service.updateProductPhoto(path, name)) {
                 logger.info("Update product photo is failed");
                 router.setCurrentPage(ERROR_500);
                 return router;

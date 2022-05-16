@@ -62,8 +62,8 @@
                 </div>
             </div>
             <div class="box box_padding catalog-wrapp catalog-body">
-                <form action="${absolutePath}/controller" method="post" name="showCatalog">
                 <div class="catalog">
+
                     <c:choose>
                         <c:when test="${empty requestScope.postcard_list}">
                             <h3 class="text-center">
@@ -83,7 +83,7 @@
                                                     <img src="${postcard.picturePath}" alt="" class="product_img">
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img src="${absolutePath}/uploadImage?imagePath=${postcard.picturePath}" alt="" class="product_img">
+                                                    <img src="${postcard.picturePath}" alt="" class="product_img">
                                                 </c:otherwise>
                                             </c:choose>
                                         </div>
@@ -133,7 +133,7 @@
                                                 </form>
                                             </c:if>
                                             <c:if test="${user.role eq 'ADMIN'}">
-                                                <form name="UploadPhoto" method="post" action="${absolutePath}/controller" enctype="multipart/form-data">
+                                                <form name="uploadPhoto" method="post" action="${absolutePath}/controller" enctype="multipart/form-data">
                                                     <input type="hidden" name="command" value="upload_product_photo">
                                                     <input type="hidden" name="product_name" value="${postcard.postcardName}">
                                                     </br>
@@ -174,6 +174,11 @@
                     </c:choose>
                 </div>
                 </form>
+            </div>
+        </div>
+        <div class="pages" style="background-color: #f5f5f5">
+            <div class="justify-content-center" >
+                <ctg:pagination currentPage="${requestScope.currentPage}" lastPage="${requestScope.lastPage}" url="${requestScope.url}"/>
             </div>
         </div>
         <div class="text-center">
