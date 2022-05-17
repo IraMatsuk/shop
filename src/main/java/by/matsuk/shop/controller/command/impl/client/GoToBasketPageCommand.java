@@ -36,7 +36,8 @@ public class GoToBasketPageCommand implements Command {
         HttpSession session = request.getSession();
         Map<Postcard, Integer> productMap = (HashMap<Postcard, Integer>) session.getAttribute(CART);
         User user = (User) session.getAttribute(USER);
-        router.setCurrentPage(BASKET_PAGE);
+
+        router.setCurrentPage(request.getContextPath() + BASKET_PAGE);
         try {
             if (!productMap.isEmpty()) {
                 Optional<UserDiscount> userDiscount = service.findDiscountById(user.getDiscountId());

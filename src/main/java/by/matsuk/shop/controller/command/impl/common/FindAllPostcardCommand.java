@@ -3,20 +3,17 @@ package by.matsuk.shop.controller.command.impl.common;
 import by.matsuk.shop.controller.Router;
 import by.matsuk.shop.controller.command.Command;
 import by.matsuk.shop.entity.Postcard;
-import by.matsuk.shop.entity.Section;
 import by.matsuk.shop.exception.CommandException;
 import by.matsuk.shop.exception.ServiceException;
 import by.matsuk.shop.model.service.MenuService;
 import by.matsuk.shop.model.service.PaginationService;
 import by.matsuk.shop.model.service.impl.MenuServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
 import static by.matsuk.shop.controller.Parameter.*;
 import static by.matsuk.shop.controller.PathPage.MENU_PAGE;
-import static by.matsuk.shop.controller.SessionAttribute.SECTION_LIST;
 
 /**
  * The type Find all postcard command.

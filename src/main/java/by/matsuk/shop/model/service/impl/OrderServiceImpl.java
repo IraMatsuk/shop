@@ -54,8 +54,7 @@ public class OrderServiceImpl implements OrderService {
         String address = orderInfo.get(ADDRESS);
         boolean isCreate = true;
         try {
-            Order newOrder = new Order(LocalDateTime.now(), Order.OrderState.CREATED,
-                    address, totalPrice, user.getUserId());
+            Order newOrder = new Order(LocalDateTime.now(), Order.OrderState.CREATED, address, totalPrice, user.getUserId());
             logger.info(newOrder);
             long generatedKey = orderDao.createOrder(newOrder);
             if (generatedKey == 0) {

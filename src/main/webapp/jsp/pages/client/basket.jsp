@@ -12,7 +12,6 @@
 <jsp:useBean id="cart" scope="session" type="java.util.HashMap"/>
 <html>
   <head>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +35,9 @@
       <div class="container justify-content-center col-12 col-sm-6 mt-3">
         <c:choose>
           <c:when test="${cart.isEmpty() eq 'false'}">
-            <h3 class="text-center p-3"><fmt:message key="header.basket"/></h3>
+            <h3 class="text-center p-3">
+              <fmt:message key="header.basket"/>
+            </h3>
             </br>
             <table class="table table-bordered ">
               <thead>
@@ -112,7 +113,9 @@
 <%--              </div>--%>
               </br>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary"><fmt:message key="order.confirm"/></button>
+                <button type="submit" class="btn btn-primary">
+                  <fmt:message key="order.confirm"/>
+                </button>
               </div>
             </form>
           </c:when>

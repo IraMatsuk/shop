@@ -38,7 +38,7 @@ public class AddProductToCartCommand implements Command {
                 session.setAttribute(CART, productMap);
             }
             router.setRedirectType();
-            router.setCurrentPage(currentPage);
+            router.setCurrentPage(request.getContextPath() + "" + currentPage); //TODO 
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a AddProductToCartCommand class ", e);
         }

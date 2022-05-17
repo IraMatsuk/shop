@@ -1,24 +1,25 @@
 <li class="dropdown nav-item">
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    ${postcard}</a>
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">${postcard}</a>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="${absolutePath}/controller?command=find_all_postcard"><fmt:message key="postcard.all_postcards"/> </a></li>
+    <li>
+      <a class="dropdown-item" href="${absolutePath}/controller?command=find_all_postcard"><fmt:message key="postcard.all_postcards"/></a>
+    </li>
     <c:forEach var="item" items="${applicationScope.section_list}">
-      <li><a class="dropdown-item" href="${absolutePath}/controller?command=find_all_postcard_by_section&section_id=${item.sectionId}">${item.sectionName}</a> </li>
+      <li>
+        <a class="dropdown-item" href="${absolutePath}/controller?command=find_all_postcard_by_section&section_id=${item.sectionId}">${item.sectionName}</a>
+      </li>
     </c:forEach>
   </ul>
 </li>
 <li class="nav-item">
-  <a class="nav-link"
-     href="${absolutePath}/controller?command=go_to_basket_page">${basket}</a>
+  <a class="nav-link" href="${absolutePath}/controller?command=go_to_basket_page">${basket}</a>
 </li>
 <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    ${profile}</a>
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">${profile}</a>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="${absolutePath}/jsp/pages/common/profile.jsp"><fmt:message key="profile.cabinet"/></a></li>
-    <li><a class="dropdown-item" href="${absolutePath}/controller?command=calculate_user_discount"><fmt:message key="profile.discount"/> </a></li>
-    <li><a class="dropdown-item" href="${absolutePath}/controller?command=go_to_orders_page"><fmt:message key="header.orders"/> </a> </li>
+    <li><a class="dropdown-item" href="${absolutePath}/controller?command=calculate_user_discount"><fmt:message key="profile.discount"/></a></li>
+    <li><a class="dropdown-item" href="${absolutePath}/controller?command=go_to_orders_page"><fmt:message key="header.orders"/></a></li>
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="${absolutePath}/controller?command=go_to_settings"><fmt:message key="profile.settings"/> </a></li>
   </ul>
