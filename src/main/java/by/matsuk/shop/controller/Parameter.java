@@ -304,6 +304,10 @@ public final class Parameter {
      * The constant NEW_SECTION_NAME.
      */
     public static final String NEW_SECTION_NAME = "new_section_name";
+    /**
+     * The constant COMMAND_URL.
+     */
+    public static final String COMMAND_URL = "command_url";
 
     private Parameter(){
     }

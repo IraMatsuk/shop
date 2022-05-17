@@ -178,7 +178,7 @@
         </div>
         <div class="pages" style="background-color: #f5f5f5">
             <div class="justify-content-center" >
-                <ctg:pagination currentPage="${requestScope.currentPage}" lastPage="${requestScope.lastPage}" url="${requestScope.url}"/>
+                <ctg:pagination currentPage="${requestScope.currentPage}" lastPage="${requestScope.lastPage}" url="${requestScope.command_url}"/>
             </div>
         </div>
         <div class="text-center">

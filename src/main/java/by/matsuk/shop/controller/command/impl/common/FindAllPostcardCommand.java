@@ -50,6 +50,7 @@ public class FindAllPostcardCommand implements Command {
             request.setAttribute(PAGINATION_PAGE, currentPage);
             request.setAttribute(PAGINATION_LAST_PAGE, lastPage);
             request.setAttribute(URL, MENU_PAGE);
+            request.setAttribute(COMMAND_URL, request.getContextPath() + "/controller?" + COMMAND + EQUAL + "find_all_postcard");
             router.setCurrentPage(MENU_PAGE);
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a FindAllPostcardCommand class", e);

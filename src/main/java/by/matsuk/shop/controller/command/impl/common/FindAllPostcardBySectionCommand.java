@@ -53,6 +53,7 @@ public class FindAllPostcardBySectionCommand implements Command {
             StringBuilder builderUrl = new StringBuilder(Command.createURL(request, request.getParameter(COMMAND)));
             builderUrl.append(SIGN).append(SECTION_ID).append(EQUAL).append(sectionId);
             request.setAttribute(URL, builderUrl.toString());
+            request.setAttribute(COMMAND_URL, request.getContextPath() + "/controller?" + COMMAND + EQUAL + "find_all_postcard_by_section" + SIGN + "section_id" + EQUAL + sectionId);
             router.setCurrentPage(MENU_PAGE);
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a FindAllPostcardCommand class", e);
