@@ -111,11 +111,11 @@
                                             </div>
                                             <div class="product_price" ><b id="discount">
                                                 <fmt:message key="postcard.product_discount"/></b>
-                                                <fmt:formatNumber type="number"  maxFractionDigits="0" value="${postcard.discount * 10}"/>%
+                                                <fmt:formatNumber type="number"  maxFractionDigits="0" value="${postcard.discount}"/>%
                                             </div>
                                             <div class="product_price"><b id="total_price">
                                                 <fmt:message key="postcard.product_price"/></b>
-                                                <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"  value="${postcard.price - postcard.discount  * postcard.price}"/>   </div>
+                                                <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"  value="${postcard.price - postcard.discount / 100  * postcard.price}"/>   </div>
                                             <c:if test="${user.role eq 'CLIENT'}">
                                                 <form action="${absolutePath}/controller" method="post">
                                                     <input type="hidden" name="command" value="add_product_to_cart">

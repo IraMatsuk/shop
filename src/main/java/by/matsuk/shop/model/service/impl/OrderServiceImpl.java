@@ -26,7 +26,7 @@ import static by.matsuk.shop.controller.Parameter.*;
 public class OrderServiceImpl implements OrderService {
     private static final Logger logger = LogManager.getLogger();
     private static final String EMAIL_ORDER_MESSAGE = "The order has been successfully placed";
-    private static final String EMAIL_SUBJECT = "GoodCafe order";
+    private static final String EMAIL_SUBJECT = "Card4You order";
     private static final OrderServiceImpl instance = new OrderServiceImpl();
     private final Validator validator = ValidatorImpl.getInstance();
 

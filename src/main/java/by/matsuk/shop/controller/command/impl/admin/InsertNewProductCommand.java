@@ -31,7 +31,7 @@ public class InsertNewProductCommand implements Command {
         map.put(PRODUCT_DISCOUNT, request.getParameter(PRODUCT_DISCOUNT));
         map.put(PRODUCT_PRICE, request. getParameter(PRODUCT_PRICE));
         map.put(PRODUCT_SECTION, request.getParameter(PRODUCT_SECTION));
-        router.setCurrentPage(ADD_MENU_PAGE);
+        router.setCurrentPage(request.getContextPath() + ADD_MENU_PAGE);
         try {
             if (service.addNewProduct(map, DEFAULT_IMAGE)) {
                 router.setRedirectType();
