@@ -25,7 +25,7 @@ html, body, div, span
 
 .body {
     background-color: whitesmoke;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .catalog-body {
@@ -39,7 +39,7 @@ html, body, div, span
     padding-top: 20px;
     -webkit-font-smoothing: antialiased;
     background-color: whitesmoke;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .catalog-wrap {
@@ -56,7 +56,7 @@ html, body, div, span
     margin: 0 auto;
     max-width: 1440px;
     min-width: 260px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, postcard, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
