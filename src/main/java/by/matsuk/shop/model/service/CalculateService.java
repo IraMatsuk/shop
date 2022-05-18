@@ -27,21 +27,20 @@ public class CalculateService {
      * Calculate total price for order. If a product discount equals zero
      * it uses a user discount for calculating the total price.
      *
-     * @param discount the discount
-     * @param map      the map
+     * @param userDiscount the discount
+     * @param orderedPostcards      the map
      * @return the big decimal
      */
-    public BigDecimal calculateTotalPrice(UserDiscount discount, Map<Postcard, Integer> map){
+    public BigDecimal calculateTotalPrice(UserDiscount userDiscount, Map<Postcard, Integer> orderedPostcards){
         BigDecimal totalPrice = BigDecimal.ZERO;
-        for (Postcard item: map.keySet()){
-            int numberProduct = map.get(item);
-            BigDecimal itemPrice = item.getPrice();
-            BigDecimal itemDiscount = item.getDiscount();
-            if(itemDiscount.equals(BigDecimal.valueOf(0.00)) && discount != null){
-                itemDiscount = discount.getDiscount();
+        for (Postcard postcard: orderedPostcards.keySet()){
+            int numberOfPostcards = orderedPostcards.get(postcard);
+            BigDecimal postcardPrice = postcard.getPrice();
+            BigDecimal postcardDiscount = postcard.getDiscount();
+            if(postcardDiscount.equals(BigDecimal.valueOf(0.00)) && userDiscount != null){
+                postcardDiscount = userDiscount.getDiscount();
             }
-            totalPrice = totalPrice.add(itemPrice.multiply(BigDecimal.valueOf(numberProduct))
-                    .subtract(itemDiscount.multiply(itemPrice.multiply(BigDecimal.valueOf(numberProduct)))));
+            totalPrice = totalPrice.add(postcardPrice.multiply(BigDecimal.valueOf(numberOfPostcards).multiply((BigDecimal.valueOf(100.00).subtract(postcardDiscount)).divide(BigDecimal.valueOf(100.00)))));
         }
         return totalPrice.setScale(2, RoundingMode.HALF_UP);
     }

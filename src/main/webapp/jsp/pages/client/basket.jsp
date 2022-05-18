@@ -52,7 +52,7 @@
                 <input type="hidden" value="<c:out value="${postcard.key.postcardId}"/>"/>
                 <tr>
                   <td><c:out value="${postcard.key.postcardName}"/></td>
-                  <td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"  value="${postcard.key.price - postcard.key.discount * postcard.key.price}"/> </td>
+                  <td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"  value="${postcard.key.price - postcard.key.discount / 100 * postcard.key.price}"/> </td>
                   <td><c:out value="${postcard.value}"/> </td>
                   <td>
                     <form action="${absolutePath}/controller" method="post">
