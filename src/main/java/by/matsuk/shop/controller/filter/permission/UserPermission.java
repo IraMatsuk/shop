@@ -33,7 +33,6 @@ public enum UserPermission {
             CommandType.INSERT_NEW_SECTION.name(),
             CommandType.CHANGE_SECTION_NAME.name(),
             CommandType.DELETE_SECTION.name(),
-            CommandType.DELETE_ORDERS.name(),
             CommandType.FIND_ALL_ADMINS.name(),
             CommandType.SORT_ALL_MENU_BY_PRICE.name(),
             CommandType.FIND_ALL_REMOVING_PRODUCTS.name(),

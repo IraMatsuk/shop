@@ -124,10 +124,6 @@ public enum CommandType {
      */
     DELETE_SECTION(new DeleteSectionCommand()),
     /**
-     * To Delete orders.
-     */
-    DELETE_ORDERS(new DeleteOrdersCommand()),
-    /**
      * The Find all admins.
      */
     FIND_ALL_ADMINS(new FindAllAdminsCommand()),

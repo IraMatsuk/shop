@@ -63,14 +63,6 @@ public interface OrderService {
     boolean changeOrderStateById(long orderId, Order.OrderState state) throws ServiceException;
 
     /**
-     * Delete old orders boolean.
-     *
-     * @return the boolean
-     * @throws ServiceException the service exception
-     */
-    boolean deleteOldOrders() throws ServiceException;
-
-    /**
      * Find all sorted orders by state list.
      *
      * @return the list

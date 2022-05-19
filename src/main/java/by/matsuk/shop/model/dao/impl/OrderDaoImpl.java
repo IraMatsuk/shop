@@ -60,9 +60,6 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
             JOIN postcards_catalog ON postcards_catalog.catalog_id = orders.order_id
             JOIN postcards ON postcards.postcard_id = postcards_catalog.postcard_id
             WHERE orders.order_id = (?)""";
-    private static final String SQL_DELETE_OLD_USERS_ORDERS = """
-            DELETE FROM orders
-            WHERE order_date < DATE_SUB(NOW(), INTERVAL 1 YEAR)""";
     private static final String SQL_SELECT_SORTED_ORDERS_BY_DATE = """
             SELECT order_id, order_date, order_state,
             total_cost, address, user_id FROM orders
@@ -243,16 +240,6 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
             throw new DaoException("Exception in a findAllMenuOrder method. ", e);
         }
         return componentOrders;
-    }
-
-    @Override
-    public boolean deleteOrders() throws DaoException {
-        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_OLD_USERS_ORDERS)) {
-            return statement.executeUpdate() >= ONE_UPDATE;
-        } catch (SQLException e) {
-            logger.error("Exception while delete old orders ");
-            throw new DaoException("Exception in a deleteOrders method. ", e);
-        }
     }
 
     @Override

@@ -70,14 +70,6 @@ public interface OrderDao {
     List<ComponentOrder> findAllMenuOrder(long orderId) throws DaoException;
 
     /**
-     * Delete orders boolean.
-     *
-     * @return the boolean
-     * @throws DaoException the dao exception
-     */
-    boolean deleteOrders() throws DaoException;
-
-    /**
      * Find all sorted orders by date list.
      *
      * @return the list
