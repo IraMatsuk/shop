@@ -75,8 +75,10 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             WHERE login = (?) AND password = (?)""";
     private static final String SQL_SELECT_USER_BY_ORDER_ID = """
             SELECT users.user_id, first_name, last_name, login, password, email, phone,
-            discount_id, user_state, user_role FROM users
+            discount_id, state_name, role_name FROM users
             JOIN orders ON users.user_id = orders.user_id
+            JOIN user_role ON users.user_role = user_role.role_id
+            JOIN user_state ON users.user_state = user_state.state_id
             WHERE order_id = (?)""";
 
     public UserDaoImpl() {
@@ -90,8 +92,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public List<User> findAllClients() throws DaoException {
         List<User> userList = new ArrayList<>();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_CLIENTS)){
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_CLIENTS)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Optional<User> optionalUser = new UserMapper().mapRow(resultSet);
                     optionalUser.ifPresent(userList::add);
@@ -108,8 +110,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public List<User> findAllAdmins() throws DaoException {
         List<User> userList = new ArrayList<>();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ADMINS)){
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ADMINS)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Optional<User> optionalUser = new UserMapper().mapRow(resultSet);
                     optionalUser.ifPresent(userList::add);
@@ -125,9 +127,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public Optional<User> findById(long id) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_ID)){
-            statement.setLong(1,id);
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_ID)) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return new UserMapper().mapRow(resultSet);
                 }
@@ -141,8 +143,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public boolean delete(long id) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_USER_BY_ID)){
-            statement.setLong(1,id);
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_USER_BY_ID)) {
+            statement.setLong(1, id);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
             logger.error("Exception while delete user by id method ");
@@ -152,7 +154,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public boolean create(User entity) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_USER)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_USER)) {
             statement.setString(1, entity.getFirstName());
             statement.setString(2, entity.getLastName());
             statement.setString(3, entity.getLogin());
@@ -172,7 +174,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public Optional<User> update(User entity) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_USER)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_USER)) {
             Optional<User> user = findById(entity.getUserId());
             statement.setString(1, entity.getFirstName());
             statement.setString(2, entity.getLastName());
@@ -183,7 +185,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             statement.setLong(7, entity.getDiscountId());
             statement.setLong(8, entity.getState().getStateId());
             statement.setLong(9, entity.getRole().getRoleId());
-            statement.setLong(10,entity.getUserId());
+            statement.setLong(10, entity.getUserId());
             return statement.executeUpdate() == ONE_UPDATE ? user : Optional.empty();
         } catch (SQLException e) {
             logger.error("Exception while update user method ");
@@ -194,9 +196,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public Optional<String> findPasswordByLogin(String login) throws DaoException {
         Optional<String> password = Optional.empty();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_PASSWORD_BY_LOGIN)){
-            statement.setString(1,login);
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_PASSWORD_BY_LOGIN)) {
+            statement.setString(1, login);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     password = Optional.of(resultSet.getString(PASSWORD));
                 }
@@ -210,9 +212,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public boolean updatePasswordByLogin(String password, String login) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_PASSWORD_BY_LOGIN)){
-            statement.setString(1,password);
-            statement.setString(2,login);
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_PASSWORD_BY_LOGIN)) {
+            statement.setString(1, password);
+            statement.setString(2, login);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
             logger.error("Exception while update password by login method ");
@@ -222,9 +224,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public boolean updateUserState(long userId, long stateId) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_USER_STATE_BY_ID)){
-            statement.setLong(1,stateId);
-            statement.setLong(2,userId);
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_USER_STATE_BY_ID)) {
+            statement.setLong(1, stateId);
+            statement.setLong(2, userId);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
             logger.error("Exception while update user state method ");
@@ -235,9 +237,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public Optional<User> findUserByLogin(String login) throws DaoException {
         Optional<User> user = Optional.empty();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_LOGIN)){
-            statement.setString(1,login);
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_LOGIN)) {
+            statement.setString(1, login);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new UserMapper().mapRow(resultSet);
                 }
@@ -252,9 +254,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public Optional<User> findUserByPhoneNumber(int phone) throws DaoException {
         Optional<User> user = Optional.empty();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_PHONE_NUMBER)){
-            statement.setInt(1,phone);
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_PHONE_NUMBER)) {
+            statement.setInt(1, phone);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new UserMapper().mapRow(resultSet);
                 }
@@ -269,9 +271,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public Optional<User> findUserByEmail(String email) throws DaoException {
         Optional<User> user = Optional.empty();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_EMAIL)){
-            statement.setString(1,email);
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_EMAIL)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new UserMapper().mapRow(resultSet);
                 }
@@ -285,28 +287,28 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public Optional<User> findUserByOrder(long orderId) throws DaoException {
-        Optional<User> user = Optional.empty();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_ORDER_ID)){
-            statement.setLong(1,orderId);
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_ORDER_ID)) {
+            statement.setLong(1, orderId);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new UserMapper().mapRow(resultSet);
+                    Optional<User> user = new UserMapper().mapRow(resultSet);
+                    return user;
                 }
             }
         } catch (SQLException e) {
             logger.error("Exception while find user by order method ");
             throw new DaoException("Exception while findUserByOrder method ", e);
         }
-        return user;
+        return Optional.empty();
     }
 
     @Override
     public Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException {
         Optional<User> user = Optional.empty();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD)){
-            statement.setString(1,login);
-            statement.setString(2,password);
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_USER_BY_LOGIN_AND_PASSWORD)) {
+            statement.setString(1, login);
+            statement.setString(2, password);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new UserMapper().mapRow(resultSet);
                 }
@@ -321,7 +323,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public boolean updateUserDiscountIdByUserId(long userId, long discountId) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_USER_DISCOUNT_ID)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_USER_DISCOUNT_ID)) {
             statement.setLong(1, discountId);
             statement.setLong(2, userId);
             return statement.executeUpdate() == ONE_UPDATE;

@@ -72,8 +72,8 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     @Override
     public List<Order> findAll() throws DaoException {
         List<Order> orderList = new ArrayList<>();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ORDERS)) {
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ORDERS)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Optional<Order> optionalOrder = new OrderMapper().mapRow(resultSet);
                     optionalOrder.ifPresent(orderList::add);
@@ -87,10 +87,10 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public Optional<Order> findById(long id) throws DaoException{
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ORDER_BY_ID)){
-            statement.setLong(1,id);
-            try(ResultSet resultSet = statement.executeQuery()) {
+    public Optional<Order> findById(long id) throws DaoException {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ORDER_BY_ID)) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return new OrderMapper().mapRow(resultSet);
                 }
@@ -103,9 +103,9 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public boolean delete(long id) throws DaoException{
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_ORDER)){
-            statement.setLong(1,id);
+    public boolean delete(long id) throws DaoException {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_ORDER)) {
+            statement.setLong(1, id);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
             logger.error("Exception while delete order by id ");
@@ -115,7 +115,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public boolean create(Order entity) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_ORDER)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_ORDER)) {
             statement.setDate(1, Date.valueOf(entity.getOrderDate().toString()));
             statement.setString(2, entity.getOrderState().getState());
             statement.setBigDecimal(3, entity.getTotalCost());
@@ -130,7 +130,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public Optional<Order> update(Order entity) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_ORDER)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_ORDER)) {
             Optional<Order> order = findById(entity.getOrderId());
             statement.setDate(1, Date.valueOf(entity.getOrderDate().toString()));
             statement.setString(2, entity.getOrderState().getState());
@@ -148,14 +148,14 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     @Override
     public long createOrder(Order order) throws DaoException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_ORDER, Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_ORDER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setTimestamp(1, Timestamp.valueOf(order.getOrderDate().format(formatter)));
             statement.setString(2, order.getOrderState().getState());
             statement.setBigDecimal(3, order.getTotalCost());
             statement.setString(4, order.getAddress());
             statement.setLong(5, order.getUserId());
             statement.executeUpdate();
-            try(ResultSet resultSet = statement.getGeneratedKeys()) {
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 resultSet.next();
                 return resultSet.getLong(1);
             }
@@ -168,9 +168,9 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     @Override
     public List<Order> findAllUserOrders(User user) throws DaoException {
         List<Order> orderList = new ArrayList<>();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_USER_ORDERS)){
-            statement.setLong(1,user.getUserId());
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_USER_ORDERS)) {
+            statement.setLong(1, user.getUserId());
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Optional<Order> optionalOrder = new OrderMapper().mapRow(resultSet);
                     optionalOrder.ifPresent(orderList::add);
@@ -186,8 +186,8 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public boolean updateOrderStateById(long orderId, Order.OrderState orderState) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_ORDER_STATE_BY_ID)){
-            statement.setString(1,orderState.getState());
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_UPDATE_ORDER_STATE_BY_ID)) {
+            statement.setString(1, orderState.getState());
             statement.setLong(2, orderId);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
@@ -197,9 +197,9 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public boolean createOrderMenu(long orderId, Map<Postcard, Integer> mapOrderProduct)  throws DaoException{
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_ORDER_MENU_BY_ORDER_ID)){
-            for(Postcard item: mapOrderProduct.keySet()){
+    public boolean createOrderMenu(long orderId, Map<Postcard, Integer> mapOrderProduct) throws DaoException {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_ORDER_MENU_BY_ORDER_ID)) {
+            for (Postcard item : mapOrderProduct.keySet()) {
                 int value = mapOrderProduct.get(item);
                 statement.setLong(1, orderId);
                 statement.setLong(2, item.getPostcardId());
@@ -215,9 +215,9 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public int findNumberYearOrdersByUserId(long userId) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_THE_NUMBER_OF_YEAR_ORDERS_BY_USER_ID)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_THE_NUMBER_OF_YEAR_ORDERS_BY_USER_ID)) {
             statement.setLong(1, userId);
-            try(ResultSet resultSet = statement.executeQuery()) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next() ? resultSet.getInt(1) : 0;
             }
         } catch (SQLException e) {
@@ -229,9 +229,9 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     @Override
     public List<ComponentOrder> findAllMenuOrder(long orderId) throws DaoException {
         List<ComponentOrder> componentOrders = new ArrayList<>();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ORDER_MENU)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ORDER_MENU)) {
             statement.setLong(1, orderId);
-            try(ResultSet resultSet = statement.executeQuery()) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     String nameFood = resultSet.getString(1);
                     int amount = resultSet.getInt(2);
@@ -247,7 +247,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public boolean deleteOrders() throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_OLD_USERS_ORDERS)){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_OLD_USERS_ORDERS)) {
             return statement.executeUpdate() >= ONE_UPDATE;
         } catch (SQLException e) {
             logger.error("Exception while delete old orders ");
@@ -258,13 +258,13 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     @Override
     public List<Order> findAllSortedOrdersByDate() throws DaoException {
         List<Order> orderList = new ArrayList<>();
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_SORTED_ORDERS_BY_DATE);
-            ResultSet resultSet = statement.executeQuery()){
-            while (resultSet.next()){
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_SORTED_ORDERS_BY_DATE);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
                 Optional<Order> optionalOrder = new OrderMapper().mapRow(resultSet);
                 optionalOrder.ifPresent(orderList::add);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             logger.error("Exception while find all sorted orders by date ");
             throw new DaoException("Exception while find all sorted orders by date ", e);
         }

@@ -2,6 +2,8 @@ package by.matsuk.shop.model.mapper.impl;
 
 import by.matsuk.shop.entity.User;
 import by.matsuk.shop.model.mapper.CustomRowMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +17,8 @@ import static by.matsuk.shop.model.mapper.impl.UserDiscountMapper.DISCOUNT_ID;
  * The type User mapper.
  */
 public class UserMapper implements CustomRowMapper<User> {
+    private static final Logger logger = LogManager.getLogger();
+
     /**
      * The constant USER_ID.
      */
@@ -72,6 +76,7 @@ public class UserMapper implements CustomRowMapper<User> {
                     .trim().toUpperCase()));
             optionalUser = Optional.of(user);
         } catch (SQLException e) {
+            logger.info("User is empty: " + e);
             optionalUser = Optional.empty();
         }
         return optionalUser;

@@ -70,15 +70,21 @@
                     <c:when test="${sessionScope.user.role eq 'ADMIN'}">
                         <c:choose>
                             <c:when test="${order_list.isEmpty()}">
-                                <h3 class="text-center"><fmt:message key="order.empty_confirmed_order"/> </h3>
+                                <h3 class="text-center">
+                                    <fmt:message key="order.empty_confirmed_order"/>
+                                </h3>
                             </c:when>
                             <c:otherwise>
-                                <h3 class="text-center"><fmt:message key="order.confirmed"/> </h3>
+                                <h3 class="text-center">
+                                    <fmt:message key="order.confirmed"/>
+                                </h3>
                                 <div class="row">
                                     <div class="col" >
                                         <form name="delete_orders" action="${absolutePath}/controller" method="post">
                                             <input type="hidden" name="command" value="delete_orders">
-                                            <button type="submit" class="btn btn-danger" ><fmt:message key="action.delete_old_orders"/> </button>
+                                            <button type="submit" class="btn btn-danger" >
+                                                <fmt:message key="action.delete_old_orders"/>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -112,8 +118,8 @@
                                             <td class="col"><c:out value="${orderItem.user.login}"/> </td>
                                             <td class="col"><c:out value="${orderItem.user.phoneNumber}"/> </td>
                                             <td class="col-2">
-                                                <c:forEach var="item" items="${orderItem.menuList}">
-                                                    <p style="margin-top: 0; margin-bottom: 0"><c:out value="${item.nameFood}"/> - <c:out value="${item.amount}"/></p>
+                                                <c:forEach var="item" items="${orderItem.postcardList}">
+                                                    <p style="margin-top: 0; margin-bottom: 0"><c:out value="${item.postcardName}"/> - <c:out value="${item.amount}"/></p>
                                                 </c:forEach>
                                             </td>
                                             <td class="col">
@@ -122,12 +128,12 @@
                                                         <fmt:message key="order.change_state"/>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=PROCESSING&id=${orderItem.order.orderId}">created</a></li>
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=COMPLETED&id=${orderItem.order.orderId}">payed</a></li>
+<%--                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=PROCESSING&id=${orderItem.order.orderId}">created</a></li>--%>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=PAYED&id=${orderItem.order.orderId}">payed</a></li>
                                                         <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=CANCELLED&id=${orderItem.order.orderId}">cancelled</a></li>
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=RECEIVED&id=${orderItem.order.orderId}">processing</a></li>
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=RECEIVED&id=${orderItem.order.orderId}">sent</a></li>
-                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=CANCELLED&id=${orderItem.order.orderId}">completed</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=PROCESSING&id=${orderItem.order.orderId}">processing</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=SENT&id=${orderItem.order.orderId}">sent</a></li>
+                                                        <li><a class="dropdown-item" href="${absolutePath}/controller?command=change_order_state&state=COMPLETED&id=${orderItem.order.orderId}">completed</a></li>
                                                     </ul>
                                                 </div>
                                             </td>

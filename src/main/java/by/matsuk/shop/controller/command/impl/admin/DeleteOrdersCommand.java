@@ -22,7 +22,7 @@ public class DeleteOrdersCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        router.setCurrentPage(currentPage);
+        router.setCurrentPage(request.getContextPath() + currentPage);
         try {
             service.deleteOldOrders();
         } catch (ServiceException e) {
