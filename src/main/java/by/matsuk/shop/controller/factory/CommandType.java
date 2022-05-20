@@ -130,7 +130,7 @@ public enum CommandType {
     /**
      * The Sort all menu by price.
      */
-    SORT_ALL_MENU_BY_PRICE(new SortAllPostcardsByPriceCommand()),
+    SORT_ALL_POSTCARDS_BY_PRICE(new SortAllPostcardsByPriceCommand()),
     /**
      * The Find all removing products.
      */

@@ -30,7 +30,7 @@
         <%@include file="../header/header.jsp"%>
       </header>
       <div class="container justify-content-center col-12 col-sm-6 mt-3">
-        <p><fmt:message key="user.discount"/> <b><fmt:formatNumber type="number"  maxFractionDigits="0" value="${user_discount * 1}"/>%</b></p>
+        <p><fmt:message key="user.discount"/> <b><fmt:formatNumber type="number" maxFractionDigits="0" value="${user_discount}"/>%</b></p>
         <p><fmt:message key="user.discount_condition_part_one"/> </p>
         <p><fmt:message key="user.discount_condition_part_two"/> </p>
         <p><fmt:message key="user.discount_condition_part_three"/> </p>

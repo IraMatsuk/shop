@@ -32,19 +32,19 @@ public class SortAllPostcardsByPriceCommand implements Command {
         try {
             List<Postcard> postcardSublist;
             StringBuilder builderUrl;
-            if(sectionId == null) {
+            if (sectionId == null) {
                 postcardSublist = menuService.sortAllPostcardsByPrice(PAGE_SIZE, offset);
-                if(postcardSublist.isEmpty() && currentPage > 1){
+                if (postcardSublist.isEmpty() && currentPage > 1) {
                     currentPage--;
                     offset = PaginationService.offset(PAGE_SIZE, currentPage);
                     postcardSublist = menuService.sortAllPostcardsByPrice(PAGE_SIZE, offset);
                 }
                 totalRecords = menuService.readRowCount();
                 builderUrl = new StringBuilder(Command.createURL(request, request.getParameter(COMMAND)));
-            }else{
+            } else {
                 long id = Long.parseLong(sectionId);
                 postcardSublist = menuService.sortSectionPostcardsByPrice(PAGE_SIZE, offset, id);
-                if(postcardSublist.isEmpty() && currentPage > 1){
+                if (postcardSublist.isEmpty() && currentPage > 1) {
                     currentPage--;
                     offset = PaginationService.offset(PAGE_SIZE, currentPage);
                     postcardSublist = menuService.sortSectionPostcardsByPrice(PAGE_SIZE, offset, id);
@@ -63,19 +63,20 @@ public class SortAllPostcardsByPriceCommand implements Command {
         return router;
     }
 
-    private int currentPaginationPage(HttpServletRequest request){
+    private int currentPaginationPage(HttpServletRequest request) {
         String currentPageParameter = request.getParameter(PAGINATION_PAGE);
         int currentPage = 1;
-        if(currentPageParameter != null){
+        if (currentPageParameter != null) {
             currentPage = Integer.parseInt(currentPageParameter);
         }
         return currentPage;
     }
 
-    private void addRequestAttribute(HttpServletRequest request, List<Postcard> postcardSublist, int currentPage, int lastPage, String url){
+    private void addRequestAttribute(HttpServletRequest request, List<Postcard> postcardSublist, int currentPage, int lastPage, String url) {
         request.setAttribute(POSTCARD_LIST, postcardSublist);
         request.setAttribute(PAGINATION_PAGE, currentPage);
         request.setAttribute(PAGINATION_LAST_PAGE, lastPage);
         request.setAttribute(URL, url);
+        request.setAttribute(COMMAND_URL, request.getContextPath() + "/controller?" + COMMAND + EQUAL + "sort_all_postcards_by_price");
     }
 }

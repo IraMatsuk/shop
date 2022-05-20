@@ -56,7 +56,7 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
     private static final String SQL_SELECT_ALL_SORTED_POSTCARDS =
             "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
             "FROM postcards WHERE is_accessible = true " +
-            "ORDER BY price - (price * discount) LIMIT ? OFFSET ?";
+            "ORDER BY price - (price * discount / 100) LIMIT ? OFFSET ?";
     private static final String SQL_SELECT_ALL_SORTED_POSTCARDS_BY_POPULARITY =
             "SELECT postcard_id, postcard_name, postcard_author, picture_path, " +
             "discount, price, section_id, is_accessible, all_postcards FROM postcards " +
@@ -69,7 +69,7 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, " +
             "discount, price, section_id, is_accessible FROM postcards " +
             "WHERE section_id = ? AND is_accessible = true " +
-            "ORDER BY price - (price * discount) " +
+            "ORDER BY price - (price * discount / 100) " +
             "LIMIT ? OFFSET ?";
     private static final String SQL_SELECT_ALL_SORTED_SECTION_POSTCARDS_BY_POPULARITY =
             "SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path, description, " +

@@ -109,14 +109,6 @@ public final class Parameter {
      */
     public static final String INVALID_ORDER_ADDRESS = "invalid_order_address";
     /**
-     * The constant INVALID_ORDER_PAYMENT.
-     */
-    public static final String INVALID_ORDER_PAYMENT = "invalid_order_payment";
-    /**
-     * The constant INVALID_ORDER_COMMENT.
-     */
-    public static final String INVALID_ORDER_COMMENT = "invalid_order_comment";
-    /**
      * The constant INVALID_SECTION_NAME.
      */
     public static final String INVALID_SECTION_NAME = "invalid_section_name";
@@ -252,10 +244,6 @@ public final class Parameter {
      * The constant USER_STATUS_BLOCKED.
      */
     public static final String USER_STATUS_BLOCKED = "blocked";
-    /**
-     * The constant USER_COMMENT.
-     */
-    public static final String USER_COMMENT = "user_comment";
     /**
      * The constant USER_DISCOUNT.
      */

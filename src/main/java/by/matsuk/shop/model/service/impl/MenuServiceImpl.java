@@ -24,14 +24,15 @@ public class MenuServiceImpl implements MenuService {
     private static final MenuServiceImpl instance = new MenuServiceImpl();
     private final Validator validator = ValidatorImpl.getInstance();
 
-    private MenuServiceImpl(){}
+    private MenuServiceImpl() {
+    }
 
     /**
      * Get instance menu service.
      *
      * @return the menu service
      */
-    public static MenuServiceImpl getInstance(){
+    public static MenuServiceImpl getInstance() {
         return instance;
     }
 
@@ -45,7 +46,7 @@ public class MenuServiceImpl implements MenuService {
             return menuDao.findPostcardSublist(pageSize, offset);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a findPostcardSublist method. ", e);
-        }finally {
+        } finally {
             transaction.end();
         }
     }
@@ -60,14 +61,14 @@ public class MenuServiceImpl implements MenuService {
             return menuDao.findPostcardSublistBySectionId(pageSize, offset, sectionId);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a findMenuSublist service method. ", e);
-        }finally {
+        } finally {
             transaction.end();
         }
     }
 
     @Override
     public boolean addNewProduct(Map<String, String> map, String defaultImage) throws ServiceException {
-        if(!validator.checkProductData(map)){
+        if (!validator.checkProductData(map)) {
             return false;
         }
         MenuDaoImpl menuDao = new MenuDaoImpl();
@@ -75,7 +76,7 @@ public class MenuServiceImpl implements MenuService {
         entityTransaction.init(menuDao);
         try {
             String name = map.get(PRODUCT_NAME);
-            if(menuDao.findPostcardByName(name).isPresent()){
+            if (menuDao.findPostcardByName(name).isPresent()) {
                 map.put(PRODUCT_NAME, NOT_UNIQ_PRODUCT_NAME);
                 return false;
             }
@@ -88,7 +89,7 @@ public class MenuServiceImpl implements MenuService {
             return menuDao.create(postcard);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a addNewProduct service method ", e);
-        }finally {
+        } finally {
             entityTransaction.end();
         }
     }
@@ -126,7 +127,7 @@ public class MenuServiceImpl implements MenuService {
         AbstractDao<Postcard> abstractDao = new MenuDaoImpl();
         EntityTransaction entityTransaction = new EntityTransaction();
         entityTransaction.init(abstractDao);
-        try{
+        try {
             return abstractDao.delete(id);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a deleteProductById service method ", e);
@@ -137,7 +138,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Optional<Postcard> updateProduct(long id, Map<String, String> updateData) throws ServiceException {
-        if(!validator.checkProductData(updateData)){
+        if (!validator.checkProductData(updateData)) {
             return Optional.empty();
         }
         MenuDaoImpl menuDao = new MenuDaoImpl();
@@ -146,9 +147,9 @@ public class MenuServiceImpl implements MenuService {
         try {
             String name = updateData.get(PRODUCT_NAME);
             logger.info("name = " + name);
-            if(menuDao.findPostcardByName(name).isPresent() && menuDao.findById(id).isPresent()){
+            if (menuDao.findPostcardByName(name).isPresent() && menuDao.findById(id).isPresent()) {
                 Postcard findMenu = menuDao.findPostcardByName(name).get();
-                if(!findMenu.getPostcardName().equals(menuDao.findById(id).get().getPostcardName())){
+                if (!findMenu.getPostcardName().equals(menuDao.findById(id).get().getPostcardName())) {
                     updateData.put(PRODUCT_NAME, NOT_UNIQ_PRODUCT_NAME);
                     return Optional.empty();
                 }
@@ -162,7 +163,7 @@ public class MenuServiceImpl implements MenuService {
             return menuDao.update(newMenu);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a updateProduct service method ", e);
-        }finally {
+        } finally {
             entityTransaction.end();
         }
     }
@@ -174,7 +175,7 @@ public class MenuServiceImpl implements MenuService {
         transaction.init(abstractDao);
         try {
             Optional<Postcard> menu = abstractDao.findById(id);
-            if(menu.isPresent()){
+            if (menu.isPresent()) {
                 return map.remove(menu.get()) != null;
             }
 
@@ -193,12 +194,12 @@ public class MenuServiceImpl implements MenuService {
         transaction.init(abstractDao);
         try {
             Optional<Postcard> menu = abstractDao.findById(id);
-            if(menu.isPresent() && map.containsKey(menu.get())){
+            if (menu.isPresent() && map.containsKey(menu.get())) {
                 int value = map.get(menu.get()) + numberProduct;
                 map.put(menu.get(), value);
                 return true;
             }
-            if(menu.isPresent()){
+            if (menu.isPresent()) {
                 map.put(menu.get(), numberProduct);
                 return true;
             }
@@ -318,7 +319,7 @@ public class MenuServiceImpl implements MenuService {
             return menuDao.findAllSortedSectionPostcardByPopularity(pageSize, offset, sectionId);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a findSortedPostcardsSectionSubListByPopularity service method", e);
-        }finally {
+        } finally {
             transaction.end();
         }
     }

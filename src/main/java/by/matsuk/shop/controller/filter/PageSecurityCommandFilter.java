@@ -58,7 +58,7 @@ public class PageSecurityCommandFilter implements Filter {
         }
 
         if (!commands.contains(command.toUpperCase())) {
-            logger.info("command = " + command);
+            logger.info("command: " + command);
             request.getRequestDispatcher(ERROR_404)
                     .forward(httpServletRequest, httpServletResponse);
             return;
