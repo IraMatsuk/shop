@@ -38,7 +38,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             WHERE role_name = 'admin'""";
     private static final String SQL_INSERT_NEW_USER = """
             INSERT INTO users(first_name, last_name, login, password, email, phone,
-            discount_id, user_state, user_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+            discount_id, user_role, user_state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
     private static final String SQL_SELECT_USER_BY_ID = """
             SELECT user_id, first_name, last_name, login, password, email, phone,
             discount_id FROM users WHERE user_id = (?)""";

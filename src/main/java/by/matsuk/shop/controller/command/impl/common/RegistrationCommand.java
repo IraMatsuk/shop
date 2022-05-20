@@ -40,8 +40,7 @@ public class RegistrationCommand implements Command {
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(USER);
-            User.UserRole role = user != null && user.getRole() == User.UserRole.ADMIN ?
-                    User.UserRole.ADMIN : User.UserRole.CLIENT;
+            User.UserRole role = user != null && user.getRole() == User.UserRole.ADMIN ? User.UserRole.ADMIN : User.UserRole.CLIENT;
 
             if (service.userRegistration(mapData, role)) {
                 router.setRedirectType();
@@ -49,7 +48,7 @@ public class RegistrationCommand implements Command {
                     String currentPage = (String) session.getAttribute(CURRENT_PAGE);
                     router.setCurrentPage(currentPage);
                 } else {
-                    router.setCurrentPage(SIGN_PAGE);
+                    router.setCurrentPage(request.getContextPath() + SIGN_PAGE);
                 }
             } else {
                 for (String key : mapData.keySet()) {

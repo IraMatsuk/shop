@@ -43,7 +43,7 @@
                             <c:if test="${not empty param.section_id}">
                                 <input type="hidden" name="section_id" value="${param.section_id}">
                             </c:if>
-                            <button type="submit" class="btn btn-warning btn-sm"">
+                            <button type="submit" class="btn btn-warning btn-sm">
                                 <fmt:message key="postcard.sort_by_price"/>
                             </button>
                         </form>
