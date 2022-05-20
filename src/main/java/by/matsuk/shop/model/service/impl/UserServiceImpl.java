@@ -95,8 +95,7 @@ public class UserServiceImpl implements UserService {
                 return false;
             }
             String encryptPassword = PasswordEncoder.md5Apache(password);
-            User user = new User(firstName, lastName, login, encryptPassword, email,
-                    phoneNumber, discountId, role, User.UserState.NEW);
+            User user = new User(firstName, lastName, login, encryptPassword, email, phoneNumber, discountId, role, User.UserState.NEW);
             boolean isUserCreate = userDao.create(user);
             if (isUserCreate) {
                 Mail.createMail(email, REGISTRATION_SUBJECT, REGISTRATION_BODY);
