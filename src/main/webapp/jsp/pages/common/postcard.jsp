@@ -39,11 +39,11 @@
                     </div>
                     <div class="col-auto">
                         <form name="sortByPrice" action="${absolutePath}/controller">
-                            <input type="hidden" name="command" value="sort_all_postcards_by_price">
+                            <input type="hidden" name="command" value="sort_all_postcards_by_price" >
                             <c:if test="${not empty param.section_id}">
                                 <input type="hidden" name="section_id" value="${param.section_id}">
                             </c:if>
-                            <button type="submit" class="btn btn-warning btn-sm">
+                            <button type="submit" class="btn btn-warning btn-sm"">
                                 <fmt:message key="postcard.sort_by_price"/>
                             </button>
                         </form>
