@@ -36,10 +36,6 @@
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 100px; color: black">
     <div class="container-fluid" style="height: 100px">
-
-<%--      <a class="navbar-brand" href="${absolutePath}/jsp/pages/home.jsp">--%>
-<%--        <img src="picture/logo.png" alt="logo" width="75px" height="75px">--%>
-<%--      </a>--%>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

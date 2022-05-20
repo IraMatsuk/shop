@@ -27,13 +27,13 @@
         </script>
         <script src="${absolutePath}/js/counter.js"></script>
     </head>
-    <body class="body" style="background: whitesmoke">
+    <body class="body">
         <div class="page">
             <header>
                 <%@include file="../header/header.jsp"%>
             </header>
             <div class="container">
-                <div class="row" style="background: whitesmoke">
+                <div class="row">
                     <div class="col-2 text-center">
                         <fmt:message key="action.sort"/>
                     </div>
@@ -176,7 +176,7 @@
                 </form>
             </div>
         </div>
-        <div class="pages" style="background-color: #f5f5f5">
+        <div class="pages">
             <div class="justify-content-center" >
                 <ctg:pagination currentPage="${requestScope.currentPage}" lastPage="${requestScope.lastPage}" url="${requestScope.command_url}"/>
             </div>

@@ -1,10 +1,7 @@
-/* Reset CSS */
-html, body, div, span
-
 .footer {
     padding:10px 0px;
     margin: 0px 0px;
-    background-color: #fae4ab;
+    background-color: #ffffff;
     color:#4b4c4d;
 }
 
@@ -24,7 +21,7 @@ html, body, div, span
 }
 
 .body {
-    background-color: whitesmoke;
+    background-color: #ffffff;
     overflow-x: hidden;
 }
 
@@ -38,8 +35,8 @@ html, body, div, span
     line-height: 1;
     padding-top: 20px;
     -webkit-font-smoothing: antialiased;
-    background-color: whitesmoke;
     overflow-x: hidden;
+    background-color: #ffffff;
 }
 
 .catalog-wrap {
@@ -68,7 +65,6 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 }
 
 h3.text-center {
-
     margin-top: 20px;
 }
 
@@ -96,7 +92,7 @@ div {
 .product {
     box-sizing: border-box;
     padding: 21px 20px;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 .product__link {
@@ -124,7 +120,7 @@ div {
     position: relative;
     margin-top: 13px;
     text-align: center;
-    background-color: #fff;
+    background-color: #ffffff;
     overflow: hidden;
 }
 
@@ -294,7 +290,7 @@ input {
     padding: 8px 40px 6px;
     font-size: 14px;
     line-height: 18px;
-    background-color: #fff;
+    background-color: #ffffff;
     color: #525252;
     text-transform: uppercase;
 }
