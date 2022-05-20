@@ -39,7 +39,7 @@ public enum UserPermission {
             CommandType.FIND_ALL_REMOVING_SECTIONS.name(),
             CommandType.RESTORE_MENU_PRODUCT.name(),
             CommandType.RESTORE_SECTION.name(),
-            CommandType.SORT_ALL_MENU_BY_POPULARITY.name(),
+            CommandType.SORT_ALL_POSTCARDS_BY_POPULARITY.name(),
             CommandType.GO_TO_SETTINGS.name())),
     /**
      * Client user permission.
@@ -58,7 +58,7 @@ public enum UserPermission {
             CommandType.GO_TO_ORDERS_PAGE.name(),
             CommandType.FIND_ALL_POSTCARD_BY_SECTION.name(),
             CommandType.SORT_ALL_POSTCARDS_BY_PRICE.name(),
-            CommandType.SORT_ALL_MENU_BY_POPULARITY.name(),
+            CommandType.SORT_ALL_POSTCARDS_BY_POPULARITY.name(),
             CommandType.GO_TO_SETTINGS.name())),
     /**
      * Guest user permission.
@@ -68,7 +68,7 @@ public enum UserPermission {
             CommandType.REGISTRATION.name(),
             CommandType.FIND_ALL_POSTCARD.name(),
             CommandType.SORT_ALL_POSTCARDS_BY_PRICE.name(),
-            CommandType.SORT_ALL_MENU_BY_POPULARITY.name()));
+            CommandType.SORT_ALL_POSTCARDS_BY_POPULARITY.name()));
 
     private final Set<String> commands;
 

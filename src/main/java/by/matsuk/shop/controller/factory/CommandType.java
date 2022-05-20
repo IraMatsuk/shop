@@ -151,7 +151,7 @@ public enum CommandType {
     /**
      * The Sort all menu by popularity.
      */
-    SORT_ALL_MENU_BY_POPULARITY(new SortAllPostcardsByPriceCommand()),
+    SORT_ALL_POSTCARDS_BY_POPULARITY(new SortAllPostcardsByPopularityCommand()),
 
     /**
      * The settings page.

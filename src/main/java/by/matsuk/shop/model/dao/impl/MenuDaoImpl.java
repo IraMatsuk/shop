@@ -57,14 +57,14 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
             "FROM postcards WHERE is_accessible = true " +
             "ORDER BY price - (price * discount / 100) LIMIT ? OFFSET ?";
-    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS_BY_POPULARITY =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, " +
-            "discount, price, section_id, is_accessible, all_postcards FROM postcards " +
-            "LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcards_catalog " +
-            "GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id " +
-            "WHERE is_accessible = true " +
-            "ORDER BY all_postcards DESC " +
-            "LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS_BY_POPULARITY = """
+            SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path, description,
+            discount, price, section_id, is_accessible, all_postcards FROM postcards 
+            LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcards_catalog 
+            GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id 
+            WHERE is_accessible = true  
+            ORDER BY all_postcards DESC  
+            LIMIT ? OFFSET ?""";
     private static final String SQL_SELECT_SORTED_SECTION_POSTCARDS =
             "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, " +
             "discount, price, section_id, is_accessible FROM postcards " +

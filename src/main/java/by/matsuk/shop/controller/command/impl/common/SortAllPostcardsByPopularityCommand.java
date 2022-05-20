@@ -31,7 +31,7 @@ public class SortAllPostcardsByPopularityCommand implements Command {
         String currentPageParameter = request.getParameter(PAGINATION_PAGE);
         String sectionId = request.getParameter(SECTION_ID);
         int currentPage = 1;
-        if(currentPageParameter != null){
+        if (currentPageParameter != null) {
             currentPage = Integer.parseInt(currentPageParameter);
         }
 
@@ -40,10 +40,10 @@ public class SortAllPostcardsByPopularityCommand implements Command {
         try {
             List<Postcard> menuSublist;
             StringBuilder builderUrl;
-            if(sectionId == null) {
+            if (sectionId == null) {
                 menuSublist = menuService.findSortedPostcardsSubListByPopularity(PAGE_SIZE, offset);
                 logger.info(menuSublist);
-                if(menuSublist.isEmpty() && currentPage > 1){
+                if (menuSublist.isEmpty() && currentPage > 1) {
                     currentPage--;
                     offset = PaginationService.offset(PAGE_SIZE, currentPage);
                     menuSublist = menuService.findSortedPostcardsSubListByPopularity(PAGE_SIZE, offset);
@@ -51,11 +51,11 @@ public class SortAllPostcardsByPopularityCommand implements Command {
                 }
                 totalRecords = menuService.readRowCount();
                 builderUrl = new StringBuilder(Command.createURL(request, request.getParameter(COMMAND)));
-            }else{
+            } else {
                 long id = Long.parseLong(sectionId);
                 logger.info("id = " + id);
                 menuSublist = menuService.findSortedPostcardsSectionSubListByPopularity(PAGE_SIZE, offset, id);
-                if(menuSublist.isEmpty() && currentPage > 1){
+                if (menuSublist.isEmpty() && currentPage > 1) {
                     currentPage--;
                     offset = PaginationService.offset(PAGE_SIZE, currentPage);
                     menuSublist = menuService.findSortedPostcardsSectionSubListByPopularity(PAGE_SIZE, offset, id);
@@ -71,6 +71,7 @@ public class SortAllPostcardsByPopularityCommand implements Command {
             request.setAttribute(PAGINATION_PAGE, currentPage);
             request.setAttribute(PAGINATION_LAST_PAGE, lastPage);
             request.setAttribute(URL, builderUrl.toString());
+            request.setAttribute(COMMAND_URL, request.getContextPath() + "/controller?" + COMMAND + EQUAL + "sort_all_postcards_by_popularity");
             router.setCurrentPage(MENU_PAGE);
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a SortAllPostcardsByPriceCommand class. ", e);
