@@ -24,38 +24,37 @@ public class UpdateProductCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Map<String, String> map = new HashMap<>();
-        map.put(PRODUCT_NAME, request.getParameter(PRODUCT_NAME));
-        map.put(PRODUCT_AUTHOR, request.getParameter(PRODUCT_AUTHOR));
-        map.put(PRODUCT_DESCRIPTION, request.getParameter(PRODUCT_DESCRIPTION));
-        map.put(PRODUCT_DISCOUNT, request.getParameter(PRODUCT_DISCOUNT));
-        map.put(PRODUCT_PRICE, request.getParameter(PRODUCT_PRICE));
-        map.put(PRODUCT_SECTION, request.getParameter(PRODUCT_SECTION));
+        Map<String, String> postcardAttributes = new HashMap<>();
+        postcardAttributes.put(PRODUCT_NAME, request.getParameter(PRODUCT_NAME));
+        postcardAttributes.put(PRODUCT_AUTHOR, request.getParameter(PRODUCT_AUTHOR));
+        postcardAttributes.put(PRODUCT_DESCRIPTION, request.getParameter(PRODUCT_DESCRIPTION));
+        postcardAttributes.put(PRODUCT_DISCOUNT, request.getParameter(PRODUCT_DISCOUNT));
+        postcardAttributes.put(PRODUCT_PRICE, request.getParameter(PRODUCT_PRICE));
+        postcardAttributes.put(PRODUCT_SECTION, request.getParameter(PRODUCT_SECTION));
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
         router.setCurrentPage(request.getContextPath() + currentPage);
 
         try {
             long postcardId = Long.parseLong(request.getParameter(PRODUCT_ID));
-            if (service.updateProduct(postcardId, map).isEmpty()) {
-                for (String key : map.keySet()) {
-                    String value = map.get(key);
-                    switch (value) {
-                        case INVALID_PRODUCT_COMPOSITION -> request.setAttribute(INVALID_PRODUCT_COMPOSITION, INVALID_PRODUCT_COMPOSITION_MESSAGE);
+            if (!service.updateProduct(postcardId, postcardAttributes).isEmpty()) {
+                router.setRedirectType();
+            } else {
+                for (String attributeName : postcardAttributes.keySet()) {
+                    String attributeValue = postcardAttributes.get(attributeName);
+                    switch (attributeValue) {
                         case NOT_UNIQ_PRODUCT_NAME -> request.setAttribute(NOT_UNIQ_PRODUCT_NAME, NOT_UNIQ_PRODUCT_NAME_MESSAGE);
                         case INVALID_PRODUCT_AUTHOR -> request.setAttribute(INVALID_PRODUCT_AUTHOR, INVALID_PRODUCT_AUTHOR_MESSAGE);
+                        case INVALID_PRODUCT_DESCRIPTION -> request.setAttribute(INVALID_PRODUCT_DESCRIPTION, INVALID_PRODUCT_DESCRIPTION_MESSAGE);
                         case INVALID_PRODUCT_DISCOUNT -> request.setAttribute(INVALID_PRODUCT_DISCOUNT, INVALID_PRODUCT_DISCOUNT_MESSAGE);
                         case INVALID_PRODUCT_NAME -> request.setAttribute(INVALID_PRODUCT_NAME, INVALID_PRODUCT_NAME_MESSAGE);
                         case INVALID_PRODUCT_PRICE -> request.setAttribute(INVALID_PRODUCT_PRICE, INVALID_PRODUCT_PRICE_MESSAGE);
-                        case INVALID_PRODUCT_DESCRIPTION -> request.setAttribute(INVALID_PRODUCT_DESCRIPTION, INVALID_PRODUCT_DESCRIPTION_MESSAGE);
                         case INVALID_PRODUCT_SECTION -> request.setAttribute(INVALID_PRODUCT_SECTION, INVALID_PRODUCT_SECTION_MESSAGE);
                     }
                 }
-                return router;
             }
-            router.setRedirectType();
         } catch (ServiceException | NumberFormatException e) {
-            throw new CommandException("Exception in a UpdateProductCommand class ", e);
+            throw new CommandException("Exception in the UpdateProductCommand class ", e);
         }
         return router;
     }

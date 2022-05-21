@@ -11,7 +11,7 @@ import static by.matsuk.shop.controller.Parameter.*;
  */
 public class ValidatorImpl implements Validator {
     private static final String NAME_PATTERN = "^[A-Za-zА-Яа-я]{3,50}$";
-    private static final String PRODUCT_NAME_PATTERN = "^[A-Za-zА-Яа-я\\s]{3,50}$";
+    private static final String PRODUCT_NAME_PATTERN = "^[A-Za-zА-Яа-я0-9\\s]{3,50}$";
     private static final String PRODUCT_AUTHOR_PATTERN = "^[A-Za-zА-Яа-я\\s]{1,50}$";
     private static final String USER_LOGIN_PATTERN = "^[A-Za-zА-Яа-я0-9_]{4,16}$";
     private static final String USER_PASSWORD_PATTERN = "^[A-Za-zА-Яа-я0-9\\.@#$?%_!]{5,40}$";

@@ -28,14 +28,14 @@ public class GoToUpdateProductPageCommand implements Command {
         try {
             long postcardId = Long.parseLong(request.getParameter(PRODUCT_ID));
             Optional<Postcard> catalog = service.findProductById(postcardId);
-            if (catalog.isEmpty()) {
+            if (!catalog.isEmpty()) {
+                request.setAttribute(PRODUCT_MENU, catalog.get());
+                request.setAttribute(PRODUCT_ID, postcardId);
+                router.setCurrentPage(UPDATE_PRODUCT_PAGE);
+            } else {
                 router.setRedirectType();
                 router.setCurrentPage(ERROR_500);
-                return router;
             }
-            request.setAttribute(PRODUCT_MENU, catalog.get());
-            request.setAttribute(PRODUCT_ID, postcardId);
-            router.setCurrentPage(UPDATE_PRODUCT_PAGE);
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a GoToUpdateProductPageCommand class", e);
         }
