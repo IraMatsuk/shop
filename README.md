@@ -35,3 +35,6 @@
 - sort all postcards by price
 - sort all postcards by popularity
 - view contact info
+
+### Database diagram
+![shopdb](src/main/webapp/picture/shopdb.png)
