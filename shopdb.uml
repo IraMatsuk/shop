@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>a5043893-87ad-4cd5-9e30-0ddbdd167498</OriginalElement>
+  <nodes>
+    <node x="0.0" y="452.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.postcards</node>
+    <node x="180.5" y="733.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.postcards_catalog</node>
+    <node x="617.0" y="11.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.user_role</node>
+    <node x="357.0" y="149.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.users</node>
+    <node x="273.0" y="11.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.user_state</node>
+    <node x="7.5" y="226.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.sections</node>
+    <node x="77.0" y="0.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.personal_discounts</node>
+    <node x="208.0" y="485.0">a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.orders</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.users" target="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.user_role">
+      <point x="52.0" y="-126.5" />
+      <point x="487.0" y="124.0" />
+      <point x="741.5" y="124.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.orders" target="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.users">
+      <point x="0.0" y="-82.5" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.postcards_catalog" target="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.postcards">
+      <point x="-42.0" y="-49.0" />
+      <point x="222.5" y="708.0" />
+      <point x="94.0" y="708.0" />
+      <point x="0.0" y="115.5" />
+    </edge>
+    <edge source="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.postcards" target="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.sections">
+      <point x="0.0" y="-115.5" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.users" target="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.personal_discounts">
+      <point x="-52.0" y="-126.5" />
+      <point x="383.0" y="124.0" />
+      <point x="165.0" y="124.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.users" target="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.user_state">
+      <point x="0.0" y="-126.5" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.postcards_catalog" target="a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.orders">
+      <point x="42.0" y="-49.0" />
+      <point x="306.5" y="708.0" />
+      <point x="435.0" y="708.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7520564042303173" x="433.0" y="415.5" />
+  <SelectedNodes>
+    <node>a5043893-87ad-4cd5-9e30-0ddbdd167498.TABLE:shopdb.orders</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
