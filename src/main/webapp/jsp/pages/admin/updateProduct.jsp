@@ -34,11 +34,11 @@
     <div class="container justify-content-center">
       <h3 class="text-center p-3"><fmt:message key="title.update_product"/></h3>
       </br>
-      <form name="AddProductFord" method="post" action="${absolutePath}/controller"  novalidate>
-        <input type="hidden" name="command" value="update_product"/>
-        <input type="hidden" name="id" value="${requestScope.postcard.postcardId}">
+      <form name="AddProductFord" method="post" action="${absolutePath}/controller" novalidate>
+        <input type="hidden" name="command" value="update_product">
+        <input type="hidden" name="id" value="${requestScope.id}">
         </br>
-        <div class="form-group" class="mb-3">
+        <div class="form-group mb-3">
           <label class="form-label">
             <fmt:message key="postcard.product_name"/>
           </label>
@@ -67,7 +67,7 @@
           <label class="form-label">
             <fmt:message key="postcard.product_author"/>
           </label>
-          <input type="text" name="product_composition"  value="${fn:escapeXml(requestScope.postcard.postcard_author)}" class="form-control" pattern="^[A-Za-zА-Яа-я\s]{3,50}$">
+          <input type="text" name="product_author"  value="${fn:escapeXml(requestScope.postcard.postcardAuthor)}" class="form-control" pattern="^[A-Za-zА-Яа-я\s]{1,50}$">
           <c:if test="${! empty invalid_postcard_author}">
             <div class="invalid-feedback-backend" style="color: red">
               <fmt:message key="${invalid_postcard_author}"/>
@@ -80,7 +80,7 @@
         </br>
         <div class="form-group" class="mb-3">
           <label class="form-label"><fmt:message key="postcard.product_description"/></label>
-          <input type="text" name="product_composition"  value="${fn:escapeXml(requestScope.postcard.description)}" class="form-control" pattern="^.{0,200}$">
+          <input type="text" name="product_description"  value="${fn:escapeXml(requestScope.postcard.description)}" class="form-control" pattern="^.{0,100}$">
           <c:if test="${! empty invalid_description}">
             <div class="invalid-feedback-backend" style="color: red">
               <fmt:message key="${invalid_description}"/>
@@ -95,7 +95,7 @@
           <label class="form-label">
             <fmt:message key="postcard.product_discount"/>
           </label>
-          <input type="text" name="product_discount" value="${requestScope.postcard.discount}" class="form-control" required pattern="0(\.\d{1,2})?">
+          <input type="text" name="product_discount" value="${requestScope.postcard.discount}" class="form-control" required pattern="\d{1,6}(\.[0-9]{1,2})?">
           <div id="discountHelp" class="form-text">
             <fmt:message key="postcard_discount_pattern"/>
           </div>
