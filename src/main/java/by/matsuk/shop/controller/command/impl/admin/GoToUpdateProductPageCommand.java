@@ -34,6 +34,7 @@ public class GoToUpdateProductPageCommand implements Command {
                 return router;
             }
             request.setAttribute(PRODUCT_MENU, catalog.get());
+            request.setAttribute(PRODUCT_ID, postcardId);
             router.setCurrentPage(UPDATE_PRODUCT_PAGE);
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a GoToUpdateProductPageCommand class", e);

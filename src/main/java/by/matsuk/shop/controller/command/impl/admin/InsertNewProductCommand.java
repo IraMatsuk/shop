@@ -24,12 +24,12 @@ public class InsertNewProductCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put(PRODUCT_NAME, request.getParameter(PRODUCT_NAME));
         map.put(PRODUCT_AUTHOR, request.getParameter(PRODUCT_AUTHOR));
         map.put(PRODUCT_DESCRIPTION, request.getParameter(PRODUCT_DESCRIPTION));
         map.put(PRODUCT_DISCOUNT, request.getParameter(PRODUCT_DISCOUNT));
-        map.put(PRODUCT_PRICE, request. getParameter(PRODUCT_PRICE));
+        map.put(PRODUCT_PRICE, request.getParameter(PRODUCT_PRICE));
         map.put(PRODUCT_SECTION, request.getParameter(PRODUCT_SECTION));
         router.setCurrentPage(request.getContextPath() + ADD_MENU_PAGE);
         try {

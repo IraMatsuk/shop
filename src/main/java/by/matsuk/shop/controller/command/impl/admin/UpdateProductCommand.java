@@ -7,8 +7,6 @@ import by.matsuk.shop.exception.ServiceException;
 import by.matsuk.shop.model.service.impl.MenuServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,26 +19,25 @@ import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
  * The type Update product command.
  */
 public class UpdateProductCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
     private final MenuServiceImpl service = MenuServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        Map<String,String> map = new HashMap<>();
-        HttpSession session = request.getSession();
-        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+        Map<String, String> map = new HashMap<>();
         map.put(PRODUCT_NAME, request.getParameter(PRODUCT_NAME));
-        logger.info(request.getParameter(PRODUCT_NAME));
         map.put(PRODUCT_AUTHOR, request.getParameter(PRODUCT_AUTHOR));
         map.put(PRODUCT_DESCRIPTION, request.getParameter(PRODUCT_DESCRIPTION));
         map.put(PRODUCT_DISCOUNT, request.getParameter(PRODUCT_DISCOUNT));
-        map.put(PRODUCT_PRICE, request. getParameter(PRODUCT_PRICE));
+        map.put(PRODUCT_PRICE, request.getParameter(PRODUCT_PRICE));
         map.put(PRODUCT_SECTION, request.getParameter(PRODUCT_SECTION));
-        router.setCurrentPage(currentPage);
+        HttpSession session = request.getSession();
+        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+        router.setCurrentPage(request.getContextPath() + currentPage);
+
         try {
-            long id = Long.parseLong(request.getParameter(PRODUCT_ID));
-            if (service.updateProduct(id, map).isEmpty()) {
+            long postcardId = Long.parseLong(request.getParameter(PRODUCT_ID));
+            if (service.updateProduct(postcardId, map).isEmpty()) {
                 for (String key : map.keySet()) {
                     String value = map.get(key);
                     switch (value) {
