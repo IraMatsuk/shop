@@ -29,20 +29,18 @@ public class DeleteSectionCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         HttpSession session = request.getSession();
-        ServletContext context = request.getServletContext();
-        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        router.setCurrentPage(currentPage);
-
-        if (request.getParameter(PRODUCT_SECTION) == null) {
-            request.setAttribute(INVALID_DELETE_PRODUCT_SECTION, INVALID_PRODUCT_SECTION_MESSAGE);
-            return router;
-        }
-
         try {
-            long sectionId = Long.parseLong(request.getParameter(PRODUCT_SECTION));
-            service.deleteSectionById(sectionId);
-            List<Section> listSection = service.findAllSections();
-            context.setAttribute(SECTION_LIST, listSection);
+            String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+            router.setCurrentPage(currentPage);
+            if (request.getParameter(PRODUCT_SECTION) != null) {
+                long sectionId = Long.parseLong(request.getParameter(PRODUCT_SECTION));
+                service.deleteSectionById(sectionId);
+                List<Section> listSection = service.findAllSections();
+                ServletContext context = request.getServletContext();
+                context.setAttribute(SECTION_LIST, listSection);
+            } else {
+                request.setAttribute(INVALID_DELETE_PRODUCT_SECTION, INVALID_PRODUCT_SECTION_MESSAGE);
+            }
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a DeleteSectionCommand class. ", e);
         }

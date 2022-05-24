@@ -32,7 +32,7 @@ public class RestoreSectionCommand implements Command {
         router.setRedirectType();
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        router.setCurrentPage(currentPage);
+        router.setCurrentPage(request.getContextPath() + currentPage);
         try {
             logger.info(request.getParameter(SECTION_ID));
             long sectionId = Long.parseLong(request.getParameter(SECTION_ID));
