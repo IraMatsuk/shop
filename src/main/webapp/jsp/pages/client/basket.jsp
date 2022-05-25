@@ -43,6 +43,7 @@
               <thead>
               <tr>
                 <th><fmt:message key="postcard.product_name"/> </th>
+                <th><fmt:message key="postcard.picture"/></th>
                 <th><fmt:message key="postcard.cost_with_product_discount"/> </th>
                 <th><fmt:message key="postcard.number_products"/> </th>
               </tr>
@@ -52,6 +53,7 @@
                 <input type="hidden" value="<c:out value="${postcard.key.postcardId}"/>"/>
                 <tr>
                   <td><c:out value="${postcard.key.postcardName}"/></td>
+                  <td><img src="${postcard.key.picturePath}" alt="" class="product_img"></td>
                   <td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2"  value="${postcard.key.price - postcard.key.discount / 100 * postcard.key.price}"/> </td>
                   <td><c:out value="${postcard.value}"/> </td>
                   <td>

@@ -47,7 +47,6 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th scope="col"><fmt:message key="order.id"/></th>
                                         <th scope="col"><fmt:message key="order.date_state_change"/> </th>
                                         <th scope="col"><fmt:message key="order.state"/> </th>
                                         <th scope="col"><fmt:message key="postcard.product_price"/></th>
@@ -56,7 +55,6 @@
                                     <tbody>
                                     <c:forEach var="order" items="${order_list}">
                                         <tr>
-                                            <td><c:out value="${order.orderId}"/></td>
                                             <td><c:out value="${order.orderDate.toLocalDate()} ${order.orderDate.toLocalTime()}"/></td>
                                             <td><c:out value="${order.orderState}"/></td>
                                             <td><c:out value="${order.totalCost}"/></td>
@@ -89,7 +87,7 @@
                                         <th scope="col" class="col"><fmt:message key="order.address"/></th>
                                         <th scope="col" class="col"><fmt:message key="registration.login"/></th>
                                         <th scope="col" class="col"><fmt:message key="registration.phone"/> </th>
-                                        <th scope="col" class="col"><fmt:message key="admin.users_action"/></th>
+                                        <th scope="col" class="col"><fmt:message key="order.order_details"/></th>
                                     </tr>
                                     </thead>
                                     <tbody>

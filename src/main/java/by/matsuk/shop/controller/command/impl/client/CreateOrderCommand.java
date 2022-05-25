@@ -34,25 +34,24 @@ public class CreateOrderCommand implements Command {
         Map<Postcard, Integer> orderProduct = (HashMap<Postcard, Integer>) session.getAttribute(CART);
         Map<String, String> orderInfo = new HashMap<>();
 
-        orderInfo.put(ADDRESS,request.getParameter(ADDRESS));
+        orderInfo.put(ADDRESS, request.getParameter(ADDRESS));
         orderInfo.put(PRODUCT_PAYMENT, request.getParameter(PRODUCT_PAYMENT));
         try {
             double price = Double.parseDouble(request.getParameter(TOTAL_PRICE));
             BigDecimal totalCost = BigDecimal.valueOf(price);
-            if(service.createOrder(orderProduct, orderInfo, user, totalCost)){
+            if (service.createOrder(orderProduct, orderInfo, user, totalCost)) {
                 router.setCurrentPage(request.getContextPath() + SUCCESS_PAGE);
                 router.setRedirectType();
                 orderProduct.clear();
                 session.setAttribute(CART, orderProduct);
                 return router;
-            }else {
+            } else {
                 String currentPage = (String) session.getAttribute(CURRENT_PAGE);
                 router.setCurrentPage(currentPage);
-                for(String key: orderInfo.keySet()){
+                for (String key : orderInfo.keySet()) {
                     String value = orderInfo.get(key);
-                    switch (value){ //TODO!
+                    switch (value) { //TODO!
                         case INVALID_ORDER_ADDRESS -> request.setAttribute(INVALID_ORDER_ADDRESS, INVALID_ORDER_ADDRESS_MESSAGE);
-                       // case INVALID_ORDER_PAYMENT -> request.setAttribute(INVALID_ORDER_PAYMENT, INVALID_ORDER_PAYMENT_MESSAGE);
                     }
                 }
             }

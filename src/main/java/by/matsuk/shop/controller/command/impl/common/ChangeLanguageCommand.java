@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
 import static by.matsuk.shop.controller.SessionAttribute.LANGUAGE;
 
+
 /**
  * The type Change language command.
  */
@@ -19,8 +20,8 @@ public class ChangeLanguageCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {
-        HttpSession session = request.getSession();
         Router router = new Router();
+        HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
         String language = request.getParameter(LANGUAGE);
         if(!LanguageUtil.isCorrectLanguage(language)){
