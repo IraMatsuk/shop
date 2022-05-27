@@ -30,7 +30,7 @@ public class InsertNewSectionCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        router.setCurrentPage(request.getContextPath() + SECTION_PAGE);
+        router.setCurrentPage(SECTION_PAGE);
 
         try {
             String sectionName = request.getParameter(SECTION_NAME);

@@ -13,9 +13,9 @@ import static by.matsuk.shop.controller.Parameter.COMMAND;
 import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
 
 /**
- * @project Postcard shop "Card4You"
  * @author Ira
  * The type Current page filter.
+ * @project Postcard shop "Card4You"
  */
 
 @WebFilter(filterName = "CurrentPageFilter")
@@ -31,8 +31,8 @@ public class CurrentPageFilter implements Filter {
         String requestURI = servletRequest.getRequestURI();
         logger.info("request URI: " + requestURI);
         String query = servletRequest.getQueryString();
-        if(query != null){
-            if(servletRequest.getParameter(COMMAND) != null) {
+        if (query != null) {
+            if (servletRequest.getParameter(COMMAND) != null) {
                 requestURI = CONTROLLER + query;
             } else {
                 requestURI = servletRequest.getContextPath() + servletRequest.getServletPath() + QUESTION + query;

@@ -25,7 +25,7 @@ import static by.matsuk.shop.controller.PathPage.ERROR_500;
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class Controller extends HttpServlet {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,26 +39,30 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandName = request.getParameter(COMMAND);
-        LOGGER.debug("The command is " + commandName);
+        logger.debug("The command is " + commandName);
         Optional<Command> command = CommandType.provideCommand(commandName);
-        LOGGER.debug("The command optional - " + command);
+        logger.debug("The command optional - " + command);
         try {
             Router router;
             if (command.isPresent()) {
                 router = command.get().execute(request);
                 String page = router.getCurrentPage();
                 if (router.getCurrentType() == Router.Type.FORWARD) {
-                    LOGGER.info("Forward type. Page: " + page);
+                    logger.info("Forward type. Page: " + page);
                     request.getRequestDispatcher(page).forward(request, response);
                 } else {
-                    LOGGER.info("Redirect type. Page: " + page);
+                    String contextPath = request.getContextPath();
+                    if (!page.contains(contextPath)) {
+                        page = contextPath + page;
+                    }
+                    logger.info("Redirect type. Page: " + page);
                     response.sendRedirect(page);
                 }
             } else {
                 response.sendRedirect(ERROR_500);
             }
         } catch (CommandException e) {
-            LOGGER.error(e);
+            logger.error(e);
             response.sendRedirect(ERROR_500);
         }
     }

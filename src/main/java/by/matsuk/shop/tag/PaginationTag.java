@@ -12,7 +12,7 @@ import java.io.IOException;
  * The type Pagination tag.
  */
 public class PaginationTag extends TagSupport {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private final int PAGES_FIRST = 1;
     private final int PAGES_PREV = 2;
     private final int PAGES_NEXT = 2;
@@ -55,7 +55,7 @@ public class PaginationTag extends TagSupport {
     public int doStartTag() throws JspTagException {
         showAllPrev = (PAGES_FIRST + PAGES_PREV + 1) >= currentPage;
         showAllNext = currentPage + PAGES_NEXT >= lastPage - PAGES_LAST;
-        LOGGER.info(showAllPrev + " " + showAllNext);
+        logger.info(showAllPrev + " " + showAllNext);
         printPagination();
         return SKIP_BODY;
     }
@@ -102,13 +102,13 @@ public class PaginationTag extends TagSupport {
             writer.write(getLinkElement(nextPage, "Next &gt;"));
             writer.write("</ul>");
         } catch (IOException e) {
-            LOGGER.info("Exception in a pagination tag");
+            logger.info("Exception in a pagination tag");
             throw new JspTagException("Exception in a pagination tag", e);
         }
     }
 
     private String getLinkElement(int i, String text){
-        LOGGER.info("link");
+        logger.info("link");
         return String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"%s&currentPage=%d\">%s</a></li>", url, i, text);
     }
     @Override

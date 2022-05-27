@@ -31,7 +31,7 @@ public class InsertNewProductCommand implements Command {
         postcardAttributes.put(PRODUCT_DISCOUNT, request.getParameter(PRODUCT_DISCOUNT));
         postcardAttributes.put(PRODUCT_PRICE, request.getParameter(PRODUCT_PRICE));
         postcardAttributes.put(PRODUCT_SECTION, request.getParameter(PRODUCT_SECTION));
-        router.setCurrentPage(request.getContextPath() + ADD_MENU_PAGE);
+        router.setCurrentPage(ADD_MENU_PAGE);
         try {
             if (service.addNewProduct(postcardAttributes, DEFAULT_IMAGE)) {
                 router.setRedirectType();

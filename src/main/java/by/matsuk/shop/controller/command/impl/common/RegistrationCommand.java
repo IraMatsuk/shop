@@ -48,7 +48,7 @@ public class RegistrationCommand implements Command {
                     String currentPage = (String) session.getAttribute(CURRENT_PAGE);
                     router.setCurrentPage(currentPage);
                 } else {
-                    router.setCurrentPage(request.getContextPath() + SIGN_PAGE);
+                    router.setCurrentPage(SIGN_PAGE);
                 }
             } else {
                 for (String key : mapData.keySet()) {

@@ -28,7 +28,7 @@ public class UnblockUserByIdCommand implements Command {
             router.setRedirectType();
             HttpSession session = request.getSession();
             String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-            router.setCurrentPage(request.getContextPath() + currentPage);
+            router.setCurrentPage(currentPage);
         } catch (ServiceException | NumberFormatException e) {
             throw new CommandException("Exception in a BlockUserByIdCommand class ", e);
         }

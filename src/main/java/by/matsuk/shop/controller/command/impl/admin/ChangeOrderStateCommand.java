@@ -25,7 +25,7 @@ public class ChangeOrderStateCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        router.setCurrentPage(request.getContextPath() + currentPage);
+        router.setCurrentPage(currentPage);
         String state = request.getParameter(STATE);
         Order.OrderState orderState = Order.OrderState.valueOf(state);
         try {

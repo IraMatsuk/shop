@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @project Postcard shop
  */
 public class ConnectionPool {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private static final String POOL_PROPERTY_FILE = "pool";
     private static final String POOL_SIZE_PROPERTY = "size";
     private static final int DEFAULT_POOL_SIZE = 8;
@@ -40,11 +40,11 @@ public class ConnectionPool {
                 poolSize = resourceBundle.getString(POOL_SIZE_PROPERTY);
                 POOL_SIZE = Integer.parseInt(poolSize);
             } else {
-                LOGGER.warn("Error getting pool size value: pool size will be initialized with default value.");
+                logger.warn("Error getting pool size value: pool size will be initialized with default value.");
                 POOL_SIZE = DEFAULT_POOL_SIZE;
             }
         } catch (MissingResourceException exception) {
-            LOGGER.fatal(exception.getMessage());
+            logger.fatal(exception.getMessage());
             throw new RuntimeException(exception.getMessage());
         }
     }
@@ -58,14 +58,14 @@ public class ConnectionPool {
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
                 freeConnections.add(proxyConnection);
             } catch (SQLException e) {
-                LOGGER.error("An error occurred while creating the connection: " + e);
+                logger.error("An error occurred while creating the connection: " + e);
             }
         }
         if (freeConnections.isEmpty()) {
-            LOGGER.fatal("Error: no connections were created");
+            logger.fatal("Error: no connections were created");
             throw new RuntimeException("Error: no connections were created");
         }
-        LOGGER.info("{} connections were created", freeConnections.size());
+        logger.info("{} connections were created", freeConnections.size());
     }
 
     /**
@@ -98,7 +98,7 @@ public class ConnectionPool {
             connection = freeConnections.take();
             takenConnections.put(connection);
         } catch (InterruptedException e) {
-            LOGGER.error("An error occurred while getting the connection: " + e);
+            logger.error("An error occurred while getting the connection: " + e);
             Thread.currentThread().interrupt();
         }
         return connection;
@@ -120,7 +120,7 @@ public class ConnectionPool {
                 return true;
             }
         } catch (InterruptedException e) {
-            LOGGER.error("An error occurred while releasing the connection: " + e);
+            logger.error("An error occurred while releasing the connection: " + e);
             Thread.currentThread().interrupt();
         }
         return false;
@@ -134,7 +134,7 @@ public class ConnectionPool {
             try {
                 freeConnections.take().reallyClose();
             } catch (InterruptedException | SQLException e) {
-                LOGGER.error("An error occurred while destroying the pool: " + e);
+                logger.error("An error occurred while destroying the pool: " + e);
                 Thread.currentThread().interrupt();
             }
             i++; // FIXME
@@ -147,7 +147,7 @@ public class ConnectionPool {
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
-                LOGGER.error("An error occurred while deregister drivers: " + e);
+                logger.error("An error occurred while deregister drivers: " + e);
                 Thread.currentThread().interrupt();
             }
         });

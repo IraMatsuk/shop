@@ -39,7 +39,7 @@ public class ChangePasswordCommand implements Command {
         try {
             boolean result = service.changePasswordByOldPassword(map, user);
             if (result) {
-                router.setCurrentPage(request.getContextPath() + PASSWORD_PAGE);
+                router.setCurrentPage(PASSWORD_PAGE);
                 router.setRedirectType();
 
                 session.setAttribute(USER, user);

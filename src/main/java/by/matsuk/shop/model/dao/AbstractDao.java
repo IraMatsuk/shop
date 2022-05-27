@@ -19,7 +19,7 @@ import java.util.Optional;
  * @param <T> the type parameter
  */
 public abstract class AbstractDao<T extends AbstractEntity> {
-    protected static final Logger LOGGER = LogManager.getLogger();
+    protected static final Logger logger = LogManager.getLogger();
     /**
      * The Connection.
      */

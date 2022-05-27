@@ -17,7 +17,7 @@ import static by.matsuk.shop.controller.Parameter.LIST_USER;
 import static by.matsuk.shop.controller.PathPage.USERS_PAGE;
 
 public class FindAllUsersCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
@@ -27,7 +27,7 @@ public class FindAllUsersCommand implements Command {
             List<User> listUsers = userService.findAllClients();
             request.setAttribute(LIST_USER, listUsers);
             router.setCurrentPage(USERS_PAGE);
-            LOGGER.info(USERS_PAGE);
+            logger.info(USERS_PAGE);
         } catch (ServiceException e) {
             throw new CommandException("Exception in a FindAllUsersCommand class ", e);
         }

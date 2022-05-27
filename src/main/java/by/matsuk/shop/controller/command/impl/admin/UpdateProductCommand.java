@@ -33,7 +33,7 @@ public class UpdateProductCommand implements Command {
         postcardAttributes.put(PRODUCT_SECTION, request.getParameter(PRODUCT_SECTION));
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        router.setCurrentPage(request.getContextPath() + currentPage);
+        router.setCurrentPage(currentPage);
 
         try {
             long postcardId = Long.parseLong(request.getParameter(PRODUCT_ID));

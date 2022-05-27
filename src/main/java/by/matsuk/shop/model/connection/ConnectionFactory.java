@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  * The type Connection factory
  */
 class ConnectionFactory {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private static final String DATABASE_PROPERTY_FILE = "database";
     private static final String DATABASE_URL_PROPERTY = "url";
     private static final String DATABASE_DRIVER_PROPERTY = "driver";
@@ -31,31 +31,31 @@ class ConnectionFactory {
         if (resourceBundle.containsKey(DATABASE_DRIVER_PROPERTY)) {
             driver = resourceBundle.getString(DATABASE_DRIVER_PROPERTY);
         } else {
-            LOGGER.fatal("Error getting value of driver property");
+            logger.fatal("Error getting value of driver property");
             throw new RuntimeException("Error getting value of driver property");
         }
         if (resourceBundle.containsKey(DATABASE_URL_PROPERTY)) {
             URL = resourceBundle.getString(DATABASE_URL_PROPERTY);
         } else {
-            LOGGER.fatal("Error getting value of url property");
+            logger.fatal("Error getting value of url property");
             throw new RuntimeException("Error getting value of url property");
         }
         if (resourceBundle.containsKey(DATABASE_USER_PROPERTY)) {
             USER = resourceBundle.getString(DATABASE_USER_PROPERTY);
         } else {
-            LOGGER.fatal("Error getting value of user property");
+            logger.fatal("Error getting value of user property");
             throw new RuntimeException("Error getting value of user property");
         }
         if (resourceBundle.containsKey(DATABASE_PASSWORD_PROPERTY)) {
             PASSWORD = resourceBundle.getString(DATABASE_PASSWORD_PROPERTY);
         } else {
-            LOGGER.fatal("Error getting value of password property");
+            logger.fatal("Error getting value of password property");
             throw new RuntimeException("Error getting value of password property");
         }
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
-            LOGGER.fatal("Driver {} was not found: {}", driver, e);
+            logger.fatal("Driver {} was not found: {}", driver, e);
             throw new RuntimeException("Driver " + driver + "was not fount: ", e);
         }
     }

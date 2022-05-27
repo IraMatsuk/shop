@@ -40,7 +40,7 @@ public class CreateOrderCommand implements Command {
             double price = Double.parseDouble(request.getParameter(TOTAL_PRICE));
             BigDecimal totalCost = BigDecimal.valueOf(price);
             if (service.createOrder(orderProduct, orderInfo, user, totalCost)) {
-                router.setCurrentPage(request.getContextPath() + SUCCESS_PAGE);
+                router.setCurrentPage(SUCCESS_PAGE);
                 router.setRedirectType();
                 orderProduct.clear();
                 session.setAttribute(CART, orderProduct);
