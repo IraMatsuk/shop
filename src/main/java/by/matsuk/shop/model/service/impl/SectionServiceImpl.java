@@ -5,7 +5,7 @@ import by.matsuk.shop.exception.DaoException;
 import by.matsuk.shop.exception.ServiceException;
 import by.matsuk.shop.model.dao.AbstractDao;
 import by.matsuk.shop.model.dao.EntityTransaction;
-import by.matsuk.shop.model.dao.impl.MenuDaoImpl;
+import by.matsuk.shop.model.dao.impl.PostcardDaoImpl;
 import by.matsuk.shop.model.dao.impl.SectionDaoImpl;
 import by.matsuk.shop.model.service.SectionService;
 import org.apache.logging.log4j.LogManager;
@@ -92,7 +92,7 @@ public class SectionServiceImpl implements SectionService {
     @Override
     public boolean deleteSectionById(long sectionId) throws ServiceException {
         AbstractDao<Section> abstractDao = new SectionDaoImpl();
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initTransaction(abstractDao, menuDao);
         boolean isDelete;
@@ -126,7 +126,7 @@ public class SectionServiceImpl implements SectionService {
     @Override
     public boolean restoreSectionById(long sectionId) throws ServiceException {
         SectionDaoImpl sectionDao = new SectionDaoImpl();
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.initTransaction(sectionDao, menuDao);
         boolean isRestore;

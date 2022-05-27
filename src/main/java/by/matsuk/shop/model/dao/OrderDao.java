@@ -33,14 +33,14 @@ public interface OrderDao {
     boolean updateOrderStateById(long orderId, Order.OrderState orderState) throws DaoException;
 
     /**
-     * Create order menu boolean.
+     * Create order postcard boolean.
      *
      * @param orderId         the order id
      * @param mapOrderProduct the map order product
      * @return the boolean
      * @throws DaoException the dao exception
      */
-    boolean createOrderMenu(long orderId, Map<Postcard, Integer> mapOrderProduct) throws DaoException;
+    boolean createOrderPostcard(long orderId, Map<Postcard, Integer> mapOrderProduct) throws DaoException;
 
     /**
      * Create order long.
@@ -67,7 +67,7 @@ public interface OrderDao {
      * @return the list
      * @throws DaoException the dao exception
      */
-    List<ComponentOrder> findAllMenuOrder(long orderId) throws DaoException;
+    List<ComponentOrder> findAllPostcardOrder(long orderId) throws DaoException;
 
     /**
      * Find all sorted orders by date list.

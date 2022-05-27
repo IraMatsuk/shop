@@ -5,8 +5,8 @@ import by.matsuk.shop.controller.command.Command;
 import by.matsuk.shop.entity.Postcard;
 import by.matsuk.shop.exception.CommandException;
 import by.matsuk.shop.exception.ServiceException;
-import by.matsuk.shop.model.service.MenuService;
-import by.matsuk.shop.model.service.impl.MenuServiceImpl;
+import by.matsuk.shop.model.service.CatalogService;
+import by.matsuk.shop.model.service.impl.CatalogServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,18 +25,18 @@ import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
  */
 public class DeleteProductInBasketCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private final MenuService service = MenuServiceImpl.getInstance();
+    private final CatalogService service = CatalogServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        Map<Postcard, Integer> mapMenu = (HashMap<Postcard, Integer>) session.getAttribute(CART);
+        Map<Postcard, Integer> postcardsMap = (HashMap<Postcard, Integer>) session.getAttribute(CART);
         try {
             long id = Long.parseLong(request.getParameter(PRODUCT_ID));
-            if (service.deleteProductFromBasket(mapMenu, id)) {
-                session.setAttribute(CART, mapMenu);
+            if (service.deleteProductFromBasket(postcardsMap, id)) {
+                session.setAttribute(CART, postcardsMap);
             } else {
                 logger.warn("Can't delete product from basket. ");
             }

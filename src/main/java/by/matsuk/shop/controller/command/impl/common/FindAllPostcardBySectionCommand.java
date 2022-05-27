@@ -5,9 +5,9 @@ import by.matsuk.shop.controller.command.Command;
 import by.matsuk.shop.entity.Postcard;
 import by.matsuk.shop.exception.CommandException;
 import by.matsuk.shop.exception.ServiceException;
-import by.matsuk.shop.model.service.MenuService;
+import by.matsuk.shop.model.service.CatalogService;
 import by.matsuk.shop.model.service.PaginationService;
-import by.matsuk.shop.model.service.impl.MenuServiceImpl;
+import by.matsuk.shop.model.service.impl.CatalogServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import static by.matsuk.shop.controller.PathPage.MENU_PAGE;
  */
 public class FindAllPostcardBySectionCommand implements Command {
     private static final int PAGE_SIZE = 4;
-    private final MenuService menuService = MenuServiceImpl.getInstance();
+    private final CatalogService catalogService = CatalogServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -34,20 +34,20 @@ public class FindAllPostcardBySectionCommand implements Command {
                 currentPage = Integer.parseInt(currentPageParameter);
             }
 
-            int totalRecords = menuService.readRowCountBySection(sectionId);
+            int totalRecords = catalogService.readRowCountBySection(sectionId);
             int offset = PaginationService.offset(PAGE_SIZE, currentPage);
-            List<Postcard> menuSublist = menuService.findPostcardsSublistBySectionId(PAGE_SIZE, offset, sectionId);
+            List<Postcard> catalogSublist = catalogService.findPostcardsSublistBySectionId(PAGE_SIZE, offset, sectionId);
 
-            if(menuSublist.isEmpty() && currentPage > 1){
+            if(catalogSublist.isEmpty() && currentPage > 1){
                 currentPage--;
                 offset = PaginationService.offset(PAGE_SIZE, currentPage);
-                menuSublist = menuService.findPostcardsSublistBySectionId(PAGE_SIZE, offset, sectionId);
+                catalogSublist = catalogService.findPostcardsSublistBySectionId(PAGE_SIZE, offset, sectionId);
             }
 
             int pages = PaginationService.pages(totalRecords, PAGE_SIZE);
             int lastPage = PaginationService.lastPage(pages, PAGE_SIZE, totalRecords);
 
-            request.setAttribute(POSTCARD_LIST, menuSublist);
+            request.setAttribute(POSTCARD_LIST, catalogSublist);
             request.setAttribute(PAGINATION_PAGE, currentPage);
             request.setAttribute(PAGINATION_LAST_PAGE, lastPage);
             StringBuilder builderUrl = new StringBuilder(Command.createURL(request, request.getParameter(COMMAND)));

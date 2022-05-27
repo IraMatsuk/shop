@@ -13,9 +13,9 @@ import java.util.Optional;
 import static by.matsuk.shop.model.mapper.impl.SectionMapper.SECTION;
 
 /**
- * The type MenuMapper. Extract menu rows form ResultSet.
+ * The type PostcardMapper. Extract menu rows form ResultSet.
  */
-public class MenuMapper implements CustomRowMapper<Postcard> {
+public class PostcardMapper implements CustomRowMapper<Postcard> {
     private static final Logger logger = LogManager.getLogger();
     /**
      * The constant POSTCARD_ID.
@@ -46,14 +46,14 @@ public class MenuMapper implements CustomRowMapper<Postcard> {
      */
     public static final String PRICE = "price";
     /**
-     * The constant IS_ACCESSIBLE_MENU_PRODUCT.
+     * The constant IS_ACCESSIBLE_CATALOG_PRODUCT.
      */
-    public static final String IS_ACCESSIBLE_MENU_PRODUCT = "is_accessible";
+    public static final String IS_ACCESSIBLE_CATALOG_PRODUCT = "is_accessible";
 
     @Override
     public Optional<Postcard> mapRow(ResultSet resultSet) throws DaoException {
         Postcard postcard = new Postcard();
-        Optional<Postcard> optionalMenu;
+        Optional<Postcard> optionalPostcard;
         try {
             postcard.setPostcardId(resultSet.getLong(POSTCARD_ID));
             postcard.setPostcardName(resultSet.getString(POSTCARD_NAME));
@@ -63,14 +63,14 @@ public class MenuMapper implements CustomRowMapper<Postcard> {
             postcard.setDiscount(resultSet.getBigDecimal(DISCOUNT));
             postcard.setPrice(resultSet.getBigDecimal(PRICE));
             postcard.setSectionId(resultSet.getLong(SECTION));
-            logger.info("Accessible - " + resultSet.getBoolean(IS_ACCESSIBLE_MENU_PRODUCT));
-            postcard.setAccessible(resultSet.getBoolean(IS_ACCESSIBLE_MENU_PRODUCT));
+            logger.info("Accessible - " + resultSet.getBoolean(IS_ACCESSIBLE_CATALOG_PRODUCT));
+            postcard.setAccessible(resultSet.getBoolean(IS_ACCESSIBLE_CATALOG_PRODUCT));
             logger.info("Accessible - " + postcard.isAccessible());
-            optionalMenu = Optional.of(postcard);
+            optionalPostcard = Optional.of(postcard);
         } catch (SQLException e) {
-            logger.warn("Not found menu item! ");
-            optionalMenu = Optional.empty();
+            logger.warn("Not found catalog item! ");
+            optionalPostcard = Optional.empty();
         }
-        return optionalMenu;
+        return optionalPostcard;
     }
 }

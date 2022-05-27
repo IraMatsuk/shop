@@ -4,8 +4,8 @@ import by.matsuk.shop.controller.Router;
 import by.matsuk.shop.controller.command.Command;
 import by.matsuk.shop.exception.CommandException;
 import by.matsuk.shop.exception.ServiceException;
-import by.matsuk.shop.model.service.MenuService;
-import by.matsuk.shop.model.service.impl.MenuServiceImpl;
+import by.matsuk.shop.model.service.CatalogService;
+import by.matsuk.shop.model.service.impl.CatalogServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +19,7 @@ import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
  */
 public class DeleteProductCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private final MenuService service = MenuServiceImpl.getInstance();
+    private final CatalogService service = CatalogServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {

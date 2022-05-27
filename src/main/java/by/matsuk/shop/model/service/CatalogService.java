@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * The interface Menu service.
+ * The interface Catalog service.
  */
-public interface MenuService {
+public interface CatalogService {
     /**
      * Find postcards sublist list.
      *

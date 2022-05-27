@@ -3,8 +3,8 @@ package by.matsuk.shop.model.dao.impl;
 import by.matsuk.shop.entity.Postcard;
 import by.matsuk.shop.exception.DaoException;
 import by.matsuk.shop.model.dao.AbstractDao;
-import by.matsuk.shop.model.dao.MenuDao;
-import by.matsuk.shop.model.mapper.impl.MenuMapper;
+import by.matsuk.shop.model.dao.PostcardDao;
+import by.matsuk.shop.model.mapper.impl.PostcardMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,47 +16,47 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The type Menu dao.
+ * The type Postcard dao.
  */
-public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
+public class PostcardDaoImpl extends AbstractDao<Postcard> implements PostcardDao {
     private static final Logger logger = LogManager.getLogger();
     private static final int ONE_UPDATE = 1;
-    private static final String SQL_SELECT_ALL_POSTCARDS =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
-            "FROM postcards WHERE is_accessible = true";
-    private static final String SQL_SELECT_POSTCARD_BY_ID =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
-            "FROM postcards WHERE postcard_id = (?)";
-    private static final String SQL_INSERT_NEW_POSTCARD_ITEM =
-            "INSERT INTO postcards(postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_DELETE_POSTCARD_ITEM =
-            "UPDATE postcards SET is_accessible = false " +
-            "WHERE postcard_id = (?)";
-    private static final String SQL_DELETE_POSTCARD_BY_SECTION_ID =
-            "UPDATE postcards SET is_accessible = false " +
-            "WHERE section_id = (?)";
-    private static final String SQL_UPDATE_POSTCARD =
-            "UPDATE postcards " +
-            "SET postcard_name = (?), postcard_author = (?), description = (?), discount = (?), price = (?), section_id = (?) " +
-            "WHERE postcard_id = (?)";
-    private static final String SQL_UPDATE_IMAGE_PATH_BY_NAME =
-            "UPDATE postcards SET picture_path = (?) WHERE postcard_name = (?)";
-    private static final String SQL_SELECT_POSTCARD_BY_NAME =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
-            "FROM postcards WHERE postcard_name = (?)";
-    private static final String SQL_FIND_POSTCARD_SUBLIST_BY_SECTION_ID =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
-            "FROM postcards WHERE section_id = (?) AND is_accessible = true LIMIT ? OFFSET ?";
-    private static final String SQL_SELECT_ALL_POSTCARDS_ROW_COUNT =
-            "SELECT COUNT(*) FROM postcards WHERE is_accessible = true";
-    private static final String SQL_SELECT_POSTCARD_SUBLIST =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
-            "FROM postcards WHERE is_accessible = true LIMIT ? OFFSET ?";
-    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible " +
-            "FROM postcards WHERE is_accessible = true " +
-            "ORDER BY price - (price * discount / 100) LIMIT ? OFFSET ?";
+    private static final String SQL_SELECT_ALL_POSTCARDS = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible 
+            FROM postcards WHERE is_accessible = true""";
+    private static final String SQL_SELECT_POSTCARD_BY_ID = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible
+            FROM postcards WHERE postcard_id = (?)""";
+    private static final String SQL_INSERT_NEW_POSTCARD_ITEM = """
+            INSERT INTO postcards(postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""";
+    private static final String SQL_DELETE_POSTCARD_ITEM = """
+            UPDATE postcards SET is_accessible = false
+            WHERE postcard_id = (?)""";
+    private static final String SQL_DELETE_POSTCARD_BY_SECTION_ID = """
+            UPDATE postcards SET is_accessible = false
+            WHERE section_id = (?)""";
+    private static final String SQL_UPDATE_POSTCARD = """
+            UPDATE postcards 
+            SET postcard_name = (?), postcard_author = (?), description = (?), discount = (?), price = (?), section_id = (?) 
+            WHERE postcard_id = (?)""";
+    private static final String SQL_UPDATE_IMAGE_PATH_BY_NAME = """
+            UPDATE postcards SET picture_path = (?) WHERE postcard_name = (?)""";
+    private static final String SQL_SELECT_POSTCARD_BY_NAME = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible
+            FROM postcards WHERE postcard_name = (?)""";
+    private static final String SQL_FIND_POSTCARD_SUBLIST_BY_SECTION_ID = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible 
+            FROM postcards WHERE section_id = (?) AND is_accessible = true LIMIT ? OFFSET ?""";
+    private static final String SQL_SELECT_ALL_POSTCARDS_ROW_COUNT = """
+            SELECT COUNT(*) FROM postcards WHERE is_accessible = true""";
+    private static final String SQL_SELECT_POSTCARD_SUBLIST = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible
+            FROM postcards WHERE is_accessible = true LIMIT ? OFFSET ?""";
+    private static final String SQL_SELECT_ALL_SORTED_POSTCARDS = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description, discount, price, section_id, is_accessible
+            FROM postcards WHERE is_accessible = true
+            ORDER BY price - (price * discount / 100) LIMIT ? OFFSET ?""";
     private static final String SQL_SELECT_ALL_SORTED_POSTCARDS_BY_POPULARITY = """
             SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path, description,
             discount, price, section_id, is_accessible, all_postcards FROM postcards 
@@ -65,53 +65,53 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             WHERE is_accessible = true  
             ORDER BY all_postcards DESC  
             LIMIT ? OFFSET ?""";
-    private static final String SQL_SELECT_SORTED_SECTION_POSTCARDS =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, " +
-            "discount, price, section_id, is_accessible FROM postcards " +
-            "WHERE section_id = ? AND is_accessible = true " +
-            "ORDER BY price - (price * discount / 100) " +
-            "LIMIT ? OFFSET ?";
-    private static final String SQL_SELECT_ALL_SORTED_SECTION_POSTCARDS_BY_POPULARITY =
-            "SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path, description, " +
-            "discount, price, section_id, is_accessible, all_postcards FROM postcards " +
-            "LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcards_catalog " +
-            "GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id " +
-            "WHERE is_accessible = true AND section_id = ? " +
-            "ORDER BY all_postcards DESC " +
-            "LIMIT ? OFFSET ?";
-    private static final String SQL_SELECT_POSTCARDS_ROW_COUNT_BY_SECTION_ID =
-            "SELECT COUNT(*) FROM postcards WHERE section_id = ? AND is_accessible = true";
-    private static final String SQL_SELECT_ALL_REMOVING_POSTCARD_PRODUCTS =
-            "SELECT postcard_id, postcard_name, postcard_author, picture_path, description, " +
-            "discount, price, postcards.section_id, postcards.is_accessible FROM postcards " +
-            "JOIN sections ON sections.section_id = postcards.section_id " +
-            "WHERE postcards.is_accessible = false AND sections.is_accessible = true";
-    private static final String SQL_RESTORE_POSTCARDS_BY_PRODUCT_ID =
-            "UPDATE postcards " +
-            "SET is_accessible = true " +
-            "WHERE postcard_id = (?)";
-    private static final String SQL_RESTORE_POSTCARDS_BY_SECTION_ID =
-            "UPDATE postcards " +
-            "SET is_accessible = true " +
-            "WHERE section_id = (?)";
+    private static final String SQL_SELECT_SORTED_SECTION_POSTCARDS = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
+            discount, price, section_id, is_accessible FROM postcards
+            WHERE section_id = ? AND is_accessible = true
+            ORDER BY price - (price * discount / 100)
+            LIMIT ? OFFSET ?""";
+    private static final String SQL_SELECT_ALL_SORTED_SECTION_POSTCARDS_BY_POPULARITY = """
+            SELECT postcards.postcard_id, postcard_name, postcard_author, picture_path, description, 
+            discount, price, section_id, is_accessible, all_postcards FROM postcards
+            LEFT JOIN (SELECT postcard_id, SUM(postcard_number) AS all_postcards FROM postcards_catalog
+            GROUP BY postcard_id) AS year_postcard ON year_postcard.postcard_id = postcards.postcard_id
+            WHERE is_accessible = true AND section_id = ?
+            ORDER BY all_postcards DESC
+            LIMIT ? OFFSET ?""";
+    private static final String SQL_SELECT_POSTCARDS_ROW_COUNT_BY_SECTION_ID = """
+            SELECT COUNT(*) FROM postcards WHERE section_id = ? AND is_accessible = true""";
+    private static final String SQL_SELECT_ALL_REMOVING_POSTCARD_PRODUCTS = """
+            SELECT postcard_id, postcard_name, postcard_author, picture_path, description,
+            discount, price, postcards.section_id, postcards.is_accessible FROM postcards
+            JOIN sections ON sections.section_id = postcards.section_id
+            WHERE postcards.is_accessible = false AND sections.is_accessible = true""";
+    private static final String SQL_RESTORE_POSTCARDS_BY_PRODUCT_ID = """
+            UPDATE postcards
+            SET is_accessible = true
+            WHERE postcard_id = (?)""";
+    private static final String SQL_RESTORE_POSTCARDS_BY_SECTION_ID = """
+            UPDATE postcards
+            SET is_accessible = true
+            WHERE section_id = (?)""";
 
     @Override
     public List<Postcard> findAll() throws DaoException {
-        List<Postcard> menuList = new ArrayList<>();
+        List<Postcard> postcardList = new ArrayList<>();
         try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_POSTCARDS);
             ResultSet resultSet = statement.executeQuery()){
             while (resultSet.next()){
-                Optional<Postcard> optionalMenu = new MenuMapper().mapRow(resultSet);
-                if(optionalMenu.isPresent()) {
-                    menuList.add(optionalMenu.get());
+                Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
+                if(optionalPostcard.isPresent()) {
+                    postcardList.add(optionalPostcard.get());
                     logger.info("Present");
                 }
             }
         } catch (SQLException e) {
-            logger.error("Exception while find all menu method ");
-            throw new DaoException("Exception while find all menu method ", e);
+            logger.error("Exception while find all postcards method ");
+            throw new DaoException("Exception while find all postcards method ", e);
         }
-        return menuList;
+        return postcardList;
     }
 
     @Override
@@ -120,14 +120,14 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setLong(1,id);
             try(ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return new MenuMapper().mapRow(resultSet);
+                    return new PostcardMapper().mapRow(resultSet);
                 }
             }
         } catch (SQLException e) {
-            logger.error("Exception while find menu by id method ");
-            throw new DaoException("Exception while find menu by id method ", e);
+            logger.error("Exception while find postcards by id method ");
+            throw new DaoException("Exception while find postcards by id method ", e);
         }
-        logger.info("Menu item is empty ");
+        logger.info("Catalog item is empty ");
         return Optional.empty();
     }
 
@@ -137,8 +137,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setLong(1,id);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
-            logger.error("Exception while delete menu by id method ");
-            throw new DaoException("Exception while delete menu by id method ", e);
+            logger.error("Exception while delete postcard by id method ");
+            throw new DaoException("Exception while delete postcard by id method ", e);
         }
     }
 
@@ -155,8 +155,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setBoolean(8, entity.isAccessible());
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
-            logger.error("Exception while create menu method ");
-            throw new DaoException("Exception while create menu method ", e);
+            logger.error("Exception while create postcard method ");
+            throw new DaoException("Exception while create postcards method ", e);
         }
     }
     @Override
@@ -179,8 +179,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setLong(7,entity.getPostcardId());
             return statement.executeUpdate() == ONE_UPDATE ? menu : Optional.empty();
         } catch (SQLException e) {
-            logger.error("Exception while update menu method ");
-            throw new DaoException("Exception while update menu method ", e);
+            logger.error("Exception while update postcard method ");
+            throw new DaoException("Exception while update postcard method ", e);
         }
     }
 
@@ -191,8 +191,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setString(2,name);
             return statement.executeUpdate() == ONE_UPDATE;
         } catch (SQLException e) {
-            logger.error("Exception while update image path by name menu method ");
-            throw new DaoException("Exception while update image path by name menu method ", e);
+            logger.error("Exception while update image path by postcards name method ");
+            throw new DaoException("Exception while update image path by postcards name method ", e);
         }
     }
 
@@ -203,12 +203,12 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setString(1,name);
             try(ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    postcard = new MenuMapper().mapRow(resultSet);
+                    postcard = new PostcardMapper().mapRow(resultSet);
                 }
             }
         } catch (SQLException e) {
-            logger.error("Exception while find food by name method ");
-            throw new DaoException("Exception while find food by name method ", e);
+            logger.error("Exception while find postcard by name method ");
+            throw new DaoException("Exception while find postcard by name method ", e);
         }
         return postcard;
     }
@@ -222,13 +222,13 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setInt(3, offset);
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Optional<Postcard> optionalMenu = new MenuMapper().mapRow(resultSet);
-                    optionalMenu.ifPresent(postcardList::add);
+                    Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
+                    optionalPostcard.ifPresent(postcardList::add);
                 }
             }
         } catch (SQLException e) {
-            logger.error("Exception while find menu sublist by section id method ");
-            throw new DaoException("Exception in a findMenuSublistBySection method. ", e);
+            logger.error("Exception while find postcard sublist by section id method ");
+            throw new DaoException("Exception in a findPostcardSublistBySection method. ", e);
         }
         return postcardList;
     }
@@ -240,7 +240,7 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
                 return resultSet.next() ? resultSet.getInt(1) : 0;
             }
         } catch (SQLException e) {
-            logger.error("Exception while read row count from menu table method ");
+            logger.error("Exception while read row count from postcards table method ");
             throw new DaoException("Exception in a readRowCount method. ", e);
         }
     }
@@ -253,13 +253,13 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setInt(2, offset);
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Optional<Postcard> optionalPostcard = new MenuMapper().mapRow(resultSet);
+                    Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
                     optionalPostcard.ifPresent(postcardSublist::add);
                 }
             }
         } catch (SQLException e) {
             logger.error("Exception while find postcard sublist method ");
-            throw new DaoException("Exception in a findMenuSublist method. ", e);
+            throw new DaoException("Exception in a findPostcardSublist method. ", e);
         }
         return postcardSublist;
     }
@@ -272,8 +272,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setInt(2, offset);
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Optional<Postcard> optionalMenu = new MenuMapper().mapRow(resultSet);
-                    optionalMenu.ifPresent(sortedList::add);
+                    Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
+                    optionalPostcard.ifPresent(sortedList::add);
                 }
             }
         } catch (SQLException e) {
@@ -292,8 +292,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setInt(3, offset);
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Optional<Postcard> optionalMenu = new MenuMapper().mapRow(resultSet);
-                    optionalMenu.ifPresent(sortedList::add);
+                    Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
+                    optionalPostcard.ifPresent(sortedList::add);
                 }
             }
         } catch (SQLException e) {
@@ -310,8 +310,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setInt(2, offset);
             try(ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()){
-                    Optional<Postcard> optionalMenu = new MenuMapper().mapRow(resultSet);
-                    optionalMenu.ifPresent(postcardList::add);
+                    Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
+                    optionalPostcard.ifPresent(postcardList::add);
                 }
             }
         } catch (SQLException e) {
@@ -330,8 +330,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
             statement.setInt(3, offset);
             try(ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()){
-                    Optional<Postcard> optionalMenu = new MenuMapper().mapRow(resultSet);
-                    optionalMenu.ifPresent(postcardsList::add);
+                    Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
+                    optionalPostcard.ifPresent(postcardsList::add);
                 }
             }
         } catch (SQLException e) {
@@ -348,7 +348,7 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
                 return resultSet.next() ? resultSet.getInt(1) : 0;
             }
         } catch (SQLException e) {
-            logger.error("Exception while read row count from menu by section table method ");
+            logger.error("Exception while read row count from catalog by section table method ");
             throw new DaoException("Exception in a readRowCountBySection method. ", e);
         }
     }
@@ -381,8 +381,8 @@ public class MenuDaoImpl extends AbstractDao<Postcard> implements MenuDao {
         try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_REMOVING_POSTCARD_PRODUCTS);
             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()){
-                Optional<Postcard> optionalMenu = new MenuMapper().mapRow(resultSet);
-                optionalMenu.ifPresent(postcardList::add);
+                Optional<Postcard> optionalPostcard = new PostcardMapper().mapRow(resultSet);
+                optionalPostcard.ifPresent(postcardList::add);
             }
         } catch (SQLException e) {
             logger.error("Exception while reading removing postcards ");

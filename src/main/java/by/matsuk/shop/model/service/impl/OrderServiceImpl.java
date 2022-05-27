@@ -61,8 +61,8 @@ public class OrderServiceImpl implements OrderService {
                 isCreate = false;
             }
             logger.info("generatedKey = " + generatedKey);
-            orderDao.createOrderMenu(generatedKey, productMap);
-            logger.info("createOrderMenu");
+            orderDao.createOrderPostcard(generatedKey, productMap);
+            logger.info("createOrder");
             userDao.updateUserState(user.getUserId(), User.UserState.ACTIVE.getStateId());
             logger.info("updateUserState");
             Mail.createMail(user.getEmail(), EMAIL_SUBJECT, EMAIL_ORDER_MESSAGE);
@@ -117,10 +117,10 @@ public class OrderServiceImpl implements OrderService {
                 Optional<User> optionalUser = userDao.findUserByOrder(order.getOrderId());
                 if (optionalUser.isPresent()) {
                     User user = optionalUser.get();
-                    List<ComponentOrder> menuList = orderDao.findAllMenuOrder(order.getOrderId());
-                    logger.info("Menu list size " + menuList.size());
+                    List<ComponentOrder> postcardList = orderDao.findAllPostcardOrder(order.getOrderId());
+                    logger.info("Postcard list size " + postcardList.size());
                     logger.info("Order date: " + order.getOrderDate());
-                    completeOrders.add(new CompleteOrder(user, order, menuList));
+                    completeOrders.add(new CompleteOrder(user, order, postcardList));
                 } else {
                     logger.info("The user doesn't exist. Order ID is " + order.getOrderId());
                 }

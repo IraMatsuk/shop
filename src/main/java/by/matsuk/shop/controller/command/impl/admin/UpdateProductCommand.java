@@ -4,7 +4,7 @@ import by.matsuk.shop.controller.Router;
 import by.matsuk.shop.controller.command.Command;
 import by.matsuk.shop.exception.CommandException;
 import by.matsuk.shop.exception.ServiceException;
-import by.matsuk.shop.model.service.impl.MenuServiceImpl;
+import by.matsuk.shop.model.service.impl.CatalogServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -19,7 +19,7 @@ import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
  * The type Update product command.
  */
 public class UpdateProductCommand implements Command {
-    private final MenuServiceImpl service = MenuServiceImpl.getInstance();
+    private final CatalogServiceImpl service = CatalogServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {

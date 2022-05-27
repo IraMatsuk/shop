@@ -5,8 +5,8 @@ import by.matsuk.shop.exception.DaoException;
 import by.matsuk.shop.exception.ServiceException;
 import by.matsuk.shop.model.dao.AbstractDao;
 import by.matsuk.shop.model.dao.EntityTransaction;
-import by.matsuk.shop.model.dao.impl.MenuDaoImpl;
-import by.matsuk.shop.model.service.MenuService;
+import by.matsuk.shop.model.dao.impl.PostcardDaoImpl;
+import by.matsuk.shop.model.service.CatalogService;
 import by.matsuk.shop.validator.Validator;
 import by.matsuk.shop.validator.impl.ValidatorImpl;
 import org.apache.logging.log4j.LogManager;
@@ -19,12 +19,12 @@ import java.util.Optional;
 
 import static by.matsuk.shop.controller.Parameter.*;
 
-public class MenuServiceImpl implements MenuService {
+public class CatalogServiceImpl implements CatalogService {
     private static final Logger logger = LogManager.getLogger();
-    private static final MenuServiceImpl instance = new MenuServiceImpl();
+    private static final CatalogServiceImpl instance = new CatalogServiceImpl();
     private final Validator validator = ValidatorImpl.getInstance();
 
-    private MenuServiceImpl() {
+    private CatalogServiceImpl() {
     }
 
     /**
@@ -32,13 +32,13 @@ public class MenuServiceImpl implements MenuService {
      *
      * @return the menu service
      */
-    public static MenuServiceImpl getInstance() {
+    public static CatalogServiceImpl getInstance() {
         return instance;
     }
 
     @Override
     public List<Postcard> findPostcardsSublist(int pageSize, int offset) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         logger.info("Parameter: " + pageSize + " " + offset);
@@ -53,14 +53,14 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Postcard> findPostcardsSublistBySectionId(int pageSize, int offset, long sectionId) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         logger.info("Parameter: " + pageSize + " " + offset);
         try {
             return menuDao.findPostcardSublistBySectionId(pageSize, offset, sectionId);
         } catch (DaoException e) {
-            throw new ServiceException("Exception in a findMenuSublist service method. ", e);
+            throw new ServiceException("Exception in a findPostcardSublist service method. ", e);
         } finally {
             transaction.end();
         }
@@ -71,7 +71,7 @@ public class MenuServiceImpl implements MenuService {
         if (!validator.checkProductData(map)) {
             return false;
         }
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction entityTransaction = new EntityTransaction();
         entityTransaction.init(menuDao);
         try {
@@ -96,7 +96,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public boolean updateProductPhoto(String image, String name) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction entityTransaction = new EntityTransaction();
         entityTransaction.init(menuDao);
         try {
@@ -110,7 +110,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Optional<Postcard> findProductById(long id) throws ServiceException {
-        AbstractDao<Postcard> abstractDao = new MenuDaoImpl();
+        AbstractDao<Postcard> abstractDao = new PostcardDaoImpl();
         EntityTransaction entityTransaction = new EntityTransaction();
         entityTransaction.init(abstractDao);
         try {
@@ -124,7 +124,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public boolean deleteProductById(long id) throws ServiceException {
-        AbstractDao<Postcard> abstractDao = new MenuDaoImpl();
+        AbstractDao<Postcard> abstractDao = new PostcardDaoImpl();
         EntityTransaction entityTransaction = new EntityTransaction();
         entityTransaction.init(abstractDao);
         try {
@@ -141,15 +141,15 @@ public class MenuServiceImpl implements MenuService {
         if (!validator.checkProductData(updateData)) {
             return Optional.empty();
         }
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction entityTransaction = new EntityTransaction();
         entityTransaction.init(menuDao);
         try {
             String name = updateData.get(PRODUCT_NAME);
             logger.info("name = " + name);
             if (menuDao.findPostcardByName(name).isPresent() && menuDao.findById(id).isPresent()) {
-                Postcard findMenu = menuDao.findPostcardByName(name).get();
-                if (!findMenu.getPostcardName().equals(menuDao.findById(id).get().getPostcardName())) {
+                Postcard findPostcard = menuDao.findPostcardByName(name).get();
+                if (!findPostcard.getPostcardName().equals(menuDao.findById(id).get().getPostcardName())) {
                     updateData.put(PRODUCT_NAME, NOT_UNIQ_PRODUCT_NAME);
                     return Optional.empty();
                 }
@@ -159,8 +159,8 @@ public class MenuServiceImpl implements MenuService {
             BigDecimal discount = BigDecimal.valueOf(Double.parseDouble(updateData.get(PRODUCT_DISCOUNT)));
             BigDecimal price = BigDecimal.valueOf(Double.parseDouble(updateData.get(PRODUCT_PRICE)));
             long sectionId = Long.parseLong(updateData.get(PRODUCT_SECTION));
-            Postcard newMenu = new Postcard(id, name, author, description, discount, price, sectionId, true);
-            return menuDao.update(newMenu);
+            Postcard newPostcard = new Postcard(id, name, author, description, discount, price, sectionId, true);
+            return menuDao.update(newPostcard);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a updateProduct service method ", e);
         } finally {
@@ -170,7 +170,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public boolean deleteProductFromBasket(Map<Postcard, Integer> map, long id) throws ServiceException {
-        AbstractDao<Postcard> abstractDao = new MenuDaoImpl();
+        AbstractDao<Postcard> abstractDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(abstractDao);
         try {
@@ -189,7 +189,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public boolean addProductToBasket(Map<Postcard, Integer> map, long id, int numberProduct) throws ServiceException {
-        AbstractDao<Postcard> abstractDao = new MenuDaoImpl();
+        AbstractDao<Postcard> abstractDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(abstractDao);
         try {
@@ -213,7 +213,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public int readRowCount() throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {
@@ -227,7 +227,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Postcard> sortAllPostcardsByPrice(int pageSize, int offset) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {
@@ -242,7 +242,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Postcard> sortSectionPostcardsByPrice(int pageSize, int offset, long sectionId) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {
@@ -256,7 +256,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public int readRowCountBySection(long sectionId) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {
@@ -270,7 +270,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Postcard> findAllRemovingPostcards() throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {
@@ -284,7 +284,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public boolean restorePostcardsProductById(long menuId) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {
@@ -298,7 +298,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Postcard> findSortedPostcardsSubListByPopularity(int pageSize, int offset) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {
@@ -312,7 +312,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Postcard> findSortedPostcardsSectionSubListByPopularity(int pageSize, int offset, long sectionId) throws ServiceException {
-        MenuDaoImpl menuDao = new MenuDaoImpl();
+        PostcardDaoImpl menuDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
         transaction.init(menuDao);
         try {

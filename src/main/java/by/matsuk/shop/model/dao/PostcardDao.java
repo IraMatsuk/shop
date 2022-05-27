@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface Menu dao.
+ * The interface Postcard dao.
  */
-public interface MenuDao { //TODO fix on PostcardDao
+public interface PostcardDao {
     /**
      * Update image path by name boolean.
      *

@@ -5,8 +5,8 @@ import by.matsuk.shop.controller.command.Command;
 import by.matsuk.shop.entity.Postcard;
 import by.matsuk.shop.exception.CommandException;
 import by.matsuk.shop.exception.ServiceException;
-import by.matsuk.shop.model.service.MenuService;
-import by.matsuk.shop.model.service.impl.MenuServiceImpl;
+import by.matsuk.shop.model.service.CatalogService;
+import by.matsuk.shop.model.service.impl.CatalogServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Optional;
@@ -20,7 +20,7 @@ import static by.matsuk.shop.controller.PathPage.UPDATE_PRODUCT_PAGE;
  * The type Go to update product page command.
  */
 public class GoToUpdateProductPageCommand implements Command {
-    private final MenuService service = MenuServiceImpl.getInstance();
+    private final CatalogService service = CatalogServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {

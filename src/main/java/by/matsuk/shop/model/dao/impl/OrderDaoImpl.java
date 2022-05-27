@@ -194,7 +194,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public boolean createOrderMenu(long orderId, Map<Postcard, Integer> mapOrderProduct) throws DaoException {
+    public boolean createOrderPostcard(long orderId, Map<Postcard, Integer> mapOrderProduct) throws DaoException {
         try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_INSERT_ORDER_MENU_BY_ORDER_ID)) {
             for (Postcard item : mapOrderProduct.keySet()) {
                 int value = mapOrderProduct.get(item);
@@ -205,8 +205,8 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
             }
             return statement.executeBatch().length >= ONE_UPDATE;
         } catch (SQLException e) {
-            logger.error("Exception while create order-menu data ");
-            throw new DaoException("Exception in a createOrderMenu method. ", e);
+            logger.error("Exception while create order postcard method ");
+            throw new DaoException("Exception in a createOrderPostcard method. ", e);
         }
     }
 
@@ -224,7 +224,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public List<ComponentOrder> findAllMenuOrder(long orderId) throws DaoException {
+    public List<ComponentOrder> findAllPostcardOrder(long orderId) throws DaoException {
         List<ComponentOrder> componentOrders = new ArrayList<>();
         try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ORDER_MENU)) {
             statement.setLong(1, orderId);
@@ -237,7 +237,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
             }
         } catch (SQLException e) {
             logger.error("Exception while find all menu order ");
-            throw new DaoException("Exception in a findAllMenuOrder method. ", e);
+            throw new DaoException("Exception in a findAllPostcardOrder method. ", e);
         }
         return componentOrders;
     }

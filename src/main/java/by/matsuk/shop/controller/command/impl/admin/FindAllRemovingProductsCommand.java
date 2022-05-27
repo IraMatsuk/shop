@@ -5,8 +5,8 @@ import by.matsuk.shop.controller.command.Command;
 import by.matsuk.shop.entity.Postcard;
 import by.matsuk.shop.exception.CommandException;
 import by.matsuk.shop.exception.ServiceException;
-import by.matsuk.shop.model.service.MenuService;
-import by.matsuk.shop.model.service.impl.MenuServiceImpl;
+import by.matsuk.shop.model.service.CatalogService;
+import by.matsuk.shop.model.service.impl.CatalogServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,14 +23,14 @@ import static by.matsuk.shop.controller.PathPage.RESTORE_PAGE;
  */
 public class FindAllRemovingProductsCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private final MenuService menuService = MenuServiceImpl.getInstance();
+    private final CatalogService catalogService = CatalogServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         router.setCurrentPage(RESTORE_PAGE);
         try {
-            List<Postcard> menuList = menuService.findAllRemovingPostcards();
+            List<Postcard> menuList = catalogService.findAllRemovingPostcards();
             logger.info("Removing products: " + menuList);
             request.setAttribute(POSTCARD_LIST, menuList);
             request.setAttribute(RESTORE_MENU, true);
