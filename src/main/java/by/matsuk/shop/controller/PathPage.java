@@ -19,7 +19,7 @@ public final class PathPage {
     /**
      * The constant MENU_PAGE.
      */
-    public static final String MENU_PAGE = "/jsp/pages/common/postcard.jsp";
+    public static final String MENU_PAGE = "/jsp/pages/common/catalog.jsp";
     /**
      * The constant ADD_MENU_PAGE.
      */

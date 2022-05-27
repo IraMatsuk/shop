@@ -61,55 +61,31 @@ public final class PropertiesKey {
     /**
      * The constant INVALID_PRODUCT_NAME_MESSAGE.
      */
-    public static final String INVALID_PRODUCT_NAME_MESSAGE = "menu.invalid_product_name";
+    public static final String INVALID_PRODUCT_NAME_MESSAGE = "postcard.invalid_product_name";
     /**
      * The constant INVALID_PRODUCT_AUTHOR_MESSAGE.
      */
-    public static final String INVALID_PRODUCT_AUTHOR_MESSAGE = "menu.invalid_product_author";
+    public static final String INVALID_PRODUCT_AUTHOR_MESSAGE = "postcard.invalid_product_author";
     /**
      * The constant INVALID_PRODUCT_DESCRIPTION_MESSAGE.
      */
-    public static final String INVALID_PRODUCT_DESCRIPTION_MESSAGE = "menu.invalid_product_description";
-    /**
-     * The constant INVALID_PRODUCT_WEIGHT_MESSAGE.
-     */
-    public static final String INVALID_PRODUCT_WEIGHT_MESSAGE = "menu.invalid_product_weight";
-    /**
-     * The constant INVALID_PRODUCT_CALORIES_MESSAGE.
-     */
-    public static final String INVALID_PRODUCT_CALORIES_MESSAGE = "menu.invalid_product_calories";
+    public static final String INVALID_PRODUCT_DESCRIPTION_MESSAGE = "postcard.invalid_product_description";
     /**
      * The constant INVALID_PRODUCT_DISCOUNT_MESSAGE.
      */
-    public static final String INVALID_PRODUCT_DISCOUNT_MESSAGE = "menu.invalid_product_discount";
+    public static final String INVALID_PRODUCT_DISCOUNT_MESSAGE = "postcard.invalid_product_discount";
     /**
      * The constant INVALID_PRODUCT_PRICE_MESSAGE.
      */
-    public static final String INVALID_PRODUCT_PRICE_MESSAGE = "menu.invalid_product_price";
-    /**
-     * The constant INVALID_PRODUCT_COMPOSITION_MESSAGE.
-     */
-    public static final String INVALID_PRODUCT_COMPOSITION_MESSAGE = "menu.invalid_composition";
-    /**
-     * The constant INVALID_COOKING_TIME_MESSAGE.
-     */
-    public static final String INVALID_COOKING_TIME_MESSAGE = "menu.invalid_cooking_time";
+    public static final String INVALID_PRODUCT_PRICE_MESSAGE = "postcard.invalid_product_price";
     /**
      * The constant INVALID_PRODUCT_SECTION_MESSAGE.
      */
-    public static final String INVALID_PRODUCT_SECTION_MESSAGE = "menu.invalid_product_section";
+    public static final String INVALID_PRODUCT_SECTION_MESSAGE = "postcard.invalid_product_section";
     /**
      * The constant INVALID_ORDER_ADDRESS_MESSAGE.
      */
     public static final String INVALID_ORDER_ADDRESS_MESSAGE = "order.invalid_address";
-    /**
-     * The constant INVALID_ORDER_PAYMENT_MESSAGE.
-     */
-    public static final String INVALID_ORDER_PAYMENT_MESSAGE = "order.invalid_payment";
-    /**
-     * The constant INVALID_ORDER_COMMENT_MESSAGE.
-     */
-    public static final String INVALID_ORDER_COMMENT_MESSAGE = "order.invalid_comment";
     /**
      * The constant INVALID_SECTION_NAME_MESSAGE.
      */
