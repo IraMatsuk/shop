@@ -270,11 +270,11 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<Postcard> findAllRemovingPostcards() throws ServiceException {
-        PostcardDaoImpl menuDao = new PostcardDaoImpl();
+        PostcardDaoImpl postcardDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
-        transaction.init(menuDao);
+        transaction.init(postcardDao);
         try {
-            return menuDao.findAllRemovingPostcards();
+            return postcardDao.findAllRemovingPostcards();
         } catch (DaoException e) {
             throw new ServiceException("Exception in a findAllRemovingPostcards service method ", e);
         } finally {

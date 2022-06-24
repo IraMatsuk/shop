@@ -8,6 +8,8 @@ import by.matsuk.shop.exception.ServiceException;
 import by.matsuk.shop.model.service.SectionService;
 import by.matsuk.shop.model.service.impl.SectionServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import static by.matsuk.shop.controller.SessionAttribute.SECTION_LIST;
  * The type Find all removing sections command.
  */
 public class FindAllRemovingSectionsCommand implements Command {
+    private static final Logger logger = LogManager.getLogger();
     private final SectionService sectionService = SectionServiceImpl.getInstance();
 
     @Override
@@ -27,6 +30,7 @@ public class FindAllRemovingSectionsCommand implements Command {
         router.setCurrentPage(RESTORE_PAGE);
         try {
             List<Section> sectionList = sectionService.findAllRemovingSections();
+            logger.info("Removing sections: " + sectionList);
             request.setAttribute(SECTION_LIST, sectionList);
             request.setAttribute(RESTORE_SECTION, true);
         } catch (ServiceException e) {

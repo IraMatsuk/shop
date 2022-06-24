@@ -30,9 +30,9 @@ public class FindAllRemovingProductsCommand implements Command {
         Router router = new Router();
         router.setCurrentPage(RESTORE_PAGE);
         try {
-            List<Postcard> menuList = catalogService.findAllRemovingPostcards();
-            logger.info("Removing products: " + menuList);
-            request.setAttribute(POSTCARD_LIST, menuList);
+            List<Postcard> postcardList = catalogService.findAllRemovingPostcards();
+            logger.info("Removing products: " + postcardList);
+            request.setAttribute(POSTCARD_LIST, postcardList);
             request.setAttribute(RESTORE_MENU, true);
         } catch (ServiceException e) {
             throw new CommandException("Exception in a FindAllRemovingProductsCommand class ", e);

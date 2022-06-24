@@ -33,7 +33,9 @@
                     <c:when test="${requestScope.restore_postcard eq 'true'}">
                         <c:choose>
                             <c:when test="${empty requestScope.postcard_list}">
-                                <h1 class="text-center"><fmt:message key="restore.empty"/></h1>
+                                <h1 class="text-center">
+                                    <fmt:message key="restore.empty"/>
+                                </h1>
                             </c:when>
                             <c:otherwise>
                                 <br>
@@ -57,9 +59,11 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <form action="${absolutePath}/controller" method="post">
-                                                            <input type="hidden" name="command" value="restore_postcard_product">
-                                                            <input type="hidden" name="id" value="${postcard.postcardId}">
-                                                            <button type="submit" class="btn-danger"><fmt:message key="action.restore"/></button>
+                                                            <input type="hidden" name="command" value="restore_postcard">
+                                                            <input type="hidden" name="postcard_id" value="${postcard.postcardId}">
+                                                            <button type="submit" class="btn-danger">
+                                                                <fmt:message key="action.restore"/>
+                                                            </button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -96,7 +100,9 @@
                                                         <form action="${absolutePath}/controller" method="post">
                                                             <input type="hidden" name="command" value="restore_section">
                                                             <input type="hidden" name="section_id" value="${section.sectionId}">
-                                                            <button type="submit" class="btn-danger"><fmt:message key="action.restore"/></button>
+                                                            <button type="submit" class="btn-danger">
+                                                                <fmt:message key="action.restore"/>
+                                                            </button>
                                                         </form>
                                                     </div>
                                                 </div>
