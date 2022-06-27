@@ -10,8 +10,6 @@ import by.matsuk.shop.model.service.impl.SectionServiceImpl;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -24,7 +22,6 @@ import static by.matsuk.shop.controller.SessionAttribute.SECTION_LIST;
  * The type Delete section command. It is used a safe removal.
  */
 public class DeleteSectionCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
     private final SectionService service = SectionServiceImpl.getInstance();
 
     @Override
@@ -33,7 +30,6 @@ public class DeleteSectionCommand implements Command {
         try {
             HttpSession session = request.getSession();
             String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-            logger.info("Current page after delete section - " + currentPage);
             session.setAttribute(CURRENT_PAGE, currentPage);
             router.setRedirectType();
             router.setCurrentPage(currentPage);
