@@ -142,7 +142,7 @@ public enum CommandType {
     /**
      * The Restore menu product.
      */
-    RESTORE_MENU_PRODUCT(new RestorePostcardProductCommand()),
+    RESTORE_MENU_PRODUCT(new RestorePostcardCommand()),
     /**
      * The Restore section.
      */

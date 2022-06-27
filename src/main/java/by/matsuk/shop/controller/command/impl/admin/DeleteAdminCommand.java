@@ -31,7 +31,6 @@ public class DeleteAdminCommand implements Command {
             if (userState != User.UserState.ACTIVE) {
                 long userId = Long.parseLong(request.getParameter(USER_ID));
                 service.deleteAdmin(userId);
-                //HttpSession session = request.getSession();
                 String page = (String) session.getAttribute(CURRENT_PAGE);
                 router.setCurrentPage(page);
             } else {

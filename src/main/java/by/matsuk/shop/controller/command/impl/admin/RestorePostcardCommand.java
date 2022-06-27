@@ -15,7 +15,7 @@ import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
 /**
  * The type Restore menu product command.
  */
-public class RestorePostcardProductCommand implements Command {
+public class RestorePostcardCommand implements Command {
     private final CatalogService catalogService = CatalogServiceImpl.getInstance();
 
     @Override

@@ -10,11 +10,12 @@ import by.matsuk.shop.model.service.impl.SectionServiceImpl;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static by.matsuk.shop.controller.Parameter.INVALID_DELETE_PRODUCT_SECTION;
-import static by.matsuk.shop.controller.Parameter.PRODUCT_SECTION;
+import static by.matsuk.shop.controller.Parameter.*;
 import static by.matsuk.shop.controller.PropertiesKey.INVALID_PRODUCT_SECTION_MESSAGE;
 import static by.matsuk.shop.controller.SessionAttribute.CURRENT_PAGE;
 import static by.matsuk.shop.controller.SessionAttribute.SECTION_LIST;
@@ -23,14 +24,18 @@ import static by.matsuk.shop.controller.SessionAttribute.SECTION_LIST;
  * The type Delete section command. It is used a safe removal.
  */
 public class DeleteSectionCommand implements Command {
+    private static final Logger logger = LogManager.getLogger();
     private final SectionService service = SectionServiceImpl.getInstance();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        HttpSession session = request.getSession();
         try {
+            HttpSession session = request.getSession();
             String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+            logger.info("Current page after delete section - " + currentPage);
+            session.setAttribute(CURRENT_PAGE, currentPage);
+            router.setRedirectType();
             router.setCurrentPage(currentPage);
             if (request.getParameter(PRODUCT_SECTION) != null) {
                 long sectionId = Long.parseLong(request.getParameter(PRODUCT_SECTION));

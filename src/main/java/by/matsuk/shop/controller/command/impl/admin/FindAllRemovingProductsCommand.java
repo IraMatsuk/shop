@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import static by.matsuk.shop.controller.Parameter.POSTCARD_LIST;
-import static by.matsuk.shop.controller.Parameter.RESTORE_MENU;
+import static by.matsuk.shop.controller.Parameter.RESTORE_POSTCARD;
 import static by.matsuk.shop.controller.PathPage.RESTORE_PAGE;
 
 /**
@@ -33,7 +33,7 @@ public class FindAllRemovingProductsCommand implements Command {
             List<Postcard> postcardList = catalogService.findAllRemovingPostcards();
             logger.info("Removing products: " + postcardList);
             request.setAttribute(POSTCARD_LIST, postcardList);
-            request.setAttribute(RESTORE_MENU, true);
+            request.setAttribute(RESTORE_POSTCARD, true);
         } catch (ServiceException e) {
             throw new CommandException("Exception in a FindAllRemovingProductsCommand class ", e);
         }
