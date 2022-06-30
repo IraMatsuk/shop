@@ -12,7 +12,7 @@ import java.nio.file.Paths;
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class ImageController extends HttpServlet {
-    private static final String CONTENT_TYPE = "image/jpeg"; // todo or jpg or png
+    private static final String CONTENT_TYPE = "image/jpeg";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {

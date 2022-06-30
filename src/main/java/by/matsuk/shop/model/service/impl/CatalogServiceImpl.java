@@ -283,12 +283,12 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public boolean restorePostcardsProductById(long menuId) throws ServiceException {
-        PostcardDaoImpl menuDao = new PostcardDaoImpl();
+    public boolean restorePostcardsProductById(long postcardId) throws ServiceException {
+        PostcardDaoImpl postcardDao = new PostcardDaoImpl();
         EntityTransaction transaction = new EntityTransaction();
-        transaction.init(menuDao);
+        transaction.init(postcardDao);
         try {
-            return menuDao.restorePostcardById(menuId);
+            return postcardDao.restorePostcardById(postcardId);
         } catch (DaoException e) {
             throw new ServiceException("Exception in a restorePostcardsProductById method ", e);
         } finally {

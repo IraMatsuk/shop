@@ -277,7 +277,7 @@ public final class Parameter {
      */
     public static final String SECTION_NAME = "section_name";
     /**
-     * The constant RESTORE_MENU.
+     * The constant RESTORE_POSTCARD.
      */
     public static final String RESTORE_POSTCARD = "restore_postcard";
     /**

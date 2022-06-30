@@ -52,7 +52,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     private static final String SQL_SELECT_THE_NUMBER_OF_YEAR_ORDERS_BY_USER_ID = """
             SELECT COUNT(*) FROM orders
             WHERE (order_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 YEAR) AND NOW())
-            AND (order_state = 'sent')
+            AND (order_state = 'completed')
             GROUP BY user_id
             HAVING user_id = (?)""";
     private static final String SQL_SELECT_ALL_ORDER_MENU = """

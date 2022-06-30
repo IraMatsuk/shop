@@ -50,7 +50,7 @@ public class CreateOrderCommand implements Command {
                 router.setCurrentPage(currentPage);
                 for (String key : orderInfo.keySet()) {
                     String value = orderInfo.get(key);
-                    switch (value) { //TODO!
+                    switch (value) {
                         case INVALID_ORDER_ADDRESS -> request.setAttribute(INVALID_ORDER_ADDRESS, INVALID_ORDER_ADDRESS_MESSAGE);
                     }
                 }

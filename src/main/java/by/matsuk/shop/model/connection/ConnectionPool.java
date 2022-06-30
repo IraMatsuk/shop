@@ -28,11 +28,11 @@ public class ConnectionPool {
     private static final int POOL_SIZE;
     private static final AtomicBoolean isCreated = new AtomicBoolean(false);
     private static final Lock creationLock = new ReentrantLock(true);
-    private static BlockingQueue<ProxyConnection> freeConnections; // FIXME or BlockingQueue? static or non-static?
+    private static BlockingQueue<ProxyConnection> freeConnections;
     private static BlockingQueue<ProxyConnection> takenConnections;
     private static ConnectionPool instance;
 
-    static {// FIXME wrap into try, and check on MissingBundleException
+    static {
         try {
             ResourceBundle resourceBundle = ResourceBundle.getBundle(POOL_PROPERTY_FILE);
             String poolSize;
@@ -137,7 +137,7 @@ public class ConnectionPool {
                 logger.error("An error occurred while destroying the pool: " + e);
                 Thread.currentThread().interrupt();
             }
-            i++; // FIXME
+            i++;
         }
         deregisterDrivers();
     }

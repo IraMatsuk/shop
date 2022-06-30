@@ -150,11 +150,11 @@ public interface CatalogService {
     /**
      * Restore postcards product by id boolean.
      *
-     * @param menuId the menu id
+     * @param postcardId the postcard id
      * @return the boolean
      * @throws ServiceException the service exception
      */
-    boolean restorePostcardsProductById(long menuId) throws ServiceException;
+    boolean restorePostcardsProductById(long postcardId) throws ServiceException;
 
     /**
      * Find sorted postcards sub list by popularity list.

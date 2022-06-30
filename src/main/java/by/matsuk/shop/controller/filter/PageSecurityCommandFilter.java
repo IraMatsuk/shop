@@ -31,6 +31,7 @@ public class PageSecurityCommandFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         HttpSession session = httpServletRequest.getSession();
         String command = httpServletRequest.getParameter(COMMAND);
+        logger.info("command - " + command);
         if (command == null) {
             request.getRequestDispatcher(ERROR_404).forward(httpServletRequest, httpServletResponse);
             return;
